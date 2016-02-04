@@ -210,6 +210,7 @@ def get_settings(conf_file_leafname, election_app=None, tests=False):
             'template_timings_panel',
             'official_documents',
             'results',
+            'notifications',
             'allauth',
             'allauth.account',
             'allauth.socialaccount',
@@ -405,6 +406,9 @@ def get_settings(conf_file_leafname, election_app=None, tests=False):
             'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning',
             'PAGE_SIZE': 10,
         },
+
+        # allow attaching extra data to notifications:
+        'NOTIFICATIONS_USE_JSONFIELD': True,
 
         'HAYSTACK_SIGNAL_PROCESSOR': 'haystack.signals.RealtimeSignalProcessor',
 
