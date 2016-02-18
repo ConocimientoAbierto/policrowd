@@ -148,6 +148,10 @@ class PersonView(TemplateView):
             demographic in context['simple_fields']
             for demographic in demographic_fields
         )
+        context['complex_fields'] = [
+            (field, getattr(self.person.extra, field.name))
+            for field in ComplexPopoloField.objects.all()
+        ]
 
         if settings.ELECTION_APP == 'uk':
             context['election_to_show'] = Election.objects.get(slug='2015')
