@@ -1,6 +1,7 @@
 from dateutil import parser
 from datetime import datetime, timedelta
 from django.core.management.base import BaseCommand
+from django.utils.translation import ugettext_lazy as _, ungettext_lazy as _n, activate
 
 from django.conf import settings
 from django.contrib.sites.models import Site
@@ -27,6 +28,8 @@ class Command(BaseCommand):
         )
 
     def handle(self, **options):
+        lang = settings.LANGUAGE_CODE
+        activate(lang)
         if options['hourly']:
             last_sent = datetime.utcnow() - timedelta(hours=1)
             frequency = 'hourly'
@@ -57,7 +60,7 @@ class Command(BaseCommand):
                     if event.action_object != current_object:
                         if current_object != '':
                             details += "\n"
-                        details += 'Changes to {0}\n'.format(event.action_object)
+                        details += _('Changes to {0}\n').format(event.action_object)
                         domain = Site.objects.get_current().domain
                         path = reverse(
                             'person-view',
@@ -87,20 +90,27 @@ class Command(BaseCommand):
                     else:
                         no_change_count += 1
 
-                if no_change_count == 1:
-                    if details:
-                        details += "\nAnd 1 change we don't have details of\n"
+                if no_change_count > 0:
+                    if change_count > 0:
+                        desc = _n(
+                            "And %(no_change_count)d change we don't have details of",
+                            "And %(no_change_count)d changes we don't have details of",
+                            no_change_count
+                        ) % {'no_change_count': no_change_count}
                     else:
-                        details += "\nThere has been 1 change we don't have details of\n"
-                elif no_change_count > 1:
-                    if details:
-                        details += "\nAnd {0} changes we don't have details of\n".format(no_change_count)
-                    else:
-                        details += "\nThere have been {0} changes we don't have details of\n".format(no_change_count)
+                        desc = _n(
+                            "There has been %(no_change_count)d change we don't have details of",
+                            "There have been %(no_change_count)d changes we don't have details of",
+                            no_change_count
+                        ) % {'no_change_count': no_change_count}
+
+                    details += "\n{0}\n".format(desc)
 
                 recipients = [alert.user.email]
                 has_sent = send_mail(
-                    "Recent activity on YNR",
+                    _("Recent activity on {0}").format(
+                        Site.objects.get_current().name
+                    ),
                     details,
                     settings.DEFAULT_FROM_EMAIL,
                     recipients,
