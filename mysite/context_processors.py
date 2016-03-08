@@ -10,6 +10,11 @@ from candidates.models import (
     TRUSTED_TO_RENAME_GROUP_NAME,
     RESULT_RECORDERS_GROUP_NAME,
 )
+
+from candidates.models import AreaExtra
+from elections.models import AreaType
+from popolo import models as pmodels
+
 from moderation_queue.models import QueuedImage, PHOTO_REVIEWERS_GROUP_NAME
 from official_documents.models import DOCUMENT_UPLOADERS_GROUP_NAME
 from django.utils.translation import to_locale, get_language
@@ -84,3 +89,16 @@ def add_site(request):
     """Make sure the current site is available in all contexts"""
 
     return {'site': Site.objects.get_current()}
+
+def add_default_area(request):
+    """ Add the default area (specified in the settings) to all contexts to use in the base.html """
+
+    area = pmodels.Area.objects.get(name=settings.DEFAULT_AREA)
+    areaExtra = AreaExtra.objects.get(base_id=area.id)
+    areaType = AreaType.objects.get(id=areaExtra.type_id)
+
+    return {
+        'default_area': area,
+        'default_area_type': areaType,
+        'politicians_type_and_area': areaType.name + '-' + str(area.id)
+    }

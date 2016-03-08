@@ -204,6 +204,20 @@ class AreaTypeViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.AreaTypeSerializer
 
 
+class PoliticianViewSet(viewsets.ModelViewSet):
+    queryset = Area.objects \
+        .prefetch_related('extra') \
+        .order_by('id')
+    serializer_class = serializers.AreaSerializer
+
+
+class PoliticianAreaViewSet(viewsets.ModelViewSet):
+    queryset = Area.objects \
+        .prefetch_related('extra') \
+        .order_by('id')
+    serializer_class = serializers.AreaSerializer
+
+
 class ElectionViewSet(viewsets.ModelViewSet):
     queryset = Election.objects.order_by('id')
     lookup_field = 'slug'

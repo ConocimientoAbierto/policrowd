@@ -17,6 +17,8 @@ api_router.register(r'organizations', views.OrganizationViewSet)
 api_router.register(r'posts', views.PostViewSet)
 api_router.register(r'areas', views.AreaViewSet)
 api_router.register(r'area_types', views.AreaTypeViewSet)
+api_router.register(r'politicians', views.PoliticianViewSet)
+api_router.register(r'politicians_areas', views.PoliticianAreaViewSet)
 api_router.register(r'elections', views.ElectionViewSet)
 api_router.register(r'party_sets', views.PartySetViewSet)
 api_router.register(r'images', views.ImageViewSet)
@@ -142,6 +144,16 @@ patterns_to_format = [
         'pattern': r'^areas-of-type/(?P<area_type>.*?)(?:/(?P<ignored_slug>.*))?$',
         'view': views.AreasOfTypeView.as_view(),
         'name': 'areas-of-type-view',
+    },
+    {
+        'pattern': r'^politicians/(?P<type_and_area_ids>.*?)(?:/(?P<ignored_slug>.*))?$',
+        'view': views.PoliticiansView.as_view(),
+        'name': 'politicians-view',
+    },
+    {
+        'pattern': r'^politicians-areas/(?P<type_and_area_ids>.*?)(?:/(?P<ignored_slug>.*))?$',
+        'view': views.PoliticiansAreasView.as_view(),
+        'name': 'politicians-areas-view',
     },
     {
         'pattern': r'^election/{election}/party/(?P<organization_id>[^/]+)/(?P<ignored_slug>.*)$',

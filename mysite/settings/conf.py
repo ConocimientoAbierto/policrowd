@@ -28,6 +28,7 @@ def get_settings(conf_file_leafname, election_app=None, tests=False):
     # Get the requested ELECTION_APP:
     if election_app is None:
         election_app = conf['ELECTION_APP']
+    default_area = conf['DEFAULT_AREA']
     election_app_fully_qualified = 'elections.' + election_app
     election_settings_module = election_app_fully_qualified + '.settings'
     elections_module = importlib.import_module(election_settings_module)
@@ -173,9 +174,11 @@ def get_settings(conf_file_leafname, election_app=None, tests=False):
             "mysite.context_processors.add_notification_data",
             "mysite.context_processors.locale",
             "mysite.context_processors.add_site",
+            "mysite.context_processors.add_default_area",
         ),
 
         'ELECTION_APP': election_app,
+        'DEFAULT_AREA': default_area,
         'ELECTION_APP_FULLY_QUALIFIED': election_app_fully_qualified,
 
         # The Django applications in use:
