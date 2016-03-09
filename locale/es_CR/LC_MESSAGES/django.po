@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YourNextMP\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-03 20:12+0000\n"
+"POT-Creation-Date: 2016-03-09 22:32+0000\n"
 "PO-Revision-Date: 2016-02-05 18:19+0000\n"
 "Last-Translator: Manfred Vargas <manfred.vargas@gmail.com>\n"
 "Language-Team: Spanish (Costa Rica) (http://www.transifex.com/mysociety/"
@@ -2092,6 +2092,17 @@ msgstr ""
 "Más detalles sobre obtener <a href=\"%(api_url)s\">los datos</a> y <a href="
 "\"%(about_url)s\">su licencia</a>."
 
+#: candidates/templates/candidates/politicians.html:17
+#: candidates/templates/candidates/politicians_areas.html:11
+msgid "Internal Areas"
+msgstr ""
+
+#: candidates/templates/candidates/politicians_areas.html:26
+#, fuzzy
+#| msgid "No areas found of type %(area_type_name)s."
+msgid "No internal areas found in"
+msgstr "No se encontraron áreas de tipo %(area_type_name)s."
+
 #: candidates/templates/candidates/popit_down.html:7
 #, python-format
 msgid "%(site_name)s is Temporarily Unavailable"
@@ -2366,17 +2377,18 @@ msgstr "No se presentó"
 msgid "No information yet"
 msgstr "No hay información aún"
 
-#: candidates/views/areas.py:31
+#: candidates/views/areas.py:33 candidates/views/areas.py:156
+#: candidates/views/areas.py:170 candidates/views/areas.py:193
 #, python-brace-format
 msgid "Malformed type and area: '{0}'"
 msgstr "Disculpas, ocurrió un error. Malformed type and area {0}"
 
-#: candidates/views/areas.py:115
+#: candidates/views/areas.py:118
 #, python-brace-format
 msgid "Area '{0}' not found"
 msgstr "Area '{0}' no encontrado"
 
-#: candidates/views/areas.py:117
+#: candidates/views/areas.py:120
 #, python-brace-format
 msgid "Multiple Area generations for type {area_type} found"
 msgstr "Se encontraron múltiples opciones para el tipo {area_type}"
@@ -3425,7 +3437,7 @@ msgstr ""
 msgid "Death Date"
 msgstr "Fecha y hora"
 
-#: mysite/settings/conf.py:383
+#: mysite/settings/conf.py:386
 #, fuzzy
 #| msgid ""
 #| "Please don't quote third-party candidate sites — we prefer URLs of news "

@@ -143,8 +143,22 @@ class AreasOfTypeView(TemplateView):
             for area in area_type.areas.all()
         ]
         context['areas'] = areas
+        print context['areas']
         context['area_type'] = area_type
         return context
+
+
+class PoliticiansTemplateView(TemplateView):
+    def get(self, request, *args, **kwargs):
+        type_and_area = kwargs['type_and_area_ids']
+        m = re.search(r'^([A-Z0-9]+?)-([-a-zA-Z0-9\:_]+)$', type_and_area)
+        if not m:
+            message = _("Malformed type and area: '{0}'")
+            return HttpResponseBadRequest(message.format(type_and_area))
+        self.type_and_area = m.groups()
+        response = super(PoliticiansTemplateView, self).get(request, *args, **kwargs)
+        return response
+
 
 class PoliticiansView(TemplateView):
     template_name = 'candidates/politicians.html'
@@ -163,16 +177,43 @@ class PoliticiansView(TemplateView):
         context = super(PoliticiansView, self).get_context_data(**kwargs)
         #areaType = self.type_and_area[0]
         areaId = self.type_and_area[1]
-
         parentArea = pmodels.Area.objects.get(id=areaId)
 
         context['area_name'] = parentArea.name
-        context['children_areas_url'] = 'politician-areas/' + kwargs['type_and_area_ids'] + '/' + parentArea.name
+        context['children_areas_url'] = '/politicians-areas/' + kwargs['type_and_area_ids'] + '/' + parentArea.name
         return context
 
 class PoliticiansAreasView(TemplateView):
     template_name = 'candidates/politicians_areas.html'
 
+    def get(self, request, *args, **kwargs):
+        type_and_area = kwargs['type_and_area_ids']
+        m = re.search(r'^([A-Z0-9]+?)-([-a-zA-Z0-9\:_]+)$', type_and_area)
+        if not m:
+            message = _("Malformed type and area: '{0}'")
+            return HttpResponseBadRequest(message.format(type_and_area))
+        self.type_and_area = m.groups()
+        response = super(PoliticiansAreasView, self).get(request, *args, **kwargs)
+        return response
+
     def get_context_data(self, **kwargs):
         context = super(PoliticiansAreasView, self).get_context_data(**kwargs)
+
+        areaId = self.type_and_area[1]
+        parentArea = pmodels.Area.objects.get(id=areaId)
+
+        areaChildren = AreaExtra.objects \
+                    .select_related('base', 'type') \
+                    .filter(base__parent_id=areaId)
+
+        context['internal_areas_urls'] = []
+        for areaChild in areaChildren:
+            childArea = areaChild._base_cache
+            childType = areaChild._type_cache
+            context['internal_areas_urls'].append((childArea.name, '/politicians/' + childType.name + '-' + str(childArea.id) + "/" + childArea.name))
+
+        context['internal_areas_urls'] = sorted(context['internal_areas_urls'], key=lambda x: x[0])
+
+        context['area_name'] = parentArea.name
+
         return context

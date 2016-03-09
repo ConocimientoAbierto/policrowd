@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-03 20:12+0000\n"
+"POT-Creation-Date: 2016-03-09 22:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1824,6 +1824,15 @@ msgid ""
 "\"%(about_url)s\">its license</a>."
 msgstr ""
 
+#: candidates/templates/candidates/politicians.html:17
+#: candidates/templates/candidates/politicians_areas.html:11
+msgid "Internal Areas"
+msgstr ""
+
+#: candidates/templates/candidates/politicians_areas.html:26
+msgid "No internal areas found in"
+msgstr ""
+
 #: candidates/templates/candidates/popit_down.html:7
 #, python-format
 msgid "%(site_name)s is Temporarily Unavailable"
@@ -2062,17 +2071,18 @@ msgstr ""
 msgid "No information yet"
 msgstr ""
 
-#: candidates/views/areas.py:31
+#: candidates/views/areas.py:33 candidates/views/areas.py:156
+#: candidates/views/areas.py:170 candidates/views/areas.py:193
 #, python-brace-format
 msgid "Malformed type and area: '{0}'"
 msgstr ""
 
-#: candidates/views/areas.py:115
+#: candidates/views/areas.py:118
 #, python-brace-format
 msgid "Area '{0}' not found"
 msgstr ""
 
-#: candidates/views/areas.py:117
+#: candidates/views/areas.py:120
 #, python-brace-format
 msgid "Multiple Area generations for type {area_type} found"
 msgstr ""
@@ -2949,7 +2959,7 @@ msgstr ""
 msgid "Death Date"
 msgstr ""
 
-#: mysite/settings/conf.py:383
+#: mysite/settings/conf.py:386
 msgid ""
 "Please don't quote third-party candidate sites \\u2014 we prefer URLs of "
 "news stories or official candidate pages."
