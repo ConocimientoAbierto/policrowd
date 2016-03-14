@@ -13,11 +13,15 @@
 
 {% block content %}
 
-  <h3>
-  	<a href="{{ children_areas_url }}">{% trans "Internal Areas" %}</a>
-  </h3>
+  {% if internal_areas_count > 0 %}
 
-  <hr>
+	  <h3>
+	  	<a href="{{ internal_areas_url }}">{% trans "Internal Areas" %}</a>
+	  </h3>
+
+	  <hr>
+
+  {% endif %}
 
   {% comment %}
   

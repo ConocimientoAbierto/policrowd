@@ -1,0 +1,5 @@
+-----------
+- Queries -
+-----------
+
+UPDATE popolo_area SET parent_id = 16 WHERE name != 'Argentina';

@@ -179,8 +179,9 @@ class PoliticiansView(TemplateView):
         areaId = self.type_and_area[1]
         parentArea = pmodels.Area.objects.get(id=areaId)
 
+        context['internal_areas_count'] = pmodels.Area.objects.filter(parent_id=areaId).count()
         context['area_name'] = parentArea.name
-        context['children_areas_url'] = '/politicians-areas/' + kwargs['type_and_area_ids'] + '/' + parentArea.name
+        context['internal_areas_url'] = '/politicians-areas/' + kwargs['type_and_area_ids'] + '/' + parentArea.name
         return context
 
 class PoliticiansAreasView(TemplateView):
@@ -205,6 +206,8 @@ class PoliticiansAreasView(TemplateView):
         areaChildren = AreaExtra.objects \
                     .select_related('base', 'type') \
                     .filter(base__parent_id=areaId)
+
+        print areaChildren
 
         context['internal_areas_urls'] = []
         for areaChild in areaChildren:
