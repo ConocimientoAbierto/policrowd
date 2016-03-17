@@ -9,7 +9,7 @@ from django.core.management.base import BaseCommand
 #from django.db import transaction
 
 from popolo.models import Organization, Area, Post, Person, Membership
-#from candidates.models.popolo_extra import OrganizationExtra
+from candidates.models.popolo_extra import OrganizationExtra
 
 class Command(BaseCommand):
     help = "Imports politicians from 'estructura-organica.csv' to DB (popolo_organization)"
@@ -80,13 +80,21 @@ class Command(BaseCommand):
             created_at = date,
             updated_at = date,
             name = name,
-            classification = 'position',
+            classification = 'goverment',
             parent_id = parentId,
             description = '',
             summary = '',
             area_id = self.argentinaCache.id
         )
         organization.save()
+        
+        organizationOextra = OrganizationExtra(
+            register = '',
+            base_id = organization.id,
+            slug = 'goverment:' + str(organization.id)
+        )
+        organizationOextra.save()
+        
         return organization
 
     def fetchAllPositions(self):
