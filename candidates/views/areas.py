@@ -196,36 +196,37 @@ class PoliticiansTemplateView(TemplateView):
 class PoliticiansView(PoliticiansTemplateView):
     template_name = 'candidates/politicians.html'
 
-    def __getAreaPositions(self, areaId):
-        positions = pmodels.Organization.objects.filter(classification='position', area_id=areaId)
-        return self.__createPositionsList(positions)
+    def __getAreaOrganisms(self, areaId):
+        organisms = pmodels.Organization.objects.filter(classification='goverment', area_id=areaId)
+        return self.__createOrganismsList(organisms)
 
-    def __createPosDictionary(self, positions, parentId):
-        positionsDict = {}
-        unusedPositions = []
-        if positions:
-            for position in positions:
-                if position.parent_id == parentId:
-                    positionsDict[position.name] = position.id
+    def __createOrganismsDict(self, organisms, parentId):
+        organismsDict = {}
+        unusedOrganisms = []
+        if organisms:
+            for organism in organisms:
+                if organism.parent_id == parentId:
+                    organismsDict[organism.name] = organism.id
                 else:
-                    unusedPositions.append(position)
+                    unusedOrganisms.append(organism)
 
-            positionsDict = {name: self.__createPosDictionary(unusedPositions, posId) for name, posId in positionsDict.items()}
+            organismsDict = {name: self.__createOrganismsDict(unusedOrganisms, posId) for name, posId in organismsDict.items()}
 
-        return positionsDict
+        return organismsDict
 
-    def __createPositionsListR(self, positionsDict, positionsList, indent):
-        for positionName, children in positionsDict.items():
-            positionsList.append((indent, positionName))
+    def __createOrganismsListR(self, organismsDict, organismsList, indent):
+        for organismName, children in organismsDict.items():
+            organismsList.append((indent, organismName))
             if children:
-                self.__createPositionsListR(children, positionsList, indent + 40)
+                self.__createOrganismsListR(children, organismsList, indent + 40)
 
-    def __createPositionsList(self, positions):
-        positionsDict = self.__createPosDictionary(positions, None)
-        positionsList = []
-        self.__createPositionsListR(positionsDict, positionsList, 0)
+    def __createOrganismsList(self, organisms):
+        organismsDict = self.__createOrganismsDict(organisms, None)
+        print organismsDict
+        organismsList = []
+        self.__createOrganismsListR(organismsDict, organismsList, 0)
 
-        return positionsList
+        return organismsList
 
     def get_context_data(self, **kwargs):
         context = super(PoliticiansView, self).get_context_data(**kwargs)
@@ -236,7 +237,7 @@ class PoliticiansView(PoliticiansTemplateView):
         context['area_name'] = parentArea.name
         context['internal_areas_url'] = '/politicians-areas/' + kwargs['type_and_area_ids'] + '/' + slugify(parentArea.name)
         context['bread_crumb'] = self.breadCrumb
-        context['positions'] = self.__getAreaPositions(areaId)
+        context['organisms'] = self.__getAreaOrganisms(areaId)
 
         return context
 
