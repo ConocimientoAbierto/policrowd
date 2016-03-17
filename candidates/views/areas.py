@@ -149,6 +149,38 @@ class AreasOfTypeView(TemplateView):
 
 
 class PoliticiansTemplateView(TemplateView):
+
+    def generateAreaLink(self, area):
+        typeName = AreaExtra.objects.select_related('base', 'type').get(base__id=area.id)._type_cache.name
+        return reverse(
+            'politicians-view',
+            kwargs={
+                'type_and_area_ids': '{type}-{area_id}'.format(
+                    type=typeName,
+                    area_id=area.id
+                ),
+                'ignored_slug': slugify(area.name)
+            }
+        )
+
+    def __getAreaParent(self, area):
+        try:
+           return pmodels.Area.objects.get(id=area.parent_id)
+        except pmodels.Area.DoesNotExist:
+           return None
+
+    def __createBreadCrumb(self):
+        areaId = self.type_and_area[1]
+        self.parentArea = pmodels.Area.objects.get(id=areaId)
+
+        self.breadCrumb = []
+        
+        parentOfParent = self.__getAreaParent(self.parentArea)
+        while parentOfParent:
+            self.breadCrumb.insert(0,(parentOfParent.name, self.generateAreaLink(parentOfParent)))
+            parentOfParent = self.__getAreaParent(parentOfParent)
+
+
     def get(self, request, *args, **kwargs):
         type_and_area = kwargs['type_and_area_ids']
         m = re.search(r'^([A-Z0-9]+?)-([-a-zA-Z0-9\:_]+)$', type_and_area)
@@ -156,67 +188,71 @@ class PoliticiansTemplateView(TemplateView):
             message = _("Malformed type and area: '{0}'")
             return HttpResponseBadRequest(message.format(type_and_area))
         self.type_and_area = m.groups()
+        self.__createBreadCrumb()
         response = super(PoliticiansTemplateView, self).get(request, *args, **kwargs)
         return response
 
 
-class PoliticiansView(TemplateView):
+class PoliticiansView(PoliticiansTemplateView):
     template_name = 'candidates/politicians.html'
 
-    def get(self, request, *args, **kwargs):
-        type_and_area = kwargs['type_and_area_ids']
-        m = re.search(r'^([A-Z0-9]+?)-([-a-zA-Z0-9\:_]+)$', type_and_area)
-        if not m:
-            message = _("Malformed type and area: '{0}'")
-            return HttpResponseBadRequest(message.format(type_and_area))
-        self.type_and_area = m.groups()
-        response = super(PoliticiansView, self).get(request, *args, **kwargs)
-        return response
+    def __getAreaPositions(self, areaId):
+        positions = pmodels.Organization.objects.filter(classification='position', area_id=areaId)
+        return self.__createPositionsList(positions)
+
+    def __createPosDictionary(self, positions, parentId):
+        positionsDict = {}
+        unusedPositions = []
+        if positions:
+            for position in positions:
+                if position.parent_id == parentId:
+                    positionsDict[position.name] = position.id
+                else:
+                    unusedPositions.append(position)
+
+            positionsDict = {name: self.__createPosDictionary(unusedPositions, posId) for name, posId in positionsDict.items()}
+
+        return positionsDict
+
+    def __createPositionsListR(self, positionsDict, positionsList, indent):
+        for positionName, children in positionsDict.items():
+            positionsList.append((indent, positionName))
+            if children:
+                self.__createPositionsListR(children, positionsList, indent + 40)
+
+    def __createPositionsList(self, positions):
+        positionsDict = self.__createPosDictionary(positions, None)
+        positionsList = []
+        self.__createPositionsListR(positionsDict, positionsList, 0)
+
+        return positionsList
 
     def get_context_data(self, **kwargs):
         context = super(PoliticiansView, self).get_context_data(**kwargs)
-        #areaType = self.type_and_area[0]
         areaId = self.type_and_area[1]
         parentArea = pmodels.Area.objects.get(id=areaId)
 
         context['internal_areas_count'] = pmodels.Area.objects.filter(parent_id=areaId).count()
         context['area_name'] = parentArea.name
-        context['internal_areas_url'] = '/politicians-areas/' + kwargs['type_and_area_ids'] + '/' + parentArea.name
+        context['internal_areas_url'] = '/politicians-areas/' + kwargs['type_and_area_ids'] + '/' + slugify(parentArea.name)
+        context['bread_crumb'] = self.breadCrumb
+        context['positions'] = self.__getAreaPositions(areaId)
+
         return context
 
-class PoliticiansAreasView(TemplateView):
+class PoliticiansAreasView(PoliticiansTemplateView):
     template_name = 'candidates/politicians_areas.html'
-
-    def get(self, request, *args, **kwargs):
-        type_and_area = kwargs['type_and_area_ids']
-        m = re.search(r'^([A-Z0-9]+?)-([-a-zA-Z0-9\:_]+)$', type_and_area)
-        if not m:
-            message = _("Malformed type and area: '{0}'")
-            return HttpResponseBadRequest(message.format(type_and_area))
-        self.type_and_area = m.groups()
-        response = super(PoliticiansAreasView, self).get(request, *args, **kwargs)
-        return response
 
     def get_context_data(self, **kwargs):
         context = super(PoliticiansAreasView, self).get_context_data(**kwargs)
-
-        areaId = self.type_and_area[1]
-        parentArea = pmodels.Area.objects.get(id=areaId)
-
-        areaChildren = AreaExtra.objects \
-                    .select_related('base', 'type') \
-                    .filter(base__parent_id=areaId)
-
-        print areaChildren
+        internalAreas = pmodels.Area.objects.filter(parent_id=self.parentArea.id)
 
         context['internal_areas_urls'] = []
-        for areaChild in areaChildren:
-            childArea = areaChild._base_cache
-            childType = areaChild._type_cache
-            context['internal_areas_urls'].append((childArea.name, '/politicians/' + childType.name + '-' + str(childArea.id) + "/" + childArea.name))
+        for internalArea in internalAreas:
+            context['internal_areas_urls'].append((internalArea.name, self.generateAreaLink(internalArea) ))
 
         context['internal_areas_urls'] = sorted(context['internal_areas_urls'], key=lambda x: x[0])
-
-        context['area_name'] = parentArea.name
+        context['area_name'] = self.parentArea.name
+        context['bread_crumb'] = self.breadCrumb
 
         return context

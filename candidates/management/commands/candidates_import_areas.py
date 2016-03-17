@@ -14,7 +14,7 @@ from popolo.models import Area
 
 
 class Command(BaseCommand):
-    help = "Imports areas in ARG_adm2.csv to Data Base (popolo_area)"
+    help = "Imports areas in 'ARG_adm2.csv' to DB (popolo_area)"
 
     areaDifferencesMap = {
         'Buenos Aires': 'BUENOS AIRES',
@@ -65,14 +65,12 @@ class Command(BaseCommand):
         self.prepareAreaTypesCache()
 
     def fetchAllAreas(self):
-        #print "Inserting Areas...\n"
+        print ("Inserting Areas...\n")
         with open('ARG_adm2.csv') as f:
             data = [tuple(line) for line in csv.reader(f)]
 
         areaTypeId = self.areaTypesCache['MUN']
 
-        print (self.areaDifferencesMap)
-        
         identifierBase = 100 # Para que no se pisen con los ya cargados. Esto va a cambiar cuando usemos los ids de OSM
         date = time.strftime('%Y-%m-%d %H:%M:%S')
         
@@ -81,9 +79,6 @@ class Command(BaseCommand):
             parentAreaName = row[5]
             parentId = self.provincesAreasCache[self.areaDifferencesMap[parentAreaName]]
             areaName = row[7]
-            #cur.execute("INSERT INTO popolo_area (parent_id,name,created_at,updated_at,identifier,classification) \
-            #    VALUES(%s,%s,%s,%s,%s,%s)", (parentId, areaName, date, date, identifier, '')
-            #)
             area = Area(
                 parent_id = parentId,
                 name = areaName,
@@ -94,7 +89,6 @@ class Command(BaseCommand):
             )
             area.save()
 
-            #cur.execute("INSERT INTO candidates_areaextra (base_id,type_id) VALUES(%s,%s)", (cur.fetchone()[0], areaTypeId))
             areaExtra = AreaExtra(
                 base_id = area.id,
                 type_id = areaTypeId
