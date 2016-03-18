@@ -195,34 +195,45 @@ class PoliticiansTemplateView(TemplateView):
 
 class PoliticiansView(PoliticiansTemplateView):
     template_name = 'candidates/politicians.html'
+    memberships = {}
 
-    def __getAreaOrganisms(self, areaId):
-        organisms = pmodels.Organization.objects.filter(classification='goverment', area_id=areaId)
-        return self.__createOrganismsList(organisms)
+    def __rename_attribute(self, object_, old_attribute_name, new_attribute_name):
+        setattr(object_, new_attribute_name, getattr(object_, old_attribute_name))
+        delattr(object_, old_attribute_name)
 
-    def __createOrganismsDict(self, organisms, parentId):
-        organismsDict = {}
-        unusedOrganisms = []
-        if organisms:
-            for organism in organisms:
-                if organism.parent_id == parentId:
-                    organismsDict[organism.name] = organism.id
+    def __getAreaMemberships(self, areaId):
+        executivePower = pmodels.Organization.objects.only('id','name').get(name='Poder Ejecutivo')
+        memberships = pmodels.Membership.objects.select_related('organization','post','person').filter(organization__classification='goverment', area_id=areaId)
+        for membership in memberships:
+            self.__rename_attribute(membership, '_organization_cache', 'organization')
+            self.__rename_attribute(membership, '_post_cache', 'post')
+            self.__rename_attribute(membership, '_person_cache', 'person')
+        return self.__createOrganismsList(memberships, executivePower.id)
+
+    def __createMembershipsDict(self, memberships, parentId):
+        membershipsDict = {}
+        unusedMemberships = []
+        if memberships:
+            for membership in memberships:
+                if membership.organization.parent_id == parentId:
+                    membershipsDict[membership.organization.name] = membership.organization.id
+                    self.memberships[membership.organization.name] = membership
                 else:
-                    unusedOrganisms.append(organism)
+                    unusedMemberships.append(membership)
 
-            organismsDict = {name: self.__createOrganismsDict(unusedOrganisms, posId) for name, posId in organismsDict.items()}
+            membershipsDict = {name: self.__createMembershipsDict(unusedMemberships, organismId) for name, organismId in membershipsDict.items()}
 
-        return organismsDict
+        return membershipsDict
 
-    def __createOrganismsListR(self, organismsDict, organismsList, indent):
-        for organismName, children in organismsDict.items():
-            organismsList.append((indent, organismName))
+    def __createOrganismsListR(self, membershipsDict, organismsList, indent):
+        for membershipName, children in membershipsDict.items():
+            membership = self.memberships[membershipName]
+            organismsList.append((indent, membership))
             if children:
                 self.__createOrganismsListR(children, organismsList, indent + 40)
 
-    def __createOrganismsList(self, organisms):
-        organismsDict = self.__createOrganismsDict(organisms, None)
-        print organismsDict
+    def __createOrganismsList(self, memberships, executivePowerId):
+        organismsDict = self.__createMembershipsDict(memberships, executivePowerId)
         organismsList = []
         self.__createOrganismsListR(organismsDict, organismsList, 0)
 
@@ -237,7 +248,7 @@ class PoliticiansView(PoliticiansTemplateView):
         context['area_name'] = parentArea.name
         context['internal_areas_url'] = '/politicians-areas/' + kwargs['type_and_area_ids'] + '/' + slugify(parentArea.name)
         context['bread_crumb'] = self.breadCrumb
-        context['organisms'] = self.__getAreaOrganisms(areaId)
+        context['memberships'] = self.__getAreaMemberships(areaId)
 
         return context
 

@@ -28,7 +28,7 @@ class Command(BaseCommand):
         self.prepareExecutivePowerCache()
         self.prepareArgentinaCache()
 
-    def createMermbership(self, date, role, organizationId, personId, postId, areaId):
+    def createMermbership(self, date, role, organizationId, personId, postId):
         membership = Membership(
             created_at = date,
             updated_at = date,
@@ -37,7 +37,7 @@ class Command(BaseCommand):
             organization_id = organizationId,
             person_id = personId,
             post_id = postId,
-            area_id = areaId
+            area_id = self.argentinaCache.id
         )
         membership.save()
 
@@ -130,7 +130,7 @@ class Command(BaseCommand):
                     mail = ''
                 person = self.createPerson(date, personName, personLastName, mail)
 
-                self.createMermbership(date, role, organization.id, person.id, post.id, self.argentinaCache.id)
+                self.createMermbership(date, role, organization.id, person.id, post.id)
 
     def handle(self, *args, **options):
         self.prepareCaches()
