@@ -51,7 +51,6 @@ class AreasView(TemplateView):
             except AreaExtra.DoesNotExist:
                 continue
             area = area_extra.base
-            print vars(area)
             all_area_names.add(area.name)
             for post in area.posts.all():
                 post_extra = post.extra
@@ -143,7 +142,6 @@ class AreasOfTypeView(TemplateView):
             for area in area_type.areas.all()
         ]
         context['areas'] = areas
-        print context['areas']
         context['area_type'] = area_type
         return context
 
