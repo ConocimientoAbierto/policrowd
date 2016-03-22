@@ -9,7 +9,7 @@ from django.core.management.base import BaseCommand
 #from django.db import transaction
 
 from popolo.models import Organization, Area, Post, Person, Membership
-from candidates.models.popolo_extra import OrganizationExtra
+from candidates.models.popolo_extra import OrganizationExtra, PersonExtra
 
 class Command(BaseCommand):
     help = "Imports politicians from 'estructura-organica.csv' to DB (popolo_organization)"
@@ -61,6 +61,13 @@ class Command(BaseCommand):
             biography = '',
         )
         person.save()
+
+        personExtra = PersonExtra(
+            base_id = person.id,
+            versions = '[]'
+        )
+        personExtra.save()
+
         return person
 
     def createPost(self, date, role, organizationId):
@@ -88,12 +95,12 @@ class Command(BaseCommand):
         )
         organization.save()
         
-        organizationOextra = OrganizationExtra(
+        organizationExtra = OrganizationExtra(
             register = '',
             base_id = organization.id,
             slug = 'goverment:' + str(organization.id)
         )
-        organizationOextra.save()
+        organizationExtra.save()
         
         return organization
 
