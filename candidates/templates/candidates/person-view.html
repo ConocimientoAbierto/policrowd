@@ -126,8 +126,14 @@
       <dt>{% trans "Email" %}</dt>
       <dd>{% if person.email %}<a href="mailto:{{ person.email }}">{{ person.email }}</a>{% endif %}</dd>
     {% endif %}
+
+    {% comment %}
+
     <dt>{% trans "Party" %}</dt>
     <dd>{{ last_candidacy.on_behalf_of.name }}</dd>
+
+    {% endcomment %}
+
     {% if 'summary' in simple_fields %}
       <dt>{% trans "Summary" %}</dt>
       <dd>{% if person.summary %}{{ person.summary }}{% endif %}</dd>
@@ -137,6 +143,21 @@
       <dd>{% if person.biography %}{{ person.biography }}{% endif %}</dd>
     {% endif %}
   </dl>
+
+  {% if last_membership %}
+    <h2>{% trans "Last Post:" %}</h2>
+    {% include 'candidates/person_membership.html' with membership=last_membership %}
+  {% endif %}
+
+  {% if old_memberships %}
+    <h2>{% trans "Older Posts:" %}</h2>  
+    {% for m in old_memberships %}
+      {% include 'candidates/person_membership.html' with membership=m %}
+    {% endfor %}
+  {% endif %}
+  
+
+  {% comment %}
 
   <h2>{% trans "Candidacies:" %}</h2>
 
@@ -152,6 +173,8 @@
       <p>{% trans "No candidacies known at the moment." %}</p>
     {% endfor %}
   </dl>
+
+  {% endcomment %}
 
   <h2>{% trans "Links and social media:" %}</h2>
 
@@ -242,6 +265,8 @@
 
 <div class="person__actions">
 
+  {% comment %}
+
   {% if last_candidacy.on_behalf_of.extra.primary_image %}
     <div class="person__party_emblem">
       {% thumbnail last_candidacy.on_behalf_of.extra.primary_image "240" as im %}
@@ -249,6 +274,8 @@
       {% endthumbnail %}
     </div>
   {% endif %}
+
+  {% endcomment %}
 
   <div class="person__actions__action person__actions__edit">
     <h2>{% trans "Improve this data!" %}</h2>

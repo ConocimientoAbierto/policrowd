@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 import json
 import re
 
+from datetime import datetime
+
 from slugify import slugify
 
 from django.conf import settings
@@ -28,7 +30,7 @@ from elections.mixins import ElectionMixin
 
 from ..diffs import get_version_diffs
 from .version_data import get_client_ip, get_change_metadata
-from ..forms import NewPersonForm, UpdatePersonForm
+from ..forms import NewPersonForm, UpdatePersonForm, NewPoliticianForm
 from ..models import (
     LoggedAction, PersonRedirect, TRUSTED_TO_MERGE_GROUP_NAME
 )
@@ -40,7 +42,9 @@ from ..models import (
     PersonExtra, PartySet, merge_popit_people, ExtraField, PersonExtraFieldValue,
     SimplePopoloField
 )
-from popolo.models import Person
+from popolo.models import Person, Area, Membership
+
+from django.http import HttpResponseBadRequest
 
 def get_call_to_action_flash_message(person, new_person=False):
     """Get HTML for a flash message after a person has been created or updated"""
@@ -113,9 +117,30 @@ def get_field_groupings():
 
     return (personal, demographic)
 
+def rename_attribute(object_, old_attribute_name, new_attribute_name):
+    setattr(object_, new_attribute_name, getattr(object_, old_attribute_name))
+    delattr(object_, old_attribute_name)
+
+def sortMemberships(memberships):
+    membershipsList = []
+    for membership in memberships:
+        rename_attribute(membership, '_post_cache', 'post')
+        rename_attribute(membership, '_organization_cache', 'organization')
+        rename_attribute(membership, '_area_cache', 'area')
+        if membership.start_date:
+            try:
+                membership.parsed_start_date = datetime.strptime(membership.start_date, "%Y-%m-%d")
+                membershipsList.append(membership)
+            except ValueError: pass
+
+    membershipsList.sort(key=lambda x: x.parsed_start_date, reverse=True)
+
+    return membershipsList
+
+
 class PersonView(TemplateView):
     template_name = 'candidates/person-view.html'
-
+    
     @method_decorator(cache_control(max_age=(60 * 20)))
     def dispatch(self, *args, **kwargs):
         return super(PersonView, self).dispatch(
@@ -127,6 +152,8 @@ class PersonView(TemplateView):
         path = self.person.extra.get_absolute_url()
         context['redirect_after_login'] = urlquote(path)
         context['canonical_url'] = self.request.build_absolute_uri(path)
+        context['last_membership'] = self.memberships[0] if len(self.memberships) > 0 else None
+        context['old_memberships'] = self.memberships[1:] if len(self.memberships) > 1 else []
         context['person'] = self.person
         elections_by_date = Election.objects.by_date().order_by('-election_date')
         # If there are lots of elections known to this site, don't
@@ -138,7 +165,7 @@ class PersonView(TemplateView):
             ).order_by('-election_date')
         else:
             context['elections_to_list'] = elections_by_date
-        context['last_candidacy'] = self.person.extra.last_candidacy
+        context['last_candidacy'] = None #self.person.extra.last_candidacy
         context['election_to_show'] = None
         context['simple_fields'] = [
             field.name for field in SimplePopoloField.objects.all()
@@ -160,6 +187,8 @@ class PersonView(TemplateView):
             self.person = Person.objects.select_related('extra'). \
                 prefetch_related('links', 'contact_details'). \
                 get(pk=person_id)
+            memberships = Membership.objects.select_related('post', 'organization', 'area').filter(person_id=self.person.id)
+            self.memberships = sortMemberships(memberships)
         except Person.DoesNotExist:
             raise Http404(_("No person found with ID {person_id}").format(
                 person_id=person_id
@@ -329,6 +358,11 @@ class UpdatePersonView(LoginRequiredMixin, FormView):
         )
         context['person'] = person
 
+        memberships = Membership.objects.select_related('post', 'organization', 'area').filter(person_id=person.id)
+        memberships = sortMemberships(memberships)
+        context['last_membership'] = memberships[0] if len(memberships) > 0 else None
+        context['old_memberships'] = memberships[1:] if len(memberships) > 1 else []
+
         context['user_can_merge'] = user_in_group(
             self.request.user,
             TRUSTED_TO_MERGE_GROUP_NAME
@@ -354,6 +388,7 @@ class UpdatePersonView(LoginRequiredMixin, FormView):
         for k, v in context['extra_fields'].items():
             v['form_field'] = kwargs['form'][k]
 
+        '''
         context['constituencies_form_fields'] = []
         for election_data in Election.objects.by_date():
             if not election_data.current:
@@ -376,8 +411,25 @@ class UpdatePersonView(LoginRequiredMixin, FormView):
                 party_fields.append(party_position_tuple)
             cons_form_fields['party_fields'] = party_fields
             context['constituencies_form_fields'].append(cons_form_fields)
+        '''
+        context['all_areas'] = Area.objects.all();
 
         return context
+
+    def validateAddPost(self, request, form):
+        first_areas_value = int(request.POST.get('first_areas'))
+        if (first_areas_value == -1):
+            print "AGREGO ERROR"
+            form.add_error('first_areas', _('An Area is Required'))
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        self.validateAddPost(request, form)
+        if form.is_valid():
+        #if False:
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
 
     def form_valid(self, form):
 
@@ -462,6 +514,75 @@ class NewPersonView(ElectionMixin, LoginRequiredMixin, FormView):
                 popit_person_new_version=change_metadata['version_id'],
                 source=change_metadata['information_source'],
             )
+
+            # Add a message to be displayed after redirect:
+            messages.add_message(
+                self.request,
+                messages.SUCCESS,
+                get_call_to_action_flash_message(person, new_person=True),
+                extra_tags='safe do-something-else'
+            )
+
+        return HttpResponseRedirect(reverse('person-view', kwargs={'person_id': person.id}))
+
+class NewPoliticianView(LoginRequiredMixin, FormView):
+    template_name = 'candidates/politician-create.html'
+    form_class = NewPoliticianForm
+
+    def get_context_data(self, **kwargs):
+        context = super(NewPoliticianView, self).get_context_data(**kwargs)
+        context['required_area_id'] = self.kwargs['area_id']
+        try:
+            context['area'] = Area.objects.get(pk=self.kwargs['area_id'])
+        except Area.DoesNotExist:
+            context['area'] = None
+
+        return context
+    
+    '''
+    def post(self, request, *args, **kwargs):
+        areaId = self.kwargs['area_id']
+        try:
+            self.area = Area.objects.get(pk=areaId)
+        except Area.DoesNotExist:
+            message = _("Invalid Area id: '{0}'")
+            return HttpResponseBadRequest(message.format(areaId))
+
+        return super(NewPoliticianView, self).post(request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        areaId = self.kwargs['area_id']
+        try:
+            self.area = Area.objects.get(pk=areaId)
+        except Area.DoesNotExist:
+            message = _("Invalid Area id: '{0}'")
+            return HttpResponseBadRequest(message.format(areaId))
+
+        return super(NewPoliticianView, self).get(request, *args, **kwargs)
+    '''
+
+    def form_valid(self, form):
+
+        with transaction.atomic():
+
+            person_extra = PersonExtra.create_from_form(form)
+            person = person_extra.base
+            change_metadata = get_change_metadata(
+                self.request, form.cleaned_data['source']
+            )
+            person_extra.record_version(change_metadata)
+            person_extra.save()
+
+            '''
+            LoggedAction.objects.create(
+                user=self.request.user,
+                person=person,
+                action_type='person-create',
+                ip_address=get_client_ip(self.request),
+                popit_person_new_version=change_metadata['version_id'],
+                source=change_metadata['information_source'],
+            )
+            '''
 
             # Add a message to be displayed after redirect:
             messages.add_message(

@@ -71,16 +71,16 @@ class Command(BaseCommand):
         return person
 
     def createPost(self, date, role, organizationId):
-        post = Post(
-            created_at = date,
-            updated_at = date,
-            label = role,
+        return Post.objects.get_or_create(
             role = role,
-            organization_id = organizationId,
-            area_id = self.argentinaCache.id
-        )
-        post.save()
-        return post
+            defaults = {
+                'created_at': date,
+                'updated_at': date,
+                'label': role,
+                'organization_id': organizationId,
+                'area_id': self.argentinaCache.id
+            }
+        )[0]
 
     def createOrganization(self, date, name, parentId):
         organization = Organization(

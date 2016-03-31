@@ -17,8 +17,6 @@ api_router.register(r'organizations', views.OrganizationViewSet)
 api_router.register(r'posts', views.PostViewSet)
 api_router.register(r'areas', views.AreaViewSet)
 api_router.register(r'area_types', views.AreaTypeViewSet)
-api_router.register(r'politicians', views.PoliticianViewSet)
-api_router.register(r'politicians_areas', views.PoliticianAreaViewSet)
 api_router.register(r'elections', views.ElectionViewSet)
 api_router.register(r'party_sets', views.PartySetViewSet)
 api_router.register(r'images', views.ImageViewSet)
@@ -156,6 +154,11 @@ patterns_to_format = [
         'name': 'politicians-areas-view',
     },
     {
+        'pattern': r'^create-politician/(?P<area_id>.*?)$',
+        'view': views.NewPoliticianView.as_view(),
+        'name': 'create-politician-view',
+    },
+    {
         'pattern': r'^election/{election}/party/(?P<organization_id>[^/]+)/(?P<ignored_slug>.*)$',
         'view': views.PartyDetailView.as_view(),
         'name': 'party'
@@ -209,6 +212,16 @@ patterns_to_format = [
         'pattern': r'^post-id-to-party-set.json$',
         'view': views.PostIDToPartySetView.as_view(),
         'name': 'post-id-to-party-set'
+    },
+    {
+        'pattern': r'^areas-tree.json$',
+        'view': views.AreasTree.as_view(),
+        'name': 'areas-tree'
+    },
+    {
+        'pattern': r'^posts-by-area.json$',
+        'view': views.PostsByArea.as_view(),
+        'name': 'posts-by-area'
     },
     {
         'pattern': r'^version.json',

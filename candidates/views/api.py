@@ -129,6 +129,54 @@ class PostIDToPartySetView(View):
         )
 
 
+class AreasTree(View):
+
+    http_method_names = ['get']
+
+    def __createDictR(self, areas, parentId):
+        areasDict = {}
+        unusedAreas = []
+        if areas:
+            for area in areas:
+                if area.parent_id == parentId:
+                    areasDict[area.name] = area.id
+                else:
+                    unusedAreas.append(area)
+
+            areasDict = {name: {'id':areaId, 'internal_areas': self.__createDictR(unusedAreas, areaId)} for name, areaId in areasDict.items()}
+
+        return areasDict
+
+    def get(self, request, *args, **kwargs):
+        argentina = Area.objects.get(name='Argentina')
+        areas = Area.objects.only('id','parent_id','name').filter().exclude(name='Argentina')
+        areasDict = self.__createDictR(areas, argentina.id)
+        areasDict[argentina.name] = {'id': argentina.id, 'internal_areas':{}}
+        
+        return HttpResponse(
+            json.dumps(areasDict, sort_keys=True), content_type='application/json'
+        )
+
+class PostsByArea(View):
+
+    http_method_names = ['get']
+
+    def __createDict(self, posts):
+        postsDict = {}
+        for post in posts:
+            if not post.area_id in postsDict:
+                postsDict[post.area_id] = []
+            postsDict[post.area_id].append({'id':post.id, 'role':post.role})
+        return postsDict
+
+    def get(self, request, *args, **kwargs):
+        posts = Post.objects.only('id','role', 'area_id').all()
+        postsDict = self.__createDict(posts)
+        
+        return HttpResponse(
+            json.dumps(postsDict, sort_keys=True), content_type='application/json'
+        )
+
 # Now the django-rest-framework based API views:
 
 class PersonViewSet(viewsets.ModelViewSet):
@@ -202,20 +250,6 @@ class AreaViewSet(viewsets.ModelViewSet):
 class AreaTypeViewSet(viewsets.ModelViewSet):
     queryset = AreaType.objects.order_by('id')
     serializer_class = serializers.AreaTypeSerializer
-
-
-class PoliticianViewSet(viewsets.ModelViewSet):
-    queryset = Area.objects \
-        .prefetch_related('extra') \
-        .order_by('id')
-    serializer_class = serializers.AreaSerializer
-
-
-class PoliticianAreaViewSet(viewsets.ModelViewSet):
-    queryset = Area.objects \
-        .prefetch_related('extra') \
-        .order_by('id')
-    serializer_class = serializers.AreaSerializer
 
 
 class ElectionViewSet(viewsets.ModelViewSet):

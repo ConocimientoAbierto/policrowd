@@ -25,6 +25,7 @@
     </a>
   </div>
   <h1>{% blocktrans with name=person.name %}Editing: {{ name }}{% endblocktrans %}</h1>
+  {% comment %}
   {% with last_candidacy=person.extra.last_candidacy %}
     {% if last_candidacy %}
       {% with post=last_candidacy.post %}
@@ -33,6 +34,7 @@
       {% endwith %}
     {% endif %}
   {% endwith %}
+  {% endcomment %}
 </div>
 {% endblock %}
 
@@ -70,6 +72,52 @@
 
       {% endfor %}
 
+      <div style="display:none;" id="post_view">
+        
+        <h2>{% trans "Add Post:" %}</h2>
+
+        <div class="first_areas">
+          {{ form.first_areas.errors }}
+          {{ form.first_areas.label }}
+          {{ form.first_areas }}
+        </div>
+
+        <div style="display:none;" class="second_areas">
+          {{ form.second_areas.label }}
+          {{ form.second_areas }}
+        </div>
+
+        <div style="display:none;" class="posts">
+          {{ form.posts.errors }}
+          {{ form.posts.label }}
+          {{ form.posts }}
+
+          <p><i>{% trans "Or" %}</i></p>
+
+          {{ form.other_post.label }}
+          {{ form.other_post }}
+        </div>        
+
+        <a id="hide_post_btn" class="button">{% trans "Hide" %}</a>        
+
+      </div>
+
+      <a id="add_post_btn" class="button">{% trans "Add Post" %}</a>
+      
+      {% if last_membership %}
+        <h2>{% trans "Last Post:" %}</h2> 
+        {% include 'candidates/person_membership.html' with membership=last_membership %}
+      {% endif %}
+
+      {% if old_memberships %}
+        <h2>{% trans "Older Posts:" %}</h2>  
+        {% for m in old_memberships %}
+          {% include 'candidates/person_membership.html' with membership=m %}
+        {% endfor %}
+      {% endif %}
+
+      
+      {% comment %}
       <div>
         <h2>{% trans "Constituencies:" %}</h2>
 
@@ -118,6 +166,7 @@
         {% endfor %}
 
       </div>
+      {% endcomment %}
 
       <h2>{% trans "Links and social media:" %}</h2>
 

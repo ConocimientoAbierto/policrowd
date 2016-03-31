@@ -134,12 +134,99 @@ function updateFields() {
     updateSelectsForElection(standing, election); });
 }
 
+/*
+  Set the change() events for the Area selects.
+*/
+
+function fillAreasCombo(id, areas){
+  $(id).find('option').remove();
+  $(id).append($("<option></option>").attr("value", -1).text(" ")); 
+  $.each(areas, function(name, data) {
+    $(id)
+      .append(
+        $("<option></option>")
+        .attr("value", data.id)
+        .text(name)
+      ); 
+  });
+}
+
+function clearPostsView(){
+  $('#id_first_areas').val(-1);
+  $('#id_second_areas').find('option').remove();
+  $('#id_posts').find('option').remove();
+  $('#id_other_post').val('');
+}
+
+function fillPostsCombo(id, posts){
+  $(id).find('option').remove();
+  $(id).append($("<option></option>").attr("value", -1).text(" ")); 
+  posts.forEach(function(post){
+    $(id)
+      .append(
+        $("<option></option>")
+        .attr("value", post.id)
+        .text(post.role)
+      ); 
+  });
+}
+
+function setPostsEvents(areasTree) {
+  var firstAreasComboId = '#id_first_areas';
+  fillAreasCombo(firstAreasComboId, areasTree);
+  $(firstAreasComboId).val(-1);
+
+  $('#add_post_btn').click(function(){
+    clearPostsView();
+    $('#post_view').slideDown();
+    $(this).slideUp();
+  });
+
+  $('#hide_post_btn').click(function(){
+    $('#post_view').slideUp();
+    clearPostsView();
+    $('#add_post_btn').slideDown();
+  });
+
+  $(firstAreasComboId).change(function(eventData){
+    var parentName = $(this).find("option:selected").text();
+    var parentId = $(this).find("option:selected").val();
+    if (parentId != -1){
+      var internalAreas = window.areasTree[parentName]['internal_areas'];
+      
+      var secondAreasComboId = '#id_second_areas';
+      fillAreasCombo(secondAreasComboId, internalAreas);
+      $(secondAreasComboId).val(-1);
+      $('.second_areas').slideDown();
+
+      var postsComboId = '#id_posts';
+      fillPostsCombo(postsComboId, window.posts[parentId]);
+      $(postsComboId).val(-1);
+      $('.posts').slideDown();
+    } else {
+      $('.second_areas').slideUp();
+      $('.posts').slideUp();
+    }
+  });
+}
+
 $(document).ready(function() {
   $.getJSON('/post-id-to-party-set.json', function(data) {
-      window.postIDToPartySet = data;
-      setUpPartySelect2s();
-      setUpPostSelect2s();
-      setUpStandingCheckbox();
-      updateFields();
+    window.postIDToPartySet = data;
+    setUpPartySelect2s();
+    setUpPostSelect2s();
+    setUpStandingCheckbox();
+    updateFields();
   });
+
+  $.getJSON('/areas-tree.json', function(areasTree) {
+    $.getJSON('/posts-by-area.json', function(postsByArea){
+      window.posts = postsByArea;
+    });
+    window.areasTree = areasTree;
+    setPostsEvents(areasTree);
+  });
+
+  
+
 });

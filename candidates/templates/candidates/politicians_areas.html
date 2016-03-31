@@ -1,10 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n %}
 
-{% load metadescription %}
-{% load standing %}
-{% load exists %}
-
 {% block title %} {{ area_name }} {% endblock %}
 
 {% block hero %}
@@ -13,9 +9,9 @@
 
 {% block content %}
 
-  <h2>
-    {% blocktrans %}Internal Areas{% endblocktrans %}
-  </h2>
+	  <h2>
+	    {% blocktrans %}Internal Areas{% endblocktrans %}
+	  </h2>
 
   {% for internal_area_name, internal_area_url in internal_areas_urls %}
     {% if forloop.first %}

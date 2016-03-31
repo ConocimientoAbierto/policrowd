@@ -1,0 +1,7 @@
+{% load i18n %}
+<p>
+	<b>{{ membership.post.role }}</b> - {{ membership.organization.name }} (<b>{{ membership.area.name }}</b>)
+	<br>
+	<i><b>{% trans "start:" %}</b> {{ membership.start_date }}</i> <b>{% trans "end:" %}</b> <i>{{ membership.end_date }}</i>
+	<br>
+</p>

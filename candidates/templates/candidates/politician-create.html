@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %} {% trans "Add Politician" %} {% endblock %}
+
+{% block hero %} 
+	{% if area != None %}
+		<h1> {% trans "Add Politician in" %} '{{ area.name }}'</h1> 
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+
+{% if area == None %}
+	
+	<h3>Invalid Area id: '{{ required_area_id }}'</h3>
+
+{% else %}
+
+	  {% comment %}
+	  <div {% if add_politician_form.errors %}style="display: block"{% endif %}>
+	  {% endcomment %}
+
+	    <form method="post" id="new-politician-form" action="{% url 'create-politician-view' area_id=area.id %}">
+	      {% csrf_token %}
+	        {% for field in form %}
+	          <p>
+	            {{ field.errors }}
+	            {{ field.label_tag }} {{ field }}
+	          </p>
+	        {% endfor %}
+	      <input type="submit" class="button" value="{% trans "Add new politician" %}">
+	    </form>
+
+	  </div>
+
+
+{% endif %}
+
+{% endblock %}

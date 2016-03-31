@@ -199,6 +199,9 @@ class PoliticiansView(PoliticiansTemplateView):
         setattr(object_, new_attribute_name, getattr(object_, old_attribute_name))
         delattr(object_, old_attribute_name)
 
+    def __generatePersonUrl(self, person):
+        person.url = reverse('person-view', kwargs={'person_id': person.id, 'ignored_slug': person.name})
+
     def __getAreaMemberships(self, areaId):
         executivePower = pmodels.Organization.objects.only('id','name').get(name='Poder Ejecutivo')
         memberships = pmodels.Membership.objects.select_related('organization','post','person').filter(organization__classification='goverment', area_id=areaId)
@@ -206,6 +209,7 @@ class PoliticiansView(PoliticiansTemplateView):
             self.__rename_attribute(membership, '_organization_cache', 'organization')
             self.__rename_attribute(membership, '_post_cache', 'post')
             self.__rename_attribute(membership, '_person_cache', 'person')
+            self.__generatePersonUrl(membership.person)
         return self.__createOrganismsList(memberships, executivePower.id)
 
     def __createMembershipsDict(self, memberships, parentId):
@@ -244,6 +248,9 @@ class PoliticiansView(PoliticiansTemplateView):
 
         context['internal_areas_count'] = pmodels.Area.objects.filter(parent_id=areaId).count()
         context['area_name'] = parentArea.name
+        context['area_id'] = areaId
+        context['redirect_after_login'] = reverse('create-politician-view', kwargs={'area_id': areaId})
+        context['politician_list_edits_allowed'] = get_edits_allowed(self.request.user, False)
         context['internal_areas_url'] = '/politicians-areas/' + kwargs['type_and_area_ids'] + '/' + slugify(parentArea.name)
         context['bread_crumb'] = self.breadCrumb
         context['memberships'] = self.__getAreaMemberships(areaId)

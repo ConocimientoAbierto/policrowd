@@ -1,10 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n %}
 
-{% load metadescription %}
-{% load standing %}
-{% load exists %}
-
 {% block title %} {{ area_name }} {% endblock %}
 
 {% block hero %}
@@ -13,22 +9,37 @@
 
 {% block content %}
 
-  {% if internal_areas_count > 0 %}
+	<div style="display-block">
+  
+    {% if internal_areas_count > 0 %}
 
-	  <h2>
-	  	<a href="{{ internal_areas_url }}">{% trans "Internal Areas" %}</a>
-	  </h2>
+		  <h2 style="float:left">
+		  	<a href="{{ internal_areas_url }}">{% trans "Internal Areas" %}</a>
+		  </h2>
+
+    {% endif %}
+	
+		<div style="float:right">
+		  {% if politician_list_edits_allowed %}
+	      <a href="{% url 'create-politician-view' area_id=area_id %}" class="button">{% trans "Add a new candidate" %}</a>
+	    {% else %}
+	      <a href="{% url 'account_login' %}{% if redirect_after_login %}?next={{ redirect_after_login }}{% endif %}" class="button">{% trans "Sign in to add a new politician" %}</a>
+	    {% endif %}
+		</div>
+	
+	</div>
 
 	  <hr>
 
-  {% endif %}
   
   {% for membership_indent, membership in memberships %}
 
 			<div style="padding-left:{{ membership_indent }}px">
       	<h3>{{ membership.organization.name }}</h3>
 	      <img style="background-color:#ddd;display:inline-block;height:60px" src="/static/candidates/img/blank-man.png">
-	      <h4 style="display:inline-block">{{ membership.post.role }} - {{ membership.person.name }} {{ membership.person.family_name }}</h4>
+	      <h4 style="display:inline-block">
+	      	{{ membership.post.role }} - <a href="{{ membership.person.url }}">{{ membership.person.name }} {{ membership.person.family_name }}</a> 
+	      </h4>
 			</div>
 
   {% endfor %}

@@ -347,18 +347,55 @@ class NewPersonForm(BasePersonForm):
         cleaned_data = super(NewPersonForm, self).clean()
         return self.check_party_and_constituency_are_selected(cleaned_data)
 
+class NewPoliticianForm(BasePersonForm):
+
+    def __init__(self, *args, **kwargs):
+        super(NewPoliticianForm, self).__init__(*args, **kwargs)
+
+    source = forms.CharField(
+        label=_("Source of information ({0})").format(
+            settings.SOURCE_HINTS
+        ),
+        max_length=512,
+        error_messages={
+            'required': _('You must indicate how you know about this candidate')
+        },
+        widget=forms.TextInput(
+            attrs={
+                'required': 'required',
+                'placeholder': _('How you know about this candidate')
+            }
+        )
+    )
+
+    '''
+    posts = forms.ChoiceField(
+        label = _('Existing Posts for the Politician'),
+        choices = [(post.id, post.role) for post in Post.objects.all()],
+        required = False
+    )
+
+    post = forms.CharField(
+        label=_("Post"),
+        max_length=256,
+        required=True,
+    )
+    '''
+
+
 class UpdatePersonForm(BasePersonForm):
 
     def __init__(self, *args, **kwargs):
-        from .election_specific import shorten_post_label
+        #from .election_specific import shorten_post_label
         super(UpdatePersonForm, self).__init__(*args, **kwargs)
 
-        self.elections_with_fields = Election.objects.current().by_date()
+        #self.elections_with_fields = Election.objects.current().by_date()
 
         # The fields on this form depends on how many elections are
         # going on at the same time. (FIXME: this might be better done
         # with formsets?)
 
+        '''
         for election_data in self.elections_with_fields:
             election = election_data.slug
             self.fields['standing_' + election] = \
@@ -411,6 +448,30 @@ class UpdatePersonForm(BasePersonForm):
                             }
                         )
                     )
+        '''
+
+    first_areas = forms.CharField(
+        label = _("Select Area for the Post"),
+        required=False,
+        widget = forms.Select()
+    )
+
+    second_areas = forms.CharField(
+        label = _("Select internal Area for the Post (optional)"),
+        required=False,
+        widget = forms.Select()
+    )
+
+    posts = forms.CharField(
+        label = _("Select an existing Post"),
+        required=False,
+        widget = forms.Select()
+    )
+
+    other_post = forms.CharField(
+        label = _("Propose a new Post"),
+        required=False
+    )
 
     source = forms.CharField(
         label=_("Source of information for this change ({0})").format(
@@ -428,10 +489,11 @@ class UpdatePersonForm(BasePersonForm):
         )
     )
 
+    '''
     def clean(self):
         cleaned_data = super(UpdatePersonForm, self).clean()
         return self.check_party_and_constituency_are_selected(cleaned_data)
-
+    '''
 
 class UserTermsAgreementForm(forms.Form):
 
