@@ -453,25 +453,31 @@ class UpdatePersonForm(BasePersonForm):
 
     first_areas = forms.CharField(
         label = _("Select Area for the Post"),
-        required=False,
+        required = False,
         widget = forms.Select()
     )
 
     second_areas = forms.CharField(
         label = _("Select internal Area for the Post (optional)"),
-        required=False,
+        required = False,
+        widget = forms.Select()
+    )
+
+    organization = forms.CharField(
+        label = _("Select an Organization"),
+        required = False,
         widget = forms.Select()
     )
 
     posts = forms.CharField(
         label = _("Select an existing Post"),
-        required=False,
+        required = False,
         widget = forms.Select()
     )
 
     other_post = forms.CharField(
         label = _("Propose a new Post"),
-        required=False
+        required = False
     )
 
     start_date = forms.DateField(

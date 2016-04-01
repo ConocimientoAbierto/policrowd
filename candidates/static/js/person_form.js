@@ -155,6 +155,7 @@ function clearPostsView(){
   $('#id_first_areas').val(-1);
   $('#id_second_areas').find('option').remove();
   $('#id_posts').find('option').remove();
+  $('#id_organization').find('option').remove();
   $('#id_other_post').val('');
   $('#id_start_date').val('');
   $('#id_end_date').val('');
@@ -173,7 +174,21 @@ function fillPostsCombo(id, posts){
   });
 }
 
-function setPostsEvents(areasTree) {
+function fillOrganizationsCombo(id, organizations){
+  $(id).find('option').remove();
+  $(id).append($("<option></option>").attr("value", -1).text(" ")); 
+  organizations.forEach(function(organization){
+    $(id)
+      .append(
+        $("<option></option>")
+        .attr("value", organization.id)
+        .text(organization.name)
+      ); 
+  });
+}
+
+function setMembershipsEvents(areasTree) {
+  $('#isAdd').val("0");
   var firstAreasComboId = '#id_first_areas';
   fillAreasCombo(firstAreasComboId, areasTree);
   $(firstAreasComboId).val(-1);
@@ -193,10 +208,10 @@ function setPostsEvents(areasTree) {
   });
 
   $(firstAreasComboId).change(function(eventData){
-    var parentName = $(this).find("option:selected").text();
-    var parentId = $(this).find("option:selected").val();
-    if (parentId != -1){
-      var internalAreas = window.areasTree[parentName]['internal_areas'];
+    var parentAreaName = $(this).find("option:selected").text();
+    var parentAreaId = $(this).find("option:selected").val();
+    if (parentAreaId != -1){
+      var internalAreas = window.areasTree[parentAreaName]['internal_areas'];
       
       var secondAreasComboId = '#id_second_areas';
       fillAreasCombo(secondAreasComboId, internalAreas);
@@ -204,15 +219,48 @@ function setPostsEvents(areasTree) {
       $('.second_areas').slideDown();
 
       var postsComboId = '#id_posts';
-      fillPostsCombo(postsComboId, window.posts[parentId]);
+      var postsList = [];
+      if (window.posts.hasOwnProperty(parentAreaId)){
+        postsList = window.posts[parentAreaId];
+      }
+      fillPostsCombo(postsComboId, postsList);
       $(postsComboId).val(-1);
       $('.posts').slideDown();
+      $('.other_post').slideDown();
+
+      var organizationsComboId = '#id_organization';
+      var organizationsList = [];
+      if (window.organizations.hasOwnProperty(parentAreaId)){
+        organizationsList = window.organizations[parentAreaId];
+      }
+      fillOrganizationsCombo(organizationsComboId, organizationsList);
+      $(organizationsComboId).val(-1);
+      $('.organizations').slideDown();
 
       $('.dates').slideDown();
+
     } else {
       $('.second_areas').slideUp();
       $('.posts').slideUp();
+      $('.other_post').slideUp();
+      $('.organizations').slideUp();
       $('.dates').slideUp();
+    }
+  });
+
+  $('#id_second_areas').change(function(eventData){
+    var areaId = $(this).find("option:selected").val();
+    if (areaId != -1){
+      fillOrganizationsCombo(organizationsComboId, window.organizations[areaId]);
+    }
+  });
+
+  $('#id_posts').change(function(eventData){
+    var postId = $(this).find("option:selected").val();
+    if (postId == -1) {
+      $('.other_post').slideDown();
+    } else {
+      $('.other_post').slideUp();
     }
   });
 }
@@ -227,11 +275,14 @@ $(document).ready(function() {
   });
 
   $.getJSON('/areas-tree.json', function(areasTree) {
-    $.getJSON('/posts-by-area.json', function(postsByArea){
-      window.posts = postsByArea;
+    $.getJSON('/organizations-by-area.json', function(organizationsByArea) {
+      $.getJSON('/posts-by-area.json', function(postsByArea){
+        window.posts = postsByArea;
+      });
+      window.organizations = organizationsByArea;
     });
     window.areasTree = areasTree;
-    setPostsEvents(areasTree);
+    setMembershipsEvents(areasTree);
   });
 
   $( ".datepicker" ).datepicker({

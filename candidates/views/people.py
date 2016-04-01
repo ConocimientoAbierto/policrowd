@@ -418,31 +418,35 @@ class UpdatePersonView(LoginRequiredMixin, FormView):
 
     def validateAddPost(self, request, form):
         isAdding = int(request.POST.get('isAdd')) == 1
+        form.isAddingMembership = isAdding
         if isAdding:
-            first_areas_value = int(request.POST.get('first_areas'))
-            if (first_areas_value == -1):
+            first_areas = int(request.POST.get('first_areas'))
+            if (first_areas == -1):
                 form.add_error('first_areas', _('An Area is Required'))
             else:
-                self.areaId = first_areas_value
-                second_areas_value = int(request.POST.get('second_areas'))
-                if second_areas_value != -1:
-                    self.areaId = second_areas_value
-                posts_value = int(request.POST.get('posts'))
-                self.postId = None
-                if posts_value != -1:
-                    self.postId = posts_value
-                else:
-                    self.other_post = request.POST.get('other_post')
-                    if self.other_post == '' or self.other_post is None:
+                posts = int(request.POST.get('posts'))
+                if posts == -1:
+                    other_post = request.POST.get('other_post')
+                    if other_post == '' or other_post is None:
                         form.add_error('posts', _('A Post is Required'))
 
+                start_date = request.POST.get('start_date')
+                if (start_date == None or start_date == ''):
+                    form.add_error('start_date', _('A Starting Date is Required'))
+                end_date = request.POST.get('end_date')
+                if (end_date == None or end_date == ''):
+                    form.add_error('end_date', _('An Ending Date is Required'))
+                    
                 try:
-                    self.start_date = datetime.strptime(request.POST.get('start_date'), "%Y-%m-%d")
-                    self.end_date = datetime.strptime(request.POST.get('end_date'), "%Y-%m-%d")
-                    if self.start_date > self.end_date:
+                    parsed_start_date = datetime.strptime(start_date, "%Y-%m-%d")
+                    parsed_end_date = datetime.strptime(end_date, "%Y-%m-%d")
+                    if parsed_start_date > parsed_end_date:
                         form.add_error('end_date', _('End date must be greater than Start date'))
                 except ValueError: pass
 
+                organization = int(request.POST.get('organization'))
+                if organization == -1:
+                    form.add_error('organization', _('An Organization is required'))
 
     def post(self, request, *args, **kwargs):
         form = self.get_form()
@@ -465,15 +469,13 @@ class UpdatePersonView(LoginRequiredMixin, FormView):
             )
             old_name = person.name
             person_extra = person.extra
-            old_candidacies = person_extra.current_candidacies
+            #old_candidacies = person_extra.current_candidacies
+            #old_memberships = person_extra.current_memberships
             person_extra.update_from_form(form)
             new_name = person_extra.base.name
-            new_candidacies = person_extra.current_candidacies
-            check_update_allowed(
-                self.request.user,
-                old_name, old_candidacies,
-                new_name, new_candidacies
-            )
+            #new_candidacies = person_extra.current_candidacies
+            #new_memberships = person_extra.current_memberships
+            check_update_allowed(self.request.user, old_name, new_name)
             change_metadata = get_change_metadata(
                 self.request, form.cleaned_data.pop('source')
             )

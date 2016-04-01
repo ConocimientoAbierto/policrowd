@@ -224,6 +224,11 @@ patterns_to_format = [
         'name': 'posts-by-area'
     },
     {
+        'pattern': r'^organizations-by-area.json$',
+        'view': views.OrganizationsByArea.as_view(),
+        'name': 'organizations-by-area'
+    },
+    {
         'pattern': r'^version.json',
         'view': views.VersionView.as_view(),
         'name': 'version'

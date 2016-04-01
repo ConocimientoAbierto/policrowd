@@ -16,7 +16,7 @@ from images.models import Image
 from candidates import serializers
 from candidates import models as extra_models
 from elections.models import AreaType, Election
-from popolo.models import Area, Membership, Person, Post
+from popolo.models import Area, Membership, Person, Post, Organization
 from rest_framework import viewsets
 
 from compat import text_type
@@ -175,6 +175,26 @@ class PostsByArea(View):
         
         return HttpResponse(
             json.dumps(postsDict, sort_keys=True), content_type='application/json'
+        )
+
+class OrganizationsByArea(View):
+
+    http_method_names = ['get']
+
+    def __createDict(self, organizations):
+        organizationsDict = {}
+        for organizations in organizations:
+            if not organizations.area_id in organizationsDict:
+                organizationsDict[organizations.area_id] = []
+            organizationsDict[organizations.area_id].append({'id':organizations.id, 'name':organizations.name})
+        return organizationsDict
+
+    def get(self, request, *args, **kwargs):
+        organizations = Organization.objects.only('id','name','area_id').filter(classification='goverment')
+        organizationsDict = self.__createDict(organizations)
+        
+        return HttpResponse(
+            json.dumps(organizationsDict, sort_keys=True), content_type='application/json'
         )
 
 # Now the django-rest-framework based API views:

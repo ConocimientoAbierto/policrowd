@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+import datetime
 from datetime import date
 import json
 from os.path import join
@@ -62,6 +63,35 @@ def update_person_from_form(person, person_extra, form):
             )
     person.save()
     person_extra.save()
+
+    dateNow = datetime.datetime.now()
+
+    # Add Membership
+    if form.isAddingMembership:
+        membership = Membership(
+            created_at = dateNow,
+            updated_at = dateNow,
+            start_date = form_data['start_date'].strftime("%Y-%m-%d"),
+            end_date = form_data['end_date'].strftime("%Y-%m-%d"),
+            label = '',
+            role = '',
+            organization_id = form_data['organization'],
+            person_id = person.id,
+        )
+
+        if form_data['other_post'] != '' and not form_data['other_post'] is None:
+            membership.role = form_data['other_post']
+        else:
+            membership.post_id = form_data['posts']
+
+        if form_data['second_areas'] != "-1":
+            membership.area_id = form_data['second_areas']
+        else:
+            membership.area_id = form_data['first_areas']
+
+        membership.save()
+
+    '''
     for election_data in form.elections_with_fields:
         post_id = form_data.get('constituency_' + election_data.slug)
         standing = form_data.pop('standing_' + election_data.slug, 'standing')
@@ -110,7 +140,7 @@ def update_person_from_form(person, person_extra, form):
             )
         elif standing == 'not-standing':
             person_extra.not_standing.add(election_data)
-
+    '''
 
 class localparserinfo(parser.parserinfo):
     MONTHS = [
@@ -216,6 +246,11 @@ class PersonExtra(HasImageMixin, models.Model):
         ).select_related('person', 'on_behalf_of', 'post') \
             .prefetch_related('post__extra')
         return list(result)
+
+    @property
+    def current_memberships(self):
+        pass
+
 
     @property
     def last_candidacy(self):

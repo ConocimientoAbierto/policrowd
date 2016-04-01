@@ -89,11 +89,19 @@
           {{ form.second_areas }}
         </div>
 
+        <div style="display:none;" class="organizations">
+          {{ form.organization.errors }}
+          {{ form.organization.label }}
+          {{ form.organization }}
+        </div>
+
         <div style="display:none;" class="posts">
           {{ form.posts.errors }}
           {{ form.posts.label }}
           {{ form.posts }}
-
+        </div>
+        
+        <div style="display:none;" class="other_post">
           <p><i>{% trans "Or" %}</i></p>
 
           {{ form.other_post.label }}

@@ -56,7 +56,7 @@ def check_creation_allowed(user, new_candidacies):
                 _("The candidates for this post are locked now")
             )
 
-def check_update_allowed(user, old_name, old_candidacies, new_name, new_candidacies):
+def check_update_allowed(user, old_name, new_name):
     # Check whether an unauthorized user has tried to rename someone
     # while RESTRICT_RENAMES is set:
     if settings.RESTRICT_RENAMES:
@@ -67,6 +67,11 @@ def check_update_allowed(user, old_name, old_candidacies, new_name, new_candidac
             raise NameChangeDisallowedException(message.format(
                 old_name, new_name, user.username
             ))
+    
+    # TODO: Check if Posts are Locked
+    # old_memberships and new_memberships
+
+    '''
     # Check that none of the posts that the person's leaving or
     # joining were locked:
     old_posts = set(c.post for c in old_candidacies)
@@ -95,3 +100,4 @@ def check_update_allowed(user, old_name, old_candidacies, new_name, new_candidac
                       post_label=post.label
                   )
             )
+    '''

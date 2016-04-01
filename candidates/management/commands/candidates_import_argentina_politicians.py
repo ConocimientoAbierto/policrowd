@@ -32,8 +32,8 @@ class Command(BaseCommand):
         membership = Membership(
             created_at = date,
             updated_at = date,
-            label = role,
-            role = role,
+            label = '',
+            role = '',
             organization_id = organizationId,
             person_id = personId,
             post_id = postId,
