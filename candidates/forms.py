@@ -17,6 +17,7 @@ from django.utils.translation import ugettext_lazy as _
 from candidates.models import PartySet, parse_approximate_date, ExtraField, SimplePopoloField
 from popolo.models import Organization, Post
 
+
 class AddressForm(forms.Form):
     address = forms.CharField(
         label=_('Enter your address or town'),
@@ -471,6 +472,26 @@ class UpdatePersonForm(BasePersonForm):
     other_post = forms.CharField(
         label = _("Propose a new Post"),
         required=False
+    )
+
+    start_date = forms.DateField(
+        label = _("Start Date"),
+        required = False,
+        widget = forms.TextInput(
+            attrs = {
+                'class':'datepicker'
+            }
+        )
+    )
+
+    end_date = forms.DateField(
+        label = _("End Date"),
+        required = False,
+        widget = forms.TextInput(
+            attrs = {
+                'class':'datepicker'
+            }
+        )
     )
 
     source = forms.CharField(

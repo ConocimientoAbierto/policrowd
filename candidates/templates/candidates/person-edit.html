@@ -98,7 +98,17 @@
 
           {{ form.other_post.label }}
           {{ form.other_post }}
-        </div>        
+        </div>
+
+        <div style="display:none;" class="dates">
+          {{ form.start_date.errors }}
+          {{ form.start_date.label }}
+          {{ form.start_date }}
+
+          {{ form.end_date.errors }}
+          {{ form.end_date.label }}
+          {{ form.end_date }}
+        </div>
 
         <a id="hide_post_btn" class="button">{% trans "Hide" %}</a>        
 

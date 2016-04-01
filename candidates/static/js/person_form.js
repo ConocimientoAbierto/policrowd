@@ -156,6 +156,8 @@ function clearPostsView(){
   $('#id_second_areas').find('option').remove();
   $('#id_posts').find('option').remove();
   $('#id_other_post').val('');
+  $('#id_start_date').val('');
+  $('#id_end_date').val('');
 }
 
 function fillPostsCombo(id, posts){
@@ -205,9 +207,12 @@ function setPostsEvents(areasTree) {
       fillPostsCombo(postsComboId, window.posts[parentId]);
       $(postsComboId).val(-1);
       $('.posts').slideDown();
+
+      $('.dates').slideDown();
     } else {
       $('.second_areas').slideUp();
       $('.posts').slideUp();
+      $('.dates').slideUp();
     }
   });
 }
@@ -229,6 +234,10 @@ $(document).ready(function() {
     setPostsEvents(areasTree);
   });
 
-  
+  $( ".datepicker" ).datepicker({
+    changeMonth: true,
+    changeYear: true,
+    dateFormat: 'yy-mm-dd'
+  });
 
 });

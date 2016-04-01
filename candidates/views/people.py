@@ -436,6 +436,14 @@ class UpdatePersonView(LoginRequiredMixin, FormView):
                     if self.other_post == '' or self.other_post is None:
                         form.add_error('posts', _('A Post is Required'))
 
+                try:
+                    self.start_date = datetime.strptime(request.POST.get('start_date'), "%Y-%m-%d")
+                    self.end_date = datetime.strptime(request.POST.get('end_date'), "%Y-%m-%d")
+                    if self.start_date > self.end_date:
+                        form.add_error('end_date', _('End date must be greater than Start date'))
+                except ValueError: pass
+
+
     def post(self, request, *args, **kwargs):
         form = self.get_form()
         self.validateAddPost(request, form)
