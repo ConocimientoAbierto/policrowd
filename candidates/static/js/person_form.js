@@ -178,6 +178,7 @@ function setPostsEvents(areasTree) {
 
   $('#add_post_btn').click(function(){
     clearPostsView();
+    $('#isAdd').val("1");
     $('#post_view').slideDown();
     $(this).slideUp();
   });
@@ -185,6 +186,7 @@ function setPostsEvents(areasTree) {
   $('#hide_post_btn').click(function(){
     $('#post_view').slideUp();
     clearPostsView();
+    $('#isAdd').val("0");
     $('#add_post_btn').slideDown();
   });
 

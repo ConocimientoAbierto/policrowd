@@ -417,16 +417,29 @@ class UpdatePersonView(LoginRequiredMixin, FormView):
         return context
 
     def validateAddPost(self, request, form):
-        first_areas_value = int(request.POST.get('first_areas'))
-        if (first_areas_value == -1):
-            print "AGREGO ERROR"
-            form.add_error('first_areas', _('An Area is Required'))
+        isAdding = int(request.POST.get('isAdd')) == 1
+        if isAdding:
+            first_areas_value = int(request.POST.get('first_areas'))
+            if (first_areas_value == -1):
+                form.add_error('first_areas', _('An Area is Required'))
+            else:
+                self.areaId = first_areas_value
+                second_areas_value = int(request.POST.get('second_areas'))
+                if second_areas_value != -1:
+                    self.areaId = second_areas_value
+                posts_value = int(request.POST.get('posts'))
+                self.postId = None
+                if posts_value != -1:
+                    self.postId = posts_value
+                else:
+                    self.other_post = request.POST.get('other_post')
+                    if self.other_post == '' or self.other_post is None:
+                        form.add_error('posts', _('A Post is Required'))
 
     def post(self, request, *args, **kwargs):
         form = self.get_form()
         self.validateAddPost(request, form)
         if form.is_valid():
-        #if False:
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
