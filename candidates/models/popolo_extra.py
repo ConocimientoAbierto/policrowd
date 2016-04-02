@@ -67,7 +67,7 @@ def update_person_from_form(person, person_extra, form):
     dateNow = datetime.datetime.now()
 
     # Add Membership
-    if form.isAddingMembership:
+    if hasattr(form, 'isAddingMembership') and form.isAddingMembership:
         membership = Membership(
             created_at = dateNow,
             updated_at = dateNow,
@@ -90,6 +90,9 @@ def update_person_from_form(person, person_extra, form):
             membership.area_id = form_data['first_areas']
 
         membership.save()
+
+    if hasattr(form, 'deletedMemberships') and form.deletedMemberships:
+        Membership.objects.filter(pk__in = form.deletedMemberships).delete()
 
     '''
     for election_data in form.elections_with_fields:

@@ -236,7 +236,6 @@ class PoliticiansView(PoliticiansTemplateView):
 
     def __createOrganismsList(self, memberships, executivePowerId):
         organismsDict = self.__createMembershipsDict(memberships, executivePowerId)
-        print organismsDict
         organismsList = []
         self.__createOrganismsListR(organismsDict, organismsList, 0)
 

@@ -416,6 +416,16 @@ class UpdatePersonView(LoginRequiredMixin, FormView):
 
         return context
 
+    def rememberDeletedMemberships(self, request, form):
+        form.deletedMemberships = []
+        substring = "is_deleted_"
+        for key in request.POST.keys():
+            if substring in key:
+                isDeleted = int(request.POST[key])
+                if isDeleted == 1:
+                    membershipId = int(key.replace(substring, ""))
+                    form.deletedMemberships.append(membershipId)
+
     def validateAddPost(self, request, form):
         isAdding = int(request.POST.get('isAdd')) == 1
         form.isAddingMembership = isAdding
@@ -450,6 +460,7 @@ class UpdatePersonView(LoginRequiredMixin, FormView):
 
     def post(self, request, *args, **kwargs):
         form = self.get_form()
+        self.rememberDeletedMemberships(request, form)
         self.validateAddPost(request, form)
         if form.is_valid():
             return self.form_valid(form)

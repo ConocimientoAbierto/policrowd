@@ -126,13 +126,13 @@
       
       {% if last_membership %}
         <h2>{% trans "Last Post:" %}</h2> 
-        {% include 'candidates/person_membership.html' with membership=last_membership %}
+        {% include 'candidates/person_membership.html' with membership=last_membership isEdittingPolitician=True %}
       {% endif %}
 
       {% if old_memberships %}
         <h2>{% trans "Older Posts:" %}</h2>  
         {% for m in old_memberships %}
-          {% include 'candidates/person_membership.html' with membership=m %}
+          {% include 'candidates/person_membership.html' with membership=m isEdittingPolitician=True  %}
         {% endfor %}
       {% endif %}
 

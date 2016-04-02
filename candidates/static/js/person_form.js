@@ -189,6 +189,8 @@ function fillOrganizationsCombo(id, organizations){
 
 function setMembershipsEvents(areasTree) {
   $('#isAdd').val("0");
+  $("input[id*='is_deleted_']").val("0");
+
   var firstAreasComboId = '#id_first_areas';
   fillAreasCombo(firstAreasComboId, areasTree);
   $(firstAreasComboId).val(-1);
@@ -205,6 +207,26 @@ function setMembershipsEvents(areasTree) {
     clearPostsView();
     $('#isAdd').val("0");
     $('#add_post_btn').slideDown();
+  });
+
+  $("a[id*='delete_']").click(function(){
+    var name = $(this).attr('id');
+    console.log(name);
+    membershipId = name.replace('delete_', '');
+    console.log(membershipId);
+    $("#is_deleted_" + membershipId).val('1');
+    $(this).hide();
+    $('#undo_delete_' + membershipId).show();
+  });
+
+  $("a[id*='undo_delete_']").click(function(){
+    var name = $(this).attr('id');
+    console.log(name);
+    membershipId = name.replace('undo_delete_', '');
+    console.log(membershipId);
+    $("#is_deleted_" + membershipId).val('0');
+    $(this).hide();
+    $('#delete_' + membershipId).show();
   });
 
   $(firstAreasComboId).change(function(eventData){
