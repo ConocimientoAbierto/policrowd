@@ -17,12 +17,12 @@ class Command(BaseCommand):
     #executivePowerCache --> <Organization>
     executivePowerCache = None
     def prepareExecutivePowerCache(self):
-        self.executivePowerCache = Organization.objects.get(name='Poder Ejecutivo')
+        self.executivePowerCache = Organization.objects.get_or_create(name='Poder Ejecutivo')[0]
 
     #argentinaCache --> <Area>
     argentinaCache = None
     def prepareArgentinaCache(self):
-        self.argentinaCache = Area.objects.get(name='Argentina')
+        self.argentinaCache = Area.objects.get_or_create(name='Argentina')[0]
 
     def prepareCaches(self):
         self.prepareExecutivePowerCache()
