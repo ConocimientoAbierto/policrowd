@@ -46,7 +46,8 @@ class Command(BaseCommand):
     #provincesAreasCache --> { <name> : <id> }
     provincesAreasCache = {}
     def prepareProvincesAreasCache(self):
-        argentinaId = Area.objects.only('id').get(name='Argentina').id
+        date = time.strftime('%Y-%m-%d %H:%M:%S')
+        argentinaId = Area.objects.get_or_create(name='Argentina', defaults={'created_at':date, 'updated_at':date})[0].id
         provinces = Area.objects.only('name', 'id').filter(parent_id=argentinaId)
 
         for area in provinces:
@@ -56,6 +57,7 @@ class Command(BaseCommand):
     areaTypesCache = {}
     def prepareAreaTypesCache(self):
         areaTypes = AreaType.objects.only('name', 'id').all()
+        AreaType.objects.get_or_create(name="MUN")
 
         for areaType in areaTypes:
             self.areaTypesCache[areaType.name] = areaType.id
