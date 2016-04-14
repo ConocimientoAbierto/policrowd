@@ -14,19 +14,25 @@ from candidates.models.popolo_extra import OrganizationExtra, PersonExtra
 class Command(BaseCommand):
     help = "Imports politicians from 'estructura-organica.csv' to DB (popolo_organization)"
 
-    #executivePowerCache --> <Organization>
-    executivePowerCache = None
-    def prepareExecutivePowerCache(self):
-        self.executivePowerCache = Organization.objects.get(name='Poder Ejecutivo')
-
     #argentinaCache --> <Area>
     argentinaCache = None
     def prepareArgentinaCache(self):
         self.argentinaCache = Area.objects.get(name='Argentina')
 
+    #executivePowerCache --> <Organization>
+    executivePowerCache = None
+    def prepareExecutivePowerCache(self):
+        date = time.strftime('%Y-%m-%d %H:%M:%S')
+        self.executivePowerCache = Organization.objects.get_or_create(name='Poder Ejecutivo', defaults={
+            'created_at': date,
+            'updated_at': date,
+            'area_id': self.argentinaCache.id,
+            'classification': 'goverment'
+        })[0]
+
     def prepareCaches(self):
-        self.prepareExecutivePowerCache()
         self.prepareArgentinaCache()
+        self.prepareExecutivePowerCache()
 
     def createMermbership(self, date, role, organizationId, personId, postId):
         membership = Membership(
