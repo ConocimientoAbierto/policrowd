@@ -4,7 +4,7 @@
 {% block title %} {{ area_name }} {% endblock %}
 
 {% block hero %}
-  <h1>{% include 'candidates/area_breadcrumb.html' %} {{ area_name }}</h1>
+    <h1>{% include 'candidates/area_breadcrumb.html' %} {{ area_name }}</h1>
 {% endblock %}
 
 {% block content %}
@@ -13,17 +13,17 @@
   
     {% if internal_areas_count > 0 %}
 
-		  <h2 style="float:left">
+		<h2 style="float:left">
 		  	<a href="{{ internal_areas_url }}">{% trans "Internal Areas" %}</a>
-		  </h2>
+		</h2>
 
     {% endif %}
 	
 		<div style="float:right">
-		  {% if politician_list_edits_allowed %}
-	      <a href="{% url 'create-politician-view' area_id=area_id %}" class="button">{% trans "Add a new candidate" %}</a>
+			{% if politician_list_edits_allowed %}
+		    <a href="{% url 'create-politician-view' area_id=area_id %}" class="button">{% trans "Add a new candidate" %}</a>
 	    {% else %}
-	      <a href="{% url 'account_login' %}{% if redirect_after_login %}?next={{ redirect_after_login }}{% endif %}" class="button">{% trans "Sign in to add a new politician" %}</a>
+	        <a href="{% url 'account_login' %}{% if redirect_after_login %}?next={{ redirect_after_login }}{% endif %}" class="button">{% trans "Sign in to add a new politician" %}</a>
 	    {% endif %}
 		</div>
 	
@@ -31,17 +31,22 @@
 
 	  <hr>
 
-  
-  {% for membership_indent, membership in memberships %}
+    {% for powerName, membershipList in memberships.items %}
 
-			<div style="padding-left:{{ membership_indent }}px">
-      	<h3>{{ membership.organization.name }}</h3>
-	      <img style="background-color:#ddd;display:inline-block;height:60px" src="/static/candidates/img/blank-man.png">
-	      <h4 style="display:inline-block">
-	      	{{ membership.post.role }} - <a href="{{ membership.person.url }}">{{ membership.person.name }} {{ membership.person.family_name }}</a> 
-	      </h4>
-			</div>
+	  	<div>
+	  		<h2>{{ powerName }}</h2>
+	  		{% for membership_indent, membership in membershipList %}
+				<div style="padding-left:{{ membership_indent }}px">
+		      		<h3>{{ membership.organization.name }}</h3>
+			        <img style="background-color:#ddd;display:inline-block;height:60px" src="/static/candidates/img/blank-man.png">
+					<h4 style="display:inline-block">
+						{{ membership.post.role }} - <a href="{{ membership.person.url }}">{{ membership.person.name }} {{ membership.person.family_name }}</a> 
+					</h4>
+				</div>
+	  		{% endfor %}
+	  		<hr>
+	  	</div>
 
-  {% endfor %}
+    {% endfor %}
 
 {% endblock %}

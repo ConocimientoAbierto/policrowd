@@ -199,45 +199,46 @@ class PoliticiansView(PoliticiansTemplateView):
         setattr(object_, new_attribute_name, getattr(object_, old_attribute_name))
         delattr(object_, old_attribute_name)
 
-    def __generatePersonUrl(self, person):
-        person.url = reverse('person-view', kwargs={'person_id': person.id, 'ignored_slug': person.name})
-
-    def __getAreaMemberships(self, areaId):
-        executivePower = pmodels.Organization.objects.only('id','name').get(name='Poder Ejecutivo')
-        memberships = pmodels.Membership.objects.select_related('organization','post','person').filter(organization__classification='goverment', area_id=areaId)
+    def __renameMembershipsProperties(self, memberships):
         for membership in memberships:
             self.__rename_attribute(membership, '_organization_cache', 'organization')
             self.__rename_attribute(membership, '_post_cache', 'post')
             self.__rename_attribute(membership, '_person_cache', 'person')
             self.__generatePersonUrl(membership.person)
-        return self.__createOrganismsList(memberships, executivePower.id)
 
-    def __createMembershipsDict(self, memberships, parentId):
+    def __generatePersonUrl(self, person):
+        person.url = reverse('person-view', kwargs={'person_id': person.id, 'ignored_slug': person.name})
+
+    def __getAreaMemberships(self, areaId):
+        powers = pmodels.Organization.objects.only('id','name').filter(parent_id=None)
+        organisms = {}
+        for power in powers:
+            organisms[power.name] = self.__createOrganismsList(power.id, areaId)
+        return organisms
+
+    def __createMembershipsDict(self, parentId, areaId):
         membershipsDict = {}
-        unusedMemberships = []
-        if memberships:
-            for membership in memberships:
-                if membership.organization.parent_id == parentId:
-                    membershipsDict[membership.organization.name] = membership.organization.id
-                    self.memberships[membership.organization.name] = membership
-                else:
-                    unusedMemberships.append(membership)
+        memberships = pmodels.Membership.objects.select_related('organization','post','person').filter(organization__classification='goverment', area_id=areaId, organization__parent_id=parentId)
+        self.__renameMembershipsProperties(memberships)
 
-            membershipsDict = {name: self.__createMembershipsDict(unusedMemberships, organismId) for name, organismId in membershipsDict.items()}
+        for membership in memberships:
+            organizationId = membership.organization.id
+            self.memberships[organizationId] = membership
+            membershipsDict[organizationId] = self.__createMembershipsDict(organizationId, areaId)
 
         return membershipsDict
 
     def __createOrganismsListR(self, membershipsDict, organismsList, indent):
-        for membershipName, children in membershipsDict.items():
-            membership = self.memberships[membershipName]
+        for organizationId, children in membershipsDict.items():
+            membership = self.memberships[organizationId]
             organismsList.append((indent, membership))
             if children:
                 self.__createOrganismsListR(children, organismsList, indent + 40)
 
-    def __createOrganismsList(self, memberships, executivePowerId):
-        organismsDict = self.__createMembershipsDict(memberships, executivePowerId)
+    def __createOrganismsList(self, powerId, areaId):
+        organismsDict = self.__createMembershipsDict(powerId, areaId)
         organismsList = []
-        self.__createOrganismsListR(organismsDict, organismsList, 0)
+        self.__createOrganismsListR(organismsDict, organismsList, 40)
 
         return organismsList
 
