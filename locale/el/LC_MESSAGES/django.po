@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YourNextMP\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-29 21:53+0100\n"
+"POT-Creation-Date: 2016-04-11 22:04+0100\n"
 "PO-Revision-Date: 2016-02-05 16:28+0000\n"
 "Last-Translator: mySociety <transifex@mysociety.org>\n"
 "Language-Team: Greek (http://www.transifex.com/mysociety/yournextmp/language/"
@@ -53,6 +53,7 @@ msgstr "Όνομα Θέσης"
 #: cached_counts/templates/constituency_counts.html:11
 #: cached_counts/templates/party_counts.html:11
 #: elections/ar_elections_2015/templates/party_counts.html:11
+#: elections/ar_policrowd_2016/templates/party_counts.html:11
 msgid "Number of Candidates"
 msgstr "Αριθμός Υποψηφίων "
 
@@ -63,12 +64,14 @@ msgstr "Αριθμός γνωστών %(election_name)s υποψηφίων αν�
 
 #: cached_counts/templates/party_counts.html:5
 #: elections/ar_elections_2015/templates/party_counts.html:5
+#: elections/ar_policrowd_2016/templates/party_counts.html:5
 #, python-format
 msgid "Number of known %(election_name)s candidates per party"
 msgstr "Αριθμός γνωστών %(election_name)s υποψηφίων ανά κόμμα"
 
 #: cached_counts/templates/party_counts.html:10
 #: elections/ar_elections_2015/templates/party_counts.html:10
+#: elections/ar_policrowd_2016/templates/party_counts.html:10
 msgid "Party Name"
 msgstr "Όνομα Κόμματος"
 
@@ -296,85 +299,85 @@ msgstr "Αλλαγές σε {site_name} υποψηφίους"
 msgid "Updated at {0}"
 msgstr "Ανανεώθηκε στις {0}"
 
-#: candidates/forms.py:22
+#: candidates/forms.py:23
 msgid "Enter your address or town"
 msgstr "Εισάγετε τη διεύθυνση ή την πόλη σας "
 
-#: candidates/forms.py:38 candidates/forms.py:503
+#: candidates/forms.py:39 candidates/forms.py:556
 msgid "Person ID"
 msgstr "Ταυτότητα ατόμου"
 
-#: candidates/forms.py:42
+#: candidates/forms.py:43
 msgid "Post ID"
 msgstr "Κωδικός Θέσης"
 
-#: candidates/forms.py:48
+#: candidates/forms.py:49
 #, python-brace-format
 msgid "Source of information that they're standing ({0})"
 msgstr "Πηγή της πληροφορίας ότι έθεσαν υποψηφιότητα ({0})"
 
-#: candidates/forms.py:56
+#: candidates/forms.py:57
 #, python-brace-format
 msgid "Information source for this change ({0})"
 msgstr "Πηγή πληροφοριών για αυτή την αλλαγή ({0})"
 
-#: candidates/forms.py:99 candidates/forms.py:123
+#: candidates/forms.py:100 candidates/forms.py:124
 #: candidates/templatetags/extra_field_value.py:26
 msgid "Don’t Know"
 msgstr "Δεν γνωρίζω"
 
-#: candidates/forms.py:100 candidates/forms.py:124
+#: candidates/forms.py:101 candidates/forms.py:125
 #: candidates/templatetags/extra_field_value.py:24
 msgid "Yes"
 msgstr "Ναι"
 
-#: candidates/forms.py:101 candidates/forms.py:125
+#: candidates/forms.py:102 candidates/forms.py:126
 #: candidates/templatetags/extra_field_value.py:25
 msgid "No"
 msgstr "Όχι"
 
-#: candidates/forms.py:129
+#: candidates/forms.py:130
 msgid "Wikipedia URL"
 msgstr "Σύνδεσμος σε Wikipedia"
 
-#: candidates/forms.py:134
+#: candidates/forms.py:135
 msgid "Homepage URL"
 msgstr "Σύνδεσμος Ιστοσελίδας"
 
-#: candidates/forms.py:139
+#: candidates/forms.py:140
 msgid "Twitter username (e.g. “democlub”)"
 msgstr "Όνομα χρήστη στο twitter (π.χ. \"democlub\")"
 
-#: candidates/forms.py:144
+#: candidates/forms.py:145
 msgid "Facebook profile URL"
 msgstr "Σύνδεσμος προφίλ στο Facebook"
 
-#: candidates/forms.py:149
+#: candidates/forms.py:150
 msgid "Facebook page (e.g. for their campaign)"
 msgstr "Σελίδα στο Facebook (π.χ. για την καμπάνια τους)"
 
-#: candidates/forms.py:154
+#: candidates/forms.py:155
 msgid "LinkedIn URL"
 msgstr "Σύνδεσμος σε "
 
-#: candidates/forms.py:159
+#: candidates/forms.py:160
 msgid "The party’s candidate page for this person"
 msgstr "Η σελίδα του υποψηφίου στην ιστοσελίδα του κόμματος"
 
-#: candidates/forms.py:172
+#: candidates/forms.py:173
 msgid ""
 "That date of birth could not be understood. Try using DD/MM/YYYY instead"
 msgstr ""
 "Η ημερομηνία γέννησης δεν έγινε κατανοητή. Χρησιμοποιήστε τη μορφή DD/MM/YYYY"
 
-#: candidates/forms.py:174
+#: candidates/forms.py:175
 msgid ""
 "That date of birth could not be understood. Try using MM/DD/YYYY instead"
 msgstr ""
 "Η ημερομηνία γέννησης δεν έγινε κατανοητή. Προσπαθείστε να χρησιμοποιήσετε "
 "τη μορφή  MM/DD/YYYY  (μήνας, μέρα, έτος) "
 
-#: candidates/forms.py:187
+#: candidates/forms.py:188
 msgid ""
 "The Twitter username must only consist of alphanumeric characters or "
 "underscore"
@@ -382,7 +385,7 @@ msgstr ""
 "Το όνομα χρήστη στο Twitter πρέπει να αποτελείται μόνο από γράμματα, "
 "αριθμούς και κάτω παύλα. "
 
-#: candidates/forms.py:210
+#: candidates/forms.py:211
 #, python-brace-format
 msgid ""
 "If you mark the candidate as standing in the {election}, you must select a "
@@ -391,12 +394,12 @@ msgstr ""
 "Εάν επισημάνετε αυτό το άτομο σαν υποψήφιο για τις {election}, πρέπει να "
 "επιλέξετε μια θέση"
 
-#: candidates/forms.py:217
+#: candidates/forms.py:218
 #, python-brace-format
 msgid "An unknown post ID '{post_id}' was specified"
 msgstr "Ένας άγνωστος κωδικός θέσης '{post_id}'  είχε οριστεί"
 
-#: candidates/forms.py:224
+#: candidates/forms.py:225
 #, python-brace-format
 msgid ""
 "Could not find parties for the post with ID '{post_id}' in the {election}"
@@ -404,66 +407,84 @@ msgstr ""
 "Δε μπορέσαμε να βρούμε κόμματα για την θέση με κωδικό '{post_id}' στις "
 "{election} "
 
-#: candidates/forms.py:236
+#: candidates/forms.py:237
 #, python-brace-format
 msgid "You must specify a party for the {election}"
 msgstr "Πρέπει να ορίσετε ένα κόμμα για τις {election}"
 
-#: candidates/forms.py:252 candidates/forms.py:402
+#: candidates/forms.py:253
 #, python-format
 msgid "Standing in %s"
 msgstr "Έθεσε υποψηφιότητα σε %s"
 
-#: candidates/forms.py:267 candidates/forms.py:278
+#: candidates/forms.py:268 candidates/forms.py:279
 #, python-brace-format
 msgid "Post in the {election}"
 msgstr "Αναρτήσεις στις {election}"
 
-#: candidates/forms.py:318
+#: candidates/forms.py:319
 #, python-brace-format
 msgid "Party in {election}"
 msgstr "Κόμμα στις {election}"
 
-#: candidates/forms.py:331 candidates/forms.py:356
+#: candidates/forms.py:332 candidates/forms.py:357
 #, python-brace-format
 msgid "Source of information ({0})"
 msgstr "Πηγή πληροφορίας ({0})"
 
-#: candidates/forms.py:336 candidates/forms.py:361 candidates/forms.py:457
+#: candidates/forms.py:337 candidates/forms.py:362 candidates/forms.py:509
 msgid "You must indicate how you know about this candidate"
 msgstr "Πρέπει να υποδείξετε πως ενημερώνεστε για αυτόν τον υποψήφιο"
 
-#: candidates/forms.py:341 candidates/forms.py:366 candidates/forms.py:462
+#: candidates/forms.py:342 candidates/forms.py:367 candidates/forms.py:514
 msgid "How you know about this candidate"
 msgstr "Πως ενημερώνεστε για αυτόν τον υποψήφιο"
 
-#: candidates/forms.py:408
-#, python-format
-msgid "Constituency in %s"
-msgstr "Εκλογική περιφέρεια σε %s"
+#: candidates/forms.py:455
+msgid "Select Area for the Post"
+msgstr ""
 
-#: candidates/forms.py:423
-#, python-brace-format
-msgid "Party in {election} ({party_set_name})"
-msgstr "Κόμμα στις {election} ({party_set_name})"
+#: candidates/forms.py:461
+msgid "Select internal Area for the Post (optional)"
+msgstr ""
 
-#: candidates/forms.py:441
-msgid "Position in party list ('1' for first, '2' for second, etc.)"
-msgstr "Θέση στη λίστα του κόμματος ('1' για πρώτη, '2' για δεύτερη, κλπ.)"
+#: candidates/forms.py:467
+#, fuzzy
+#| msgid "Select your canton"
+msgid "Select an Organization"
+msgstr "Επιλέξτε την επαρχία σας"
 
-#: candidates/forms.py:452
+#: candidates/forms.py:473
+msgid "Select an existing Post"
+msgstr ""
+
+#: candidates/forms.py:479
+msgid "Propose a new Post"
+msgstr ""
+
+#: candidates/forms.py:484
+#, fuzzy
+#| msgid "Date and time"
+msgid "Start Date"
+msgstr "Ημερομηνία και ώρα"
+
+#: candidates/forms.py:494
+msgid "End Date"
+msgstr ""
+
+#: candidates/forms.py:504
 #, python-brace-format
 msgid "Source of information for this change ({0})"
 msgstr "Πηγής πληροφορίας για αυτήν την αλλαγή ({0})"
 
-#: candidates/forms.py:484
+#: candidates/forms.py:537
 #, python-brace-format
 msgid ""
 "You can only edit data on {site_name} if you agree to this copyright "
 "assignment."
 msgstr ""
 
-#: candidates/forms.py:508
+#: candidates/forms.py:561
 msgid "Source of information that they won"
 msgstr "Πηγή πληροφορίας ότι νίκησαν"
 
@@ -524,24 +545,7 @@ msgstr "Οι υποψήφιοι για αυτήν τη θέση έχουν τώ�
 msgid "Name change from '{0}' to '{1}' by user {2} disallowed"
 msgstr "Η αλλαγή ονόματος από '{0}' σε '{1}' από το χρήστη {2} απορρίφθηκε"
 
-#: candidates/models/auth.py:78
-#, python-brace-format
-msgid ""
-"That update isn't allowed because candidates for a locked post "
-"({post_label}) would be changed"
-msgstr ""
-"Αυτή η ενημέρωση δεν επιτρέπεται γιατί οι υποψήφιοι για μια κλειδωμένη θέση "
-"({post_label}) θα άλλαζαν"
-
-#: candidates/models/auth.py:91
-#, python-brace-format
-msgid ""
-"That update isn't allowed because you can't change the party (in this case "
-"from {old_party} to {new_party}) for a candidate in a locked post "
-"({post_label})"
-msgstr ""
-
-#: candidates/models/popolo_extra.py:193
+#: candidates/models/popolo_extra.py:226
 #, python-brace-format
 msgid "'PersonExtra' object has no attribute '{name}'"
 msgstr ""
@@ -796,7 +800,7 @@ msgstr ""
 #: candidates/templates/candidates/_source-plain.html:12
 #: candidates/templates/candidates/_source_confirmation.html:13
 #: candidates/templates/candidates/person-create.html:14
-#: candidates/templates/candidates/person-edit.html:228
+#: candidates/templates/candidates/person-edit.html:299
 msgid "Save changes"
 msgstr "Αποθήκευση αλλαγών"
 
@@ -809,6 +813,8 @@ msgstr ""
 #: candidates/templates/candidates/about.html:9
 #: elections/ar_elections_2015/templates/candidates/about.html:6
 #: elections/ar_elections_2015/templates/candidates/about.html:9
+#: elections/ar_policrowd_2016/templates/candidates/about.html:6
+#: elections/ar_policrowd_2016/templates/candidates/about.html:9
 #: elections/jamaica/templates/candidates/about.html:6
 #: elections/jamaica/templates/candidates/about.html:9
 #: elections/uk/templates/candidates/about.html:6
@@ -1638,50 +1644,69 @@ msgstr "Επεξεργασία: %(name)s "
 msgid "Upload photo"
 msgstr "Αποστολή φωτογραφίας"
 
-#: candidates/templates/candidates/person-edit.html:32
-#, python-format
-msgid "Candidate for <a href=\"%(url)s\">%(post_name)s</a> in %(election)s"
-msgstr "Υποψήφιος για <a href=\"%(url)s\">%(post_name)s</a> στις %(election)s"
-
-#: candidates/templates/candidates/person-edit.html:50
+#: candidates/templates/candidates/person-edit.html:53
 msgid "Oops!"
 msgstr "Ωχ!"
 
-#: candidates/templates/candidates/person-edit.html:51
+#: candidates/templates/candidates/person-edit.html:54
 msgid "We could not accept some of the changes you made."
 msgstr "Κάποιες από τις αλλαγές που κάνατε δεν έγιναν αποδεκτές."
 
-#: candidates/templates/candidates/person-edit.html:55
+#: candidates/templates/candidates/person-edit.html:58
 msgid "Please check your information matches our requirements, below."
 msgstr ""
 "Παρακαλούμε ελέξτε ότι οι πληροφορίες σας ταιριάζουν με τις προϋποθέσεις "
 "μας, παρακάτω."
 
-#: candidates/templates/candidates/person-edit.html:60
+#: candidates/templates/candidates/person-edit.html:63
 #: candidates/templates/candidates/person-view.html:111
 msgid "Personal details:"
 msgstr "Προσωπικές λεπτομέρειες:"
 
-#: candidates/templates/candidates/person-edit.html:74
-msgid "Constituencies:"
-msgstr "Εκλογικές Περιφέρειες:"
+#: candidates/templates/candidates/person-edit.html:80
+msgid "Add Post:"
+msgstr ""
+
+#: candidates/templates/candidates/person-edit.html:106
+msgid "Or"
+msgstr ""
 
 #: candidates/templates/candidates/person-edit.html:122
+msgid "Hide"
+msgstr ""
+
+#: candidates/templates/candidates/person-edit.html:126
+#, fuzzy
+#| msgid "Posts"
+msgid "Add Post"
+msgstr "Αναρτήσεις"
+
+#: candidates/templates/candidates/person-edit.html:129
+#: candidates/templates/candidates/person-view.html:149
+msgid "Last Post:"
+msgstr ""
+
+#: candidates/templates/candidates/person-edit.html:134
+#: candidates/templates/candidates/person-view.html:154
+msgid "Older Posts:"
+msgstr ""
+
+#: candidates/templates/candidates/person-edit.html:193
 #: candidates/templates/candidates/person-view.html:181
 msgid "Links and social media:"
 msgstr "Σύνδεσμοι και κοινωνικά δίκτυα:"
 
-#: candidates/templates/candidates/person-edit.html:185
+#: candidates/templates/candidates/person-edit.html:256
 #: candidates/templates/candidates/person-view.html:207
 msgid "Demographics:"
 msgstr "Δημογραφικά στοιχεία:"
 
-#: candidates/templates/candidates/person-edit.html:200
+#: candidates/templates/candidates/person-edit.html:271
 #: candidates/templates/candidates/person-view.html:251
 msgid "Additional information:"
 msgstr "Επιπρόσθετες πληροφορίες:"
 
-#: candidates/templates/candidates/person-edit.html:218
+#: candidates/templates/candidates/person-edit.html:289
 msgid ""
 "<strong>You forgot to reference a source!</strong> Can you show us "
 "<em>where</em> you got this information?"
@@ -1689,27 +1714,27 @@ msgstr ""
 "<strong>Ξεχάσατε να υποδείξετε μια πηγή!</strong> Μπορείτε να μας δείξετε "
 "από <em>πού</em> πήρατε αυτή την πληροφορία; "
 
-#: candidates/templates/candidates/person-edit.html:220
+#: candidates/templates/candidates/person-edit.html:291
 msgid "What’s your <strong>source of information</strong> for this change?"
 msgstr ""
 "Ποια είναι <strong>η πηγής πληροφόρησης </strong> σας για αυτήν την αλλαγή;"
 
-#: candidates/templates/candidates/person-edit.html:236
+#: candidates/templates/candidates/person-edit.html:307
 msgid "Thanks for helping out!"
 msgstr "Ευχαριστούμε για τη βοήθειά σας!"
 
-#: candidates/templates/candidates/person-edit.html:237
+#: candidates/templates/candidates/person-edit.html:308
 msgid ""
 "Please make sure you read our <a href=\"https://docs.google.com/document/"
 "d/1iA5Tv3ZgjDHWNv6gbNESqL-C7Goz6ZSo1X9pPXwXspA/edit\">guidance on sourcing "
 "fields</a>."
 msgstr ""
 
-#: candidates/templates/candidates/person-edit.html:243
+#: candidates/templates/candidates/person-edit.html:314
 msgid "Trying to upload a photo?"
 msgstr "Προσπαθείτε να αποστείλετε μια φωτογραφία;"
 
-#: candidates/templates/candidates/person-edit.html:245
+#: candidates/templates/candidates/person-edit.html:316
 #, python-format
 msgid ""
 "There’s a separate page for <a href=\"%(url)s\">uploading a photo of "
@@ -1718,19 +1743,19 @@ msgstr ""
 "Υπάρχει ξεχωριστή σελίδα για <a href=\"%(url)s\">αποστολή φωτογραφίας του/"
 "της %(name)s</a>."
 
-#: candidates/templates/candidates/person-edit.html:253
+#: candidates/templates/candidates/person-edit.html:324
 msgid "Is this a duplicate person?"
 msgstr ""
 
-#: candidates/templates/candidates/person-edit.html:255
+#: candidates/templates/candidates/person-edit.html:326
 msgid "Merge another person into this one:"
 msgstr "Ενσωμάτωση άλλου ατόμου σε αυτό:"
 
-#: candidates/templates/candidates/person-edit.html:256
+#: candidates/templates/candidates/person-edit.html:327
 msgid "Other person ID"
 msgstr "Κωδικός άλλου ατόμου"
 
-#: candidates/templates/candidates/person-edit.html:258
+#: candidates/templates/candidates/person-edit.html:329
 msgid "Merge people"
 msgstr "Ενσωμάτωση ατόμων"
 
@@ -1857,14 +1882,6 @@ msgstr ""
 msgid "Biography"
 msgstr ""
 
-#: candidates/templates/candidates/person-view.html:149
-msgid "Last Post:"
-msgstr ""
-
-#: candidates/templates/candidates/person-view.html:154
-msgid "Older Posts:"
-msgstr ""
-
 #: candidates/templates/candidates/person-view.html:188
 msgid "(personal profile)"
 msgstr "(προσωπικό προφίλ)"
@@ -1974,6 +1991,14 @@ msgstr ""
 msgid "end:"
 msgstr ""
 
+#: candidates/templates/candidates/person_membership.html:8
+msgid "Delete"
+msgstr ""
+
+#: candidates/templates/candidates/person_membership.html:9
+msgid "Undo Delete"
+msgstr ""
+
 #: candidates/templates/candidates/politician-create.html:4
 msgid "Add Politician"
 msgstr ""
@@ -2047,6 +2072,7 @@ msgstr ""
 #: candidates/templates/candidates/privacy.html:6
 #: candidates/templates/candidates/privacy.html:9
 #: elections/ar_elections_2015/templates/base.html:113
+#: elections/ar_policrowd_2016/templates/base.html:115
 #: mysite/templates/generic_base.html:142
 msgid "Privacy policy"
 msgstr "Πολιτική προστασίας προσωπικών δεδομένων"
@@ -2199,11 +2225,13 @@ msgid "Search candidates"
 msgstr ""
 
 #: candidates/templates/search/search.html:10
+#: elections/ar_policrowd_2016/templates/candidates/frontpage.html:50
 #: mysite/templates/generic_base.html:99
 msgid "Find a candidate…"
 msgstr ""
 
 #: candidates/templates/search/search.html:11
+#: elections/ar_policrowd_2016/templates/candidates/frontpage.html:51
 #: mysite/templates/generic_base.html:100 tasks/templates/tasks/field.html:42
 msgid "Search"
 msgstr "Αναζήτηση"
@@ -2315,32 +2343,57 @@ msgstr ""
 msgid "In the last week"
 msgstr "Την τελευταία εβδομάδα"
 
-#: candidates/views/people.py:194
+#: candidates/views/people.py:193
 #, python-brace-format
 msgid "No person found with ID {person_id}"
 msgstr ""
 
-#: candidates/views/people.py:237
+#: candidates/views/people.py:236
 #, python-brace-format
 msgid "Couldn't find the version {0} of person {1}"
 msgstr ""
 
-#: candidates/views/people.py:278
+#: candidates/views/people.py:277
 #, python-brace-format
 msgid "Malformed person ID '{0}'"
 msgstr ""
 
-#: candidates/views/people.py:281
+#: candidates/views/people.py:280
 #, python-brace-format
 msgid "You can't merge a person ({0}) with themself ({1})"
 msgstr "Δε μπορείτε να συγχωνεύσετε ένα άτομο ({0}) με τον εαυτό τους({1}) "
 
-#: candidates/views/people.py:301
+#: candidates/views/people.py:300
 #, python-brace-format
 msgid "After merging person {0}"
 msgstr "Μετά τη συγχώνευση του ατόμου {0} "
 
+#: candidates/views/people.py:435
+msgid "An Area is Required"
+msgstr ""
+
+#: candidates/views/people.py:441
+msgid "A Post is Required"
+msgstr ""
+
+#: candidates/views/people.py:445
+msgid "A Starting Date is Required"
+msgstr ""
+
+#: candidates/views/people.py:448
+msgid "An Ending Date is Required"
+msgstr ""
+
+#: candidates/views/people.py:454
+msgid "End date must be greater than Start date"
+msgstr ""
+
+#: candidates/views/people.py:459
+msgid "An Organization is required"
+msgstr ""
+
 #: elections/ar_elections_2015/templates/base.html:37
+#: elections/ar_policrowd_2016/templates/base.html:37
 msgid "Yo Quiero Saber"
 msgstr ""
 
@@ -2349,31 +2402,37 @@ msgid "Provinces"
 msgstr "Επαρχίες"
 
 #: elections/ar_elections_2015/templates/base.html:49
+#: elections/ar_policrowd_2016/templates/base.html:64
 msgid "Politicians"
 msgstr ""
 
 #: elections/ar_elections_2015/templates/base.html:61
+#: elections/ar_policrowd_2016/templates/base.html:49
 #: mysite/templates/generic_base.html:77
 #, python-format
 msgid "Signed in as <strong>%(username)s</strong>"
 msgstr "Συνδεδεμένος/η σαν <strong>%(username)s</strong> "
 
 #: elections/ar_elections_2015/templates/base.html:63
+#: elections/ar_policrowd_2016/templates/base.html:51
 #: mysite/templates/generic_base.html:81
 msgid "Sign out"
 msgstr "Αποσύνδεση"
 
 #: elections/ar_elections_2015/templates/base.html:66
+#: elections/ar_policrowd_2016/templates/base.html:54
 #: mysite/templates/generic_base.html:83
 msgid "Sign in to edit"
 msgstr ""
 
 #: elections/ar_elections_2015/templates/base.html:111
+#: elections/ar_policrowd_2016/templates/base.html:113
 #: mysite/templates/generic_base.html:139
 msgid "Open data API"
 msgstr ""
 
 #: elections/ar_elections_2015/templates/base.html:112
+#: elections/ar_policrowd_2016/templates/base.html:114
 #: elections/jamaica/templates/jamaica/frontpage.html:19
 #: elections/uk/templates/base.html:24 mysite/templates/generic_base.html:93
 #: mysite/templates/generic_base.html:140
@@ -2381,41 +2440,50 @@ msgid "About"
 msgstr "Σχετικά"
 
 #: elections/ar_elections_2015/templates/base.html:116
+#: elections/ar_policrowd_2016/templates/base.html:118
 msgid "Made by"
 msgstr ""
 
 #: elections/ar_elections_2015/templates/base.html:123
+#: elections/ar_policrowd_2016/templates/base.html:125
 msgid "Partners"
 msgstr "Συνέταιροι"
 
 #: elections/ar_elections_2015/templates/base.html:131
+#: elections/ar_policrowd_2016/templates/base.html:133
 msgid "Supported by"
 msgstr "Υποστηρίζεται από"
 
 #: elections/ar_elections_2015/templates/base.html:137
+#: elections/ar_policrowd_2016/templates/base.html:139
 msgid "Developed by"
 msgstr ""
 
 #: elections/ar_elections_2015/templates/base.html:144
+#: elections/ar_policrowd_2016/templates/base.html:146
 msgid "Show all the collaborators and volunteers"
 msgstr "Εμφάνιση όλων των συνεργατών και εθελοντών"
 
 #: elections/ar_elections_2015/templates/official_documents/_post.html:6
+#: elections/ar_policrowd_2016/templates/official_documents/_post.html:6
 msgid "Official documents for this post"
 msgstr "Επίσημα αρχεία για αυτή τη θέση"
 
 #: elections/ar_elections_2015/templates/official_documents/_post.html:14
+#: elections/ar_policrowd_2016/templates/official_documents/_post.html:14
 #: official_documents/templates/official_documents/_post.html:15
 #, python-format
 msgid "<a href=\"%(url)s\">%(type)s</a> uploaded on %(created)s"
 msgstr "<a href=\"%(url)s\">%(type)s</a> ανέβηκε στις %(created)s "
 
 #: elections/ar_elections_2015/templates/official_documents/_post.html:23
+#: elections/ar_policrowd_2016/templates/official_documents/_post.html:23
 #, python-format
 msgid "<p>We don't have any %(type)s for the post %(post_data.label)s.</p>"
 msgstr "<p>Δεν έχουμε κανένα %(type)s για τη θέση %(post_data.label)s.</p> "
 
 #: elections/ar_elections_2015/templates/official_documents/_post.html:29
+#: elections/ar_policrowd_2016/templates/official_documents/_post.html:29
 #, python-format
 msgid "Upload a %(type)s"
 msgstr "Αποστείλετε ένα %(type)s "
@@ -3470,6 +3538,29 @@ msgid ""
 "everyone with a <code>@parliament.uk</code> address asking them for a better "
 "one."
 msgstr ""
+
+#~ msgid "Constituency in %s"
+#~ msgstr "Εκλογική περιφέρεια σε %s"
+
+#~ msgid "Party in {election} ({party_set_name})"
+#~ msgstr "Κόμμα στις {election} ({party_set_name})"
+
+#~ msgid "Position in party list ('1' for first, '2' for second, etc.)"
+#~ msgstr "Θέση στη λίστα του κόμματος ('1' για πρώτη, '2' για δεύτερη, κλπ.)"
+
+#~ msgid ""
+#~ "That update isn't allowed because candidates for a locked post "
+#~ "({post_label}) would be changed"
+#~ msgstr ""
+#~ "Αυτή η ενημέρωση δεν επιτρέπεται γιατί οι υποψήφιοι για μια κλειδωμένη "
+#~ "θέση ({post_label}) θα άλλαζαν"
+
+#~ msgid "Candidate for <a href=\"%(url)s\">%(post_name)s</a> in %(election)s"
+#~ msgstr ""
+#~ "Υποψήφιος για <a href=\"%(url)s\">%(post_name)s</a> στις %(election)s"
+
+#~ msgid "Constituencies:"
+#~ msgstr "Εκλογικές Περιφέρειες:"
 
 #~ msgid "Party"
 #~ msgstr "Κόμμα"

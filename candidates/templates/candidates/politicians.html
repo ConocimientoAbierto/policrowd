@@ -34,13 +34,19 @@
   
   {% for membership_indent, membership in memberships %}
 
-			<div style="padding-left:{{ membership_indent }}px">
-      	<h3>{{ membership.organization.name }}</h3>
-	      <img style="background-color:#ddd;display:inline-block;height:60px" src="/static/candidates/img/blank-man.png">
-	      <h4 style="display:inline-block">
-	      	{{ membership.post.role }} - <a href="{{ membership.person.url }}">{{ membership.person.name }} {{ membership.person.family_name }}</a> 
-	      </h4>
-			</div>
+		<div class="politician politician-level-{{ membership_indent }}">
+      		<div class="politician-post">{{ membership.organization.name }}</div>
+      		<div class="politician-data">
+	      		<img class="person-avatar politician-avatar" style="background-color:#ddd;display:inline-block;height:60px" src="/static/candidates/img/blank-man.png">
+	      		<div class="politician-role">
+	      			{{ membership.post.role }}  
+	      		</div>      		
+	      		-
+	      		<div class="politician-name">
+	      			<a href="{{ membership.person.url }}">{{ membership.person.name }} {{ membership.person.family_name }}</a> 
+	      		</div>      		
+      		</div>
+		</div>
 
   {% endfor %}
 

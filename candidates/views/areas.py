@@ -232,7 +232,7 @@ class PoliticiansView(PoliticiansTemplateView):
             membership = self.memberships[membershipName]
             organismsList.append((indent, membership))
             if children:
-                self.__createOrganismsListR(children, organismsList, indent + 40)
+                self.__createOrganismsListR(children, organismsList, indent + 1)
 
     def __createOrganismsList(self, memberships, executivePowerId):
         organismsDict = self.__createMembershipsDict(memberships, executivePowerId)
