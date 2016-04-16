@@ -16,6 +16,7 @@ from popolo.models import Area
 class Command(BaseCommand):
     help = "Imports areas in 'ARG_adm2.csv' to DB (popolo_area)"
 
+    '''
     areaDifferencesMap = {
         'Buenos Aires': 'BUENOS AIRES',
         'Catamarca': 'CATAMARCA',
@@ -43,42 +44,75 @@ class Command(BaseCommand):
         'Tucumán': 'TUCUMAN'
     }
 
-    #provincesAreasCache --> { <name> : <id> }
-    provincesAreasCache = {}
-    def prepareProvincesAreasCache(self):
-        argentinaId = Area.objects.get_or_create(name='Argentina')[0].id
-        provinces = Area.objects.only('name', 'id').filter(parent_id=argentinaId)
-
-        for area in provinces:
-            self.provincesAreasCache[area.name] = area.id
+    '''
 
     #areaTypesCache --> { <name> : <id>}
     areaTypesCache = {}
     def prepareAreaTypesCache(self):
-        munArea = AreaType.objects.get_or_create(name="MUN")
+        AreaType.objects.get_or_create(name="NAT")
+        AreaType.objects.get_or_create(name="PRV")
+        AreaType.objects.get_or_create(name="MUN")
         areaTypes = AreaType.objects.only('name', 'id').all()
 
         for areaType in areaTypes:
             self.areaTypesCache[areaType.name] = areaType.id
 
-    def prepareCaches(self):
-        self.prepareProvincesAreasCache()
+    #provincesAreasCache --> { <name> : <id> }
+    provincesAreasCache = {}
+    def prepareCaches(self, date, data):
         self.prepareAreaTypesCache()
+
+        argentinaQuery = Area.objects.get_or_create(name='Argentina', defaults={
+            'created_at':date,
+            'updated_at':date,
+            'identifier':1,
+            'classification':''
+        })
+        argentinaId = argentinaQuery[0].id
+        argentinaWasCreated = argentinaQuery[1]
+
+        if argentinaWasCreated:
+            AreaExtra(base_id = argentinaId, type_id = self.areaTypesCache['NAT']).save()
+
+        provinces = Area.objects.only('name', 'id').filter(parent_id=argentinaId)
+        for area in provinces:
+            self.provincesAreasCache[area.name] = area.id
+        
+        provTypeId = self.areaTypesCache['PRV']
+
+        i = 2
+        for row in data[1:]:
+            provName = row[5]
+            if not provName in self.provincesAreasCache:
+                createdProvince = Area(
+                    created_at = date,
+                    updated_at = date,
+                    name = provName,
+                    parent_id = argentinaId,
+                    identifier = i,
+                    classification = ''
+                )
+                createdProvince.save()
+                AreaExtra(base_id = createdProvince.id, type_id = provTypeId).save()
+
+                self.provincesAreasCache[provName] = createdProvince.id
+                i += 1
 
     def fetchAllAreas(self):
         print ("Inserting Areas...\n")
         with open('ARG_adm2.csv') as f:
             data = [tuple(line) for line in csv.reader(f)]
 
-        areaTypeId = self.areaTypesCache['MUN']
-
         identifierBase = 100 # Para que no se pisen con los ya cargados. Esto va a cambiar cuando usemos los ids de OSM
         date = time.strftime('%Y-%m-%d %H:%M:%S')
+
+        self.prepareCaches(date, data)
+        areaTypeId = self.areaTypesCache['MUN']
         
         for row in data[1:]:
             identifier = str(identifierBase + int(row[0]))
             parentAreaName = row[5]
-            parentId = self.provincesAreasCache[self.areaDifferencesMap[parentAreaName]]
+            parentId = self.provincesAreasCache[parentAreaName]
             areaName = row[7]
             area = Area(
                 parent_id = parentId,
@@ -98,5 +132,4 @@ class Command(BaseCommand):
         
         
     def handle(self, *args, **options):
-        self.prepareCaches()
         self.fetchAllAreas()

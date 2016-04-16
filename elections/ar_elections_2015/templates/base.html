@@ -45,7 +45,9 @@
       <div class="header__nav">
         <div class="header__nav__primary">
           <a href="/" class="header__nav__item">Inicio</a>
+          {% comment %}
           <a href="{% url 'areas-of-type-view' area_type='PRV' ignored_slug='provincia' %}" class="header__nav__item">{% trans "Provinces" %}</a>
+          {% endcomment %}
           <a href="{% url 'politicians-view' type_and_area_ids=politicians_type_and_area ignored_slug=default_area.name %}" class="header__nav__item">{% trans "Politicians" %}</a>
           <a href="{% url 'attention_needed' %}" class="header__nav__item">Prioridades</a>
          <a href="http://www.yoquierosaber.org/" class="header__nav__item">Juego</a>
