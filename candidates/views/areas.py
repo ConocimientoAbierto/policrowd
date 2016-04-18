@@ -210,7 +210,7 @@ class PoliticiansView(PoliticiansTemplateView):
         person.url = reverse('person-view', kwargs={'person_id': person.id, 'ignored_slug': person.name})
 
     def __getAreaMemberships(self, areaId):
-        powers = pmodels.Organization.objects.only('id','name').filter(parent_id=None,classification="poder")
+        powers = pmodels.Organization.objects.only('id','name').filter(parent_id=None, classification="poder")
         organisms = {}
         for power in powers:
             organisms[power.name] = self.__createOrganismsList(power.id, areaId)

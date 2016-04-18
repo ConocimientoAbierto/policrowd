@@ -27,7 +27,7 @@ class Command(BaseCommand):
             'created_at': date,
             'updated_at': date,
             'area_id': self.argentinaCache.id,
-            'classification': 'goverment'
+            'classification': 'poder'
         })[0]
 
     def prepareCaches(self):
@@ -51,8 +51,8 @@ class Command(BaseCommand):
         person = Person(
             created_at = date,
             updated_at = date,
-            name = name.decode('utf8'),
-            family_name = lastName.decode('utf8'),
+            name = name.decode('utf8').title(),
+            family_name = lastName.decode('utf8').title(),
             given_name = '',
             additional_name = '',
             honorific_prefix = '',

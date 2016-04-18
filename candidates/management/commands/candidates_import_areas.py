@@ -16,36 +16,6 @@ from popolo.models import Area
 class Command(BaseCommand):
     help = "Imports areas in 'ARG_adm2.csv' to DB (popolo_area)"
 
-    '''
-    areaDifferencesMap = {
-        'Buenos Aires': 'BUENOS AIRES',
-        'Catamarca': 'CATAMARCA',
-        'Chaco': 'CHACO',
-        'Chubut': 'CHUBUT',
-        'Ciudad de Buenos Aires': 'CIUDAD AUTONOMA DE BUENOS AIRES',
-        'Córdoba' : 'CORDOBA',
-        'Corrientes': 'CORRIENTES',
-        'Entre Ríos': 'ENTRE RIOS',
-        'Formosa': 'FORMOSA',
-        'Jujuy': 'JUJUY',
-        'La Pampa': 'LA PAMPA',
-        'La Rioja': 'LA RIOJA',
-        'Mendoza': 'MENDOZA',
-        'Misiones': 'MISIONES',
-        'Neuquén': 'NEUQUEN',
-        'Río Negro': 'RIO NEGRO',
-        'Salta': 'SALTA',
-        'San Juan': 'SAN JUAN',
-        'San Luis': 'SAN LUIS',
-        'Santa Cruz': 'SANTA CRUZ',
-        'Santa Fe': 'SANTA FE',
-        'Santiago del Estero': 'SANTIAGO DEL ESTERO',
-        'Tierra del Fuego': 'TIERRA DEL FUEGO, ANTARTIDA E ISLAS DEL ATLANTICO SUR',
-        'Tucumán': 'TUCUMAN'
-    }
-
-    '''
-
     #areaTypesCache --> { <name> : <id>}
     areaTypesCache = {}
     def prepareAreaTypesCache(self):
