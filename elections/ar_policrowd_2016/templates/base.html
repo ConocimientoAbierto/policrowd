@@ -1,0 +1,131 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="alternate" type="application/atom+xml" title="RSS" href="/feeds/changes.xml">
+
+    {% block extra_head %}
+    {% endblock %}
+
+    {% load staticfiles %}
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}"/>
+    <link rel="apple-touch-icon-precomposed" href="{% static 'img/apple-touch-icon.png' %}"/>
+
+    {% load pipeline %}
+    {% stylesheet 'all' %}
+    {% block extra_css %}
+    {% endblock %}
+
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
+      <script src="//html5base.googlecode.com/svn-history/r38/trunk/js/selectivizr-1.0.3b.js"></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.1.0/respond.min.js"></script>
+    <![endif]-->
+
+    {% load statici18n %}
+    {% if not settings.RUNNING_TESTS %}
+      <script src="{% statici18n LANGUAGE_CODE %}"></script>
+    {% endif %}
+
+    {% javascript 'all' %}
+    {% block extra_js %}
+    {% endblock %}
+
+    <title>{% block title %}{% trans "PoliCrowd" %} - {% trans "Plataforma colectiva de políticos" %}{% endblock %}</title>
+
+</head>
+
+<body class="{% block body_class %}{% endblock %}">
+  <div class="header">
+    <div class="container">
+      <a href="/" class="header__logo">{% trans "PoliCrowd" %}</a>
+      <div class="header__nav">
+        <div class="header__nav__secondary">
+          {% if user.is_authenticated %}
+            <span class="header__nav__item header__nav__item--secondary button primary">
+              {% blocktrans with username=user.username %}Signed in as <strong>{{ username }}</strong>{% endblocktrans %}
+            </span>
+            <a href="{% url 'account_logout' %}{% if redirect_after_login %}?next={{ redirect_after_login }}{% endif %}" class="header__nav__item header__nav__item--secondary button secondary">{% trans "Sign out" %}</a>
+          {% else %}
+            <a href="{% url 'account_login' %}{% if redirect_after_login %}?next={{ redirect_after_login }}{% endif %}"
+               class="header__nav__item header__nav__item--secondary button split no-pip">{% trans "Sign in to edit" %}<span></span></a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="header">
+    <div class="header__nav">
+      <div class="container">
+        <div class="header__nav__primary">
+          <a href="{% url 'politicians-view' type_and_area_ids=politicians_type_and_area ignored_slug=default_area.name %}" class="header__nav__item">{% trans "Politicians" %}</a>
+          <a href="{% url 'politicians-areas-view' type_and_area_ids=politicians_type_and_area ignored_slug=default_area.name %}" class="header__nav__item">{% trans "Provincias" %}</a>
+        <a href="{% url 'help-about' %}" class="header__nav__item">Quienes somos</a>
+          <a href="{% url 'help-reuse' %}#" class="header__nav__item">Reutilizá PoliCrowd</a>
+          {% if user_can_review_photos and photos_for_review > 0 %}
+            <a href="{% url 'photo-review-list' %}" class="header__nav__item header__nav__notification">{{ photos_for_review }}</a>
+          {% endif %}
+        </div>
+        <div class="header__nav__social">
+            <a href="https://www.facebook.com/OKFNArgentina/">Facebook</a>
+            <a href="https://twitter.com/OKFNAR">Twitter</a>
+        </div>
+      </div>
+    </div>
+    {% block hero_outer %}
+      <div class="header__hero">
+        <div class="container">
+          {% block hero %}
+          {% endblock %}
+        </div>
+      </div>
+    {% endblock %}
+  </div>
+  <div class="content">
+    <div class="container">
+
+      {% if messages %}
+        <div class="messages">
+          {% for message in messages %}
+            {% if 'photo-review' in message.tags or 'do-something-else' in message.tags %}
+              <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+                {% if 'safe' in message.tags %}
+                  {{ message|safe }}
+                {% else %}
+                  {{ message }}
+                {% endif %}
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      {% block content %}
+      {% endblock %}
+    </div>
+  </div>
+  <div class="footer">
+    <div class="container">
+      <div class="footer__links">
+        <p><a href="{% url 'help-api' %}">{% trans "Open data API" %}</a>
+            &middot; <a href="{% url 'help-about' %}">{% trans "About" %}</a>
+            &middot; <a href="{% url 'help-privacy' %}">{% trans "Privacy policy" %}</a></p>
+      </div>
+      <div class="footer__bylines">
+        <h4>{% trans 'Made by' %}</h4>
+        <p>
+          <a href="http://ar.okfn.org"><img src="/static/candidates/img/logo-okf-argentina.png" width="172" height="40" alt="Open Knowledge Argentina"></a>
+        </p>
+        <h4>{% trans 'Supported by' %}</h4>
+        <div style="background: white; padding: 1em; padding-bottom: 0.5em; border-radius: 1em">
+              <a href="http://datashift.org/">Datashift<img src="{% static 'img/.png' %}" alt="DataShift"></a> 
+              <a href="http://www.theengineroom.org/">The Engine Room<img src="{% static 'img/.png' %}" alt="The Engine Room"></a>      
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

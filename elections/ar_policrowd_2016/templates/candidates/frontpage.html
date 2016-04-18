@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% load absolute %}
+{% load i18n %}
+{% load metadescription %}
+
+{% block extra_head %}
+    <!-- Open Graph and Twitter card data -->
+    <meta property="og:url" name="twitter:url" content="{{ request.build_absolute_uri }}" />
+    <meta property="og:title" name="twitter:title" content="YoQuieroSaber Investigación" />
+
+    <meta property="og:description" name="twitter:description" content="YoQuieroSaber Investigación es una iniciativa colaborativa para saber más sobre los candidatos a las elecciones PASO del 9 de Agosto.">
+
+    <!-- Open Graph data -->
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="{{ 'img/logo.png'|static_image_path:request }}" />
+    <meta property="og:image:height" content="80" />
+    <meta property="og:image:width" content="80" />
+    <meta property="og:site_name" content="YoQuieroSaber Investigación" />
+    <meta property="og:locale" content="{{ LOCALE }}" />
+
+    <!-- Twitter card data -->
+    <meta name="twitter:card" content="summary" />
+    {% if settings.TWITTER_USERNAME %}
+      <meta name="twitter:site" content="@{{ settings.TWITTER_USERNAME }}" />
+    {% endif %}
+    <meta property="twitter:image" content="{{ 'img/logo.png'|static_image_path:request }}" />
+    <meta property="twitter:image:height" content="120" />
+    <meta property="twitter:image:width" content="120" />
+{% endblock %}
+
+{% block body_class %}finder{% endblock %}
+
+{% block hero_outer %}{% endblock %}
+
+{% block content %}
+</div><!-- close .container -->
+
+<div class="finder__container">
+    <div class="container">
+
+        <div class="finder__intro">
+            <h1>Investigación colectiva de políticos</h1>
+            <p> PoliCrowd es una plataforma donde encontrarás a todos los políticos de Argentina.</p>
+            <p>De forma colaborativa podés aportar información de los políticos que no encuentres.</p>
+        </div>
+
+        <div class="finder__forms">
+            <form class="search" method="get" action="{% url 'person-search' %}">
+                <input type="search" placeholder="{% trans 'Find a candidate…' %}" name="q" value="{{ form.q.value }}"/>
+                <button type="submit">{% trans "Search" %}</button>
+
+            </form>
+            <p>Mirá el listado completo:</p>
+            <p><a href="{% url 'politicians-view' type_and_area_ids=politicians_type_and_area ignored_slug=default_area.name %}" class="button secondary">Políticos por cargo</a>
+&nbsp;
+            <a href="{% url 'politicians-areas-view' type_and_area_ids=politicians_type_and_area ignored_slug=default_area.name %}" class="button secondary">Políticos por provincia</a></p>
+        </div>
+    </div><!-- close .container -->
+</div><!-- close .finder__container -->
+
+<div class="container">
+    <div class="policrowd_home_intro">
+        <p class="policrowd_home_intro_queres">¿Querés colaborar con la investigación?</p>
+
+        <h2>¡Podés comenzar ya mismo!</h2>
+        <ol class="policrowd_home_steps">
+            <li>
+                <img src="/static/img/ico-paso01.png" alt=""/>
+                <h3>Registrate</h3>
+                <p>Creá tu nombre de usuario, o podés usar tu cuenta de redes sociales.</p>
+            </li>
+            <li>
+                <img src="/static/img/ico-paso02.png" alt=""/>
+                <h3>Buscá</h3>
+                <p>Buscá el funcioario del que queiras cargar información, por nombre o en el listado completo.</p>
+            </li>
+            <li>
+                <img src="/static/img/ico-paso03.png" alt=""/>
+                <h3>Agregá</h3>
+                <p>Si no encontrás al funcioario que estás buscando, podés crear su perfil.</p>
+            </li>
+            <li>
+                <img src="/static/img/ico-paso04.png" alt=""/>
+                <h3>Informá</h3>
+                <p>Completá los campos que conozcas y la fuente, para que esta base de datos siga creciendo.</p>
+            </li>
+        </ol>
+        <div class="policrowd_home_sumate">
+            <div class="policrowd_home_recorda"><p>Recordá:</p></div>
+            <p class="policrowd_home_cuanta">¡Cuanta más información ingreses, más conocemos a nuestros polítcos!</p>
+            <button class="button split no-pip">Sumate a la investigación <span></span></button>
+            
+        </div>
+
+    </div>
+    <div class="finder__getting-started__help">
+    <img src="/static/img/img_colaboracion.png" alt=""/>
+        <h2>Necesitamos tu colaboración</h2>
+        <ul class="finder__getting-started__priorities">
+          {% for row in needing_attention %}
+            <li><a href="{% url 'constituency' election=row.election_slug post_id=row.post_slug ignored_slug=row.post_short_label|slugify %}">{{ row.post_label }}</a></li>
+          {% endfor %}
+        </ul>
+    </div>
+    <div class="finder__getting-started__help">
+    <img src="/static/img/img_acerca.png" alt=""/>
+        <h2>Acerca del proyecto</h2>
+        <p>Conformamos una alianza apartidaria que lleva adelante el proyecto PoliCrowd, que es una plataforma de Investigación Colectiva sobre políticos argentinos. Junto a periodistas, politólogos, tecnólogos, organizaciones de la sociedad vicil y voluntarios, investigamos y recolectamos información de funcionarios públicos.</p>
+    </div>
+
+{% endblock %}
