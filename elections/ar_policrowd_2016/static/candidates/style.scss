@@ -1,0 +1,673 @@
+@import "../foundation/scss/foundation/functions";
+
+//YQS YNR Colors
+$color-darkgreen: #16312d;
+$color-green: #155847;
+$color-lightgreen: #1e9577;
+$color-palegreen: #bcdad5;
+$color-pink: #dd3975;
+$color-cream: #e4dfdb;
+$color-yellow: #fdf2d5;
+
+//Policrowd colors
+$color-darkblue: #00546e;
+$color-blue: #0ca5d3;
+$color-red: #ea1758;
+$color-offwhite: #f3f3f3;
+$color-grey: #666;
+$color-purple: rgb(166,34,125);
+
+$header-background-color: $color-offwhite;
+$body-background-color: $color-darkblue;
+$footer-text-color: mix($color-darkblue, #fff, 50%);
+$content-background-color: #fff;
+
+$muted-text-color: darken($color-grey, 20%);
+
+$message-background-color: mix($color-palegreen, #fff, 50%);
+$message-border-color: mix($color-palegreen, #fff, 80%);
+
+$highlight-background-color: $color-yellow;
+$information-background-color: #E1F2F5; // very pale blue
+$danger-background-color: mix($color-red, #fff, 15%);
+$confirmation-background-color: $color-yellow;
+
+$error-background-color: mix($color-red, #fff, 15%);
+$error-text-color: darken($color-red, 10%);
+$error-border-color: mix($color-red, #fff, 30%);
+$error-input-border-color: mix($color-red, #fff, 40%);
+
+$candidate-order-color: #fff;
+$candidate-order-background-color: $color-green;
+$avatar-background-color: #dddddd;
+
+$unknown-candidate-status-color: $color-pink;
+$not-standing-candidate-status-color: $color-red;
+
+$homepage-description-background-color: $body-background-color;
+$homepage-description-text-color: #887; // dark desaturated browny-grey
+$homepage-activity-color: #333;
+$homepage-leaderboard-color: #333;
+
+// Override Foundation variables here
+$primary-color: $color-red;
+$secondary-color: $color-blue;
+$button-tny: rem-calc(6);
+$button-sml: rem-calc(8);
+$button-med: rem-calc(10);
+$button-lrg: rem-calc(14);
+$button-radius: 3px;
+$header-font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+$code-font-family: Consolas, Monaco, 'Liberation Mono', Courier, monospace;
+
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+
+@import "../foundation/scss/normalize";
+@import "../foundation/scss/foundation";
+
+@import "../candidates/mixins";
+
+@import "../candidates/header";
+@import "../candidates/content";
+@import "../candidates/footer";
+@import "../candidates/forms";
+
+@import "../candidates/finder";
+@import "../candidates/people";
+@import "../candidates/versions";
+@import "../candidates/parties";
+@import "../candidates/person_edit";
+@import "../candidates/copyright-assignment";
+@import "../candidates/leaderboards";
+@import "../candidates/search";
+
+h1, h2, h3 {
+    margin-bottom: 0.5em;
+    line-height: 1.1em;
+}
+
+a {
+    &:hover,
+    &:focus {
+        text-decoration: underline;
+    }
+}
+
+.button {
+    &:hover,
+    &:focus {
+        text-decoration: none;
+    }
+}
+
+body {
+    border-bottom: 5px solid $color-darkblue;
+    border-top: 5px solid $color-darkblue;
+    border-image: url(../img/colores_header.png) 50;
+    font-family: $header-font-family;
+
+}
+
+.header {
+    font-family: $header-font-family;
+    font-size: 1.1em; // 21px up from default 16px
+    text-align: center;
+    background: white url(../img/gradient_header.png) bottom repeat-x;
+
+    .container {
+        position: relative;
+    }
+
+    a {
+        &:hover,
+        &:focus {
+            text-decoration: none;
+        }
+    }
+}
+
+.header__logo {
+    display: block !important;
+    width: 338px;
+    height: 103px;
+    background: transparent url(../img/logo-policrowd.png) center center no-repeat;
+    text-indent: -9999px;
+    margin: 1em 0;
+
+    // Special case for very narrow screens,
+    // to leave room for social icons
+    @media (max-width: 30em) {
+        width: 230px * 0.75;
+        height: 53px * 0.75;
+        background-size: 230px * 0.75;
+        margin-left: 0;
+        margin-top: 0.5em;
+    }
+/*
+    @media ($high_dpi_screen) {
+        background-image: url(img/logo-yqs-investigacion@2.png);
+        background-size: 230px;
+
+        @media (max-width: 30em) {
+            background-size: 230px * 0.75;
+        }
+    }
+*/
+}
+
+
+.header__nav {
+    background-color: $color-blue;
+    padding: 0;
+    font-size: 1.2em;
+}
+
+.header__nav__item {
+  display: inline-block;
+  margin-left: 0.3em;
+  margin-right: 0.3em;
+
+  @media #{$medium-up} {
+      margin-left: 0.5em;
+      margin-right: 0.5em;
+  }
+}
+
+.header__nav__primary {
+    display: inline-block;
+}
+
+.header__nav__social {
+    display: inline-block;
+
+    a,a:hover {
+        display: block;
+        float: left;
+        width: 34px;
+        height: 34px;
+        text-indent: -9999px;
+        background-position: 8px 8px;
+        background-repeat: no-repeat;
+        border-radius: 18px;
+        margin: 3px 8px -5px 0;
+        box-shadow: 2px 2px 2px rgba(20,20,20,0.8);
+
+        &[href*="facebook"] {
+            background-color: #3b5998;
+            background-image: url(img/logo-facebook.png);
+        }
+
+        &[href*="twitter"] {
+            background-color: #55acee;
+            background-image: url(img/logo-twitter.png);
+        }
+
+        &[href*="taringa"] {
+	    background-color: #23b;
+   	    background-image: url(../img/logo-taringa.png);
+        }
+
+        &:hover,
+        &:focus {
+            box-shadow: 4px 4px 4px black;
+        }
+    }
+}
+
+
+.header__nav__item--secondary.no-pip span {
+    background-image: url(../img/icono-llave.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+@media #{$medium-up} {
+    .header__nav {
+        @include clearfix();
+    }
+
+    .header__nav__primary {
+        margin-bottom: 0;
+    }
+
+    .header__nav__secondary {
+        float: right;
+        position: absolute;
+        top: $column-gutter;
+        right: $column-gutter;
+    }
+}
+
+.header__hero {
+    background-color: $color-darkblue;
+    padding: 1em 0;
+    text-align: left;
+
+    @media #{$medium-up} {
+      h1 {
+          font-size: $h1-font-size * 0.8;
+      }
+
+      h2 {
+          font-size: $h2-font-size * 0.8;
+      }
+    }
+}
+
+.person__hero {
+    h1 {
+        color: #fff;
+
+        & + p {
+            color: $color-blue;
+        }
+    }
+
+    p {
+        font-family: $body-font-family;
+    }
+
+    @media #{$medium-up} {
+        h1 {
+            font-size: $h1-font-size;
+            margin-bottom: 0.1em;
+        }
+
+        .person-avatar {
+            height: 4em;
+        }
+    }
+}
+
+.footer {
+    a {
+        color: $color-blue;
+    }
+
+    h4 {
+        color: inherit;
+        font-family: inherit;
+        font-size: 0.8em;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-bottom: 0;
+    }
+
+    p + h4 {
+        margin-top: 1em;
+    }
+
+    img {
+        margin-right: 1em;
+        margin-top: 0.3em;
+    }
+}
+
+@media #{$medium-up} {
+    .footer__links,
+    .footer__bylines {
+        width: auto;
+    }
+}
+
+.content {
+    background: white url(../img/bg_home_logo.png) left bottom no-repeat;
+}
+
+// Home page
+
+body.finder .content {
+    padding-bottom: 0;
+    padding-top: 0;
+
+    .container {
+        padding-top: 2em;
+        padding-bottom: 2em;
+    }
+}
+
+.finder__container {
+    background-color: $color-darkblue;
+    background-image:  url(../img/bg_busqueda.jpg);
+    color: mix($color-blue,#fff,50%);
+    margin-top: -4em;
+    background-size: 100%;
+    background-position: center;
+    border-bottom: 5px solid $color-darkblue;
+    border-image: url(../img/colores_header.png) 50;
+}
+
+
+.finder__container label,
+.finder__container h1
+ {
+    color: white;    
+}
+
+.finder__getting-started {
+    background-color: darken($color-offwhite, 5%);
+}
+
+.finder__getting-started__demo {
+    margin-bottom: 2em;
+}
+
+.finder__intro {
+    width: auto;
+    text-align: center;
+
+    p {
+        font-size: 1.2em;
+    }
+}
+
+.finder__forms {
+    padding: 0;
+    margin-bottom: 0;
+    max-width: 100%;
+    width: auto;
+    position: static;
+    box-shadow: none;
+    background: transparent; 
+
+
+    label {
+        font-size: 1em;
+        margin-bottom: 1em;
+    }
+
+    button {
+        margin-left: -4px;
+        padding: 8px 16px;
+        border-radius: 0 10px 10px 0;        
+    }
+}
+
+.policrowd_home_intro {
+    text-align: center;
+}
+
+.policrowd_home_intro .policrowd_home_intro_queres {
+    color: $color-darkblue;
+    padding-bottom: 2em;
+    border-bottom: 6px double $color-blue;
+}
+
+.policrowd_home_intro h2 {
+    color: $color-blue;
+    top: -1.2em;
+    display: inline-block;
+    background: white;
+    position: relative;
+    padding: 0 1em;
+}
+
+.policrowd_home_intro h3 {
+    color: $color-purple;   
+}
+.policrowd_home_steps {
+    clear: both;
+    margin: 0 5%;
+}
+
+.policrowd_home_steps li {
+    list-style: none;
+    float: left;
+    width: 23%;
+    margin: 1%;
+}
+
+.policrowd_home_steps li p {
+    color: $color-grey;
+}
+
+.policrowd_home_sumate {
+    font-size: 2em;
+    clear: both;
+}
+
+.policrowd_home_sumate button span {
+    background-image: url(../img/ico_sumate.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.policrowd_home_recorda {
+    background-image: url(../img/img_recorda.png);
+    background-repeat: no-repeat;
+    background-position: top center;    
+    padding-top: 55px;
+    margin-top: 1em;
+}
+
+.policrowd_home_recorda p {
+    color: white;
+    background: $color-purple;
+    display: inline-block;
+    font-size: 1.1em;
+    padding: 0 1em;
+    text-transform: uppercase; 
+    font-weight: bold;  
+}
+
+.policrowd_home_cuanta {
+    font-size: 1em;
+
+    padding: 0.5em;
+}
+
+.policrowd_home_intro button {
+    font-size: 1.1em;
+
+}
+
+@media #{$medium-up} {
+    .finder__intro {
+    }
+
+    .finder__forms {
+    }
+
+    .finder__getting-started {
+        body.finder & .container { // TODO: overspecified selector!!
+            padding-top: 3em;
+            padding-bottom: 4em;
+        }
+
+        h2 {
+            margin-top: 1em;
+            margin-bottom: 0.5em;
+        }
+    }
+
+    .finder__getting-started__demo {
+        @include grid-column($columns: 6, $collapse: true);
+    }
+
+    .finder__getting-started__help {
+        @include grid-column($columns: 5, $collapse: true, $offset: 1);
+    }
+
+    .finder__getting-started__priorities {
+        list-style: none;
+        margin: 0;
+
+        li a {
+            display: block;
+            padding: 0.5em 0;
+        }
+
+        li + li {
+            border-top: 1px solid mix($color-offwhite, $color-blue, 80%);
+        }
+    }
+}
+
+.person__actions__action {
+    background-color: $message-background-color;
+}
+
+.person__actions__edit,
+.person__actions__sourcing {
+    background-color: $highlight-background-color;
+}
+
+.person__actions__data {
+    background-color: $information-background-color;
+}
+
+.person__actions__merge {
+    background-color: $danger-background-color;
+}
+
+.official-documents {
+    @extend .candidates__known;
+}
+
+@media #{$medium-up} {
+    .candidates__known {
+        background-image: url(img/icon-candidates.png);
+    }
+
+    .candidates__new {
+        background-image: url(img/icon-add-candidate.png);
+    }
+
+    .candidates__previous {
+        background-image: url(img/icon-question.png);
+    }
+
+    .candidates__not-standing {
+        background-image: url(img/icon-cross.png);
+    }
+
+    .official-documents {
+        background-image: url(img/icon-documents.png);
+    }
+}
+
+p.agreement label {
+	display: inline;
+}
+
+
+/* Politicians */
+
+.poderes-selector {
+    margin-bottom: 1em;
+
+&.tabs .tab-title > a {
+    font-family: $header-font-family;
+    border-bottom: 1px solid #ccc;
+    color: $color-red;
+    background: none;
+    text-align: center;
+}
+&.tabs .tab-title.active > a {
+    border-bottom: 4px solid $color-blue;    
+    color: $color-darkblue;
+    font-weight: bold;
+    background: none;
+}
+
+.poderes-selector .tab-title {
+    width: 33%;
+}
+
+.politician {
+    overflow: hidden;
+}
+
+.politician .politician-post {
+    font-size: 1.8em;
+    color: $color-darkblue;
+}
+
+.politician .person-avatar {
+    background-color:#ddd;
+    float: left;
+    height: 80px;
+
+}
+
+.politician .politician-role {
+    color: $color-grey;
+    font-size: 0.9em;
+}
+
+.politician .politician-name a {
+    color: #000;
+    font-size: 1.3em;    
+}
+
+
+.politician-level-2,
+.politician-level-3,
+.politician-level-4
+  {
+    display: none;
+}
+
+.politician-level-1 .politician-data {
+    display: none;
+}
+
+.politician-level-1 {
+    padding-left: 2em;
+    border-top: 1px solid $color-blue;
+    border-bottom: 1px solid $color-blue;
+}
+
+
+.politician.politician-level-1 .politician-post {
+    font-size: 1em;
+    color: $color-red;
+}
+
+.politician-level-2 {
+    padding-left: 4em;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    background: mix(#fff,$color-blue,0.7);
+}
+
+.politician-level-2 .politician-data {
+    display: none;
+}
+
+.politician.politician-level-2 .politician-post {
+    color: $color-darkblue;
+    font-size: 0.9em;    
+}
+
+
+.politician-level-3 {
+    padding-left: 6em;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    background: mix(#fff,$color-blue,70%);
+}
+
+.politician.politician-level-3 .politician-post {
+    color: $color-blue;
+    font-size: 0.9em;    
+}
+.politician-level-3 .politician-data {
+    display: none;
+}
+
+
+.politician-level-4 {
+    padding-left: 8em;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    background: #ccc;
+}
+
+.politician.politician-level-4 .politician-post {
+    color: #000;
+    font-size: 0.9em;    
+}
+.politician-level-4 .politician-data {
+    display: none;
+}
