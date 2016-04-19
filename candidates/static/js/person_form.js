@@ -238,7 +238,11 @@ function setMembershipsEvents(areasTree) {
       var secondAreasComboId = '#id_second_areas';
       fillAreasCombo(secondAreasComboId, internalAreas);
       $(secondAreasComboId).val(-1);
-      $('.second_areas').slideDown();
+      if ($(secondAreasComboId + ' > option').length > 1) {
+        $('.second_areas').slideDown();
+      } else {
+        $('.second_areas').slideUp();
+      }
 
       var postsComboId = '#id_posts';
       var postsList = [];
