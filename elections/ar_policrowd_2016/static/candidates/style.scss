@@ -556,22 +556,27 @@ p.agreement label {
 .poderes-selector {
     margin-bottom: 1em;
 
-&.tabs .tab-title > a {
-    font-family: $header-font-family;
-    border-bottom: 1px solid #ccc;
-    color: $color-red;
-    background: none;
-    text-align: center;
-}
-&.tabs .tab-title.active > a {
-    border-bottom: 4px solid $color-blue;    
-    color: $color-darkblue;
-    font-weight: bold;
-    background: none;
+    &.tabs .tab-title > a {
+        font-family: $header-font-family;
+        border-bottom: 1px solid #ccc;
+        color: $color-red;
+        background: none;
+        text-align: center;
+    }
+    &.tabs .tab-title.active > a {
+        border-bottom: 4px solid $color-blue;    
+        color: $color-darkblue;
+        font-weight: bold;
+        background: none;
+    }
 }
 
 .poderes-selector .tab-title {
     width: 33%;
+}
+
+.poder-miembros {
+    margin-top: 2em;
 }
 
 .politician {
@@ -579,25 +584,29 @@ p.agreement label {
 }
 
 .politician .politician-post {
-    font-size: 1.8em;
+    font-size: 1.6em;
+    padding: 1em 0;
     color: $color-darkblue;
+    cursor: pointer;
+    background: url(../img/Desp-01_Abrir.png) 97% 50% no-repeat;
 }
 
 .politician .person-avatar {
     background-color:#ddd;
     float: left;
-    height: 80px;
+    height: 100px;
+    margin-right: 20px;
 
 }
 
 .politician .politician-role {
     color: $color-grey;
-    font-size: 0.9em;
+    font-size: 0.8em;
 }
 
 .politician .politician-name a {
     color: #000;
-    font-size: 1.3em;    
+    font-size: 1.5em;    
 }
 
 
@@ -615,9 +624,12 @@ p.agreement label {
 .politician-level-1 {
     padding-left: 2em;
     border-top: 1px solid $color-blue;
-    border-bottom: 1px solid $color-blue;
 }
 
+
+.politician.politician-level-0 .politician-post {
+    background: none;
+}
 
 .politician.politician-level-1 .politician-post {
     font-size: 1em;
@@ -626,9 +638,8 @@ p.agreement label {
 
 .politician-level-2 {
     padding-left: 4em;
-    border-top: 1px solid white;
-    border-bottom: 1px solid white;
-    background: mix(#fff,$color-blue,0.7);
+    border-top: 1px solid $color-blue;
+    background: mix(#fff,$color-blue,80%);
 }
 
 .politician-level-2 .politician-data {
@@ -638,19 +649,21 @@ p.agreement label {
 .politician.politician-level-2 .politician-post {
     color: $color-darkblue;
     font-size: 0.9em;    
+    background-image: url(../img/Desp-02_Abrir.png);
 }
 
 
 .politician-level-3 {
     padding-left: 6em;
     border-top: 1px solid white;
-    border-bottom: 1px solid white;
-    background: mix(#fff,$color-blue,70%);
+    background: mix(#fff,$color-blue,20%);
 }
 
 .politician.politician-level-3 .politician-post {
-    color: $color-blue;
+    color: mix(#000,$color-darkblue,80%);
     font-size: 0.9em;    
+    background-image: url(../img/Desp-03_Abrir.png);
+
 }
 .politician-level-3 .politician-data {
     display: none;
@@ -661,12 +674,14 @@ p.agreement label {
     padding-left: 8em;
     border-top: 1px solid white;
     border-bottom: 1px solid white;
-    background: #ccc;
+    background: #eee;
 }
 
 .politician.politician-level-4 .politician-post {
     color: #000;
     font-size: 0.9em;    
+    background-image: url(../img/Desp-04_Abrir.png);
+
 }
 .politician-level-4 .politician-data {
     display: none;

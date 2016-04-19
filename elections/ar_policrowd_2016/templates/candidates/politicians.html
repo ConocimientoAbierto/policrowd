@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Políticos de" %} {{ area_name }} - {% trans "PoliCrowd, plataforma colectiva de políticos" %} {% endblock %}
+
+{% block hero %}
+	<div style="float:right">
+		{% if politician_list_edits_allowed %}
+	    <a href="{% url 'create-politician-view' area_id=area_id %}" class="button">{% trans "Add a new candidate" %}</a>
+    {% else %}
+        <a href="{% url 'account_login' %}{% if redirect_after_login %}?next={{ redirect_after_login }}{% endif %}" class="button">{% trans "Sign in to add a new politician" %}</a>
+    {% endif %}
+	</div>
+	<h1>{% trans "Políticos de" %} {{ area_name }}{% include 'candidates/area_breadcrumb.html' %}</h1>
+{% endblock %}
+
+{% block content %}
+	<ul class="poderes-selector tabs" data-tab role="tablist" data-options="scroll_to_content: false;deep_linking:true">
+    {% for powerName, membershipList in memberships.items %}
+	  	<li class="tab-title {% if forloop.counter == 1 %}active{%endif%}" role="presentation"><a href="#poder-{{ powerName|slugify }}" role="tab" tabindex="0" aria-controls="poder-{{ powerName|slugify }}">{{ powerName }}</a></li>
+    {% endfor %}
+	</ul>
+  	<div class="poder-miembros tabs-content">
+	    {% for powerName, membershipList in memberships.items %}
+
+			<section role="tabpanel" aria-hidden=" {% if forloop.counter == 1 %}false{%else%}true{%endif%}" class="poder {% if forloop.counter == 1 %}active{%endif%}" id="poder-{{ powerName|slugify }}">
+		  		{% for membership_indent, membership in membershipList %}
+				<div class="politician politician-level-{{ membership_indent }} organization-parent-id-{{ membership.organization.parent_id }}">
+	      			<div class="politician-post organization-id-{{ membership.organization.id }}">{{ membership.organization.name }}</div>
+	     			<div class="politician-data">
+		      			<img class="person-avatar politician-avatar" src="/static/candidates/img/blank-man.png">
+			      		<div class="politician-role">
+			      			{{ membership.post.role }}  
+			      		</div>      		
+			      		<div class="politician-name">
+			      			<a href="{{ membership.person.url }}">{{ membership.person.name }} {{ membership.person.family_name }}</a> 
+			      		</div>      		
+                                        <a href="{{ membership.person.url }}" class="button secondary">{% trans "Ver perfil" %}</a>
+		      		</div>
+	      		</div>
+		  		{% endfor %}
+		  	</section>
+
+	    {% endfor %}
+  	</div>	
+
+    {% if internal_areas_count > 0 %}
+	<div class="internal-areas">
+  	  	<a href="{{ internal_areas_url }}">{% trans "Ver políticos de provincias o ciudades dentro de" %} {{ area_name }} </a>
+	</div>
+    {% endif %}
+
+    <script type="text/javascript">
+    	$(document).foundation('tab', 'reflow');
+
+    	$(".politician-post").click(function(e) {
+    		$(e.currentTarget).find("+ .politician-data").toggle();
+    		organization_id = $(e.currentTarget).attr("class").split("organization-id-")[1];
+    		$(".organization-parent-id-"+organization_id).toggle();
+
+		//Esto es problematico, no oculta/muestra bien
+                $(".organization-parent-id-"+organization_id + " .politician-post").each(function(e) {
+			coi = e.attr("class").split("organization-id-")[1];
+	                $(".organization-parent-id-"+child_organization_id+"::visible").toggle();
+
+		});
+
+    	})
+    </script>
+{% endblock %}

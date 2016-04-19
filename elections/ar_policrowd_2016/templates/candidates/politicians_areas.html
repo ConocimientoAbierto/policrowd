@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Jurisdicciones dentro de" %} {{ area_name }} - {% trans "PoliCrowd, plataforma colectiva de políticos" %}  {% endblock %}
+
+{% block hero %}
+  <h1>{% trans "Jurisdicciones dentro de" %} {{ area_name }}{% include 'candidates/area_breadcrumb.html' %}</h1>
+{% endblock %}
+
+{% block content %}
+
+	  <h2>
+	    {% blocktrans %}Provincias o ciudades{% endblocktrans %}
+	  </h2>
+
+  {% for internal_area_name, internal_area_url in internal_areas_urls %}
+    {% if forloop.first %}
+      <ul>
+    {% endif %}
+      <li><a href="{{ internal_area_url }}">{{ internal_area_name }}</a></li>
+    {% if forloop.last %}
+      </ul>
+    {% endif %}
+  {% empty %}
+    <p>
+      {% blocktrans %}No internal areas found in{% endblocktrans %} {{ area_name }}.
+    </p>
+  {% endfor %}
+
+{% endblock %}
