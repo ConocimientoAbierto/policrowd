@@ -61,6 +61,8 @@ def update_person_from_form(person, person_extra, form):
                 person=person, field=extra_field,
                 defaults={'value': form_data[extra_field.key]}
             )
+    if person.given_name and person.family_name:
+        person.name = person.given_name + '' + person.family_name
     person.save()
     person_extra.save()
 
