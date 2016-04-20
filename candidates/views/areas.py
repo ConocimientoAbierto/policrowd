@@ -195,15 +195,15 @@ class PoliticiansView(PoliticiansTemplateView):
     template_name = 'candidates/politicians.html'
     memberships = {}
 
-    def __rename_attribute(self, object_, old_attribute_name, new_attribute_name):
-        setattr(object_, new_attribute_name, getattr(object_, old_attribute_name))
-        delattr(object_, old_attribute_name)
+    # def __rename_attribute(self, object_, old_attribute_name, new_attribute_name):
+    #     setattr(object_, new_attribute_name, getattr(object_, old_attribute_name))
+    #     delattr(object_, old_attribute_name)
 
-    def __renameMembershipsProperties(self, memberships):
+    def __generatePersonsUrl(self, memberships):
         for membership in memberships:
-            self.__rename_attribute(membership, '_organization_cache', 'organization')
-            self.__rename_attribute(membership, '_post_cache', 'post')
-            self.__rename_attribute(membership, '_person_cache', 'person')
+            # self.__rename_attribute(membership, '_organization_cache', 'organization')
+            # self.__rename_attribute(membership, '_post_cache', 'post')
+            # self.__rename_attribute(membership, '_person_cache', 'person')
             self.__generatePersonUrl(membership.person)
 
     def __generatePersonUrl(self, person):
@@ -219,7 +219,7 @@ class PoliticiansView(PoliticiansTemplateView):
     def __createMembershipsDict(self, parentId, areaId):
         membershipsDict = {}
         memberships = pmodels.Membership.objects.select_related('organization','post','person').filter(organization__classification='goverment', area_id=areaId, organization__parent_id=parentId)
-        self.__renameMembershipsProperties(memberships)
+        self.__generatePersonsUrl(memberships)
 
         for membership in memberships:
             organizationId = membership.organization.id

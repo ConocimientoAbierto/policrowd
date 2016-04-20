@@ -56,17 +56,20 @@ class Command(BaseCommand):
             organization_id = organizationId,
             person_id = personId,
             post_id = postId,
-            area_id = self.argentinaCache.id
+            area_id = self.argentinaCache.id,
+            start_date = '2015-12-10',
+            end_date = '2019-12-10'
         )
         membership.save()
 
     def createPerson(self, date, name, lastName, mail):
+        fullName = name.decode('utf8').title() + ' ' + lastName.decode('utf8').title()
         person = Person(
             created_at = date,
             updated_at = date,
-            name = name.decode('utf8').title(),
+            name = fullName,
             family_name = lastName.decode('utf8').title(),
-            given_name = '',
+            given_name = name.decode('utf8').title(),
             additional_name = '',
             honorific_prefix = '',
             honorific_suffix = '',
