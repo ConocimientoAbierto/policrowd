@@ -238,18 +238,8 @@ class PoliticiansView(PoliticiansTemplateView):
                 membershipsByOrg[orgId] = []
             membershipsByOrg[orgId].append(membership)
 
-        print "\n##### MEMBERSHIPS BY ORG"
-        print membershipsByOrg
-        print "####################################"
-        print "####################################\n"
-
         for organizationId, repeatedMemberships in membershipsByOrg.items():
             if len(repeatedMemberships) > 1:
-
-                print "\n##### MULTIPLE MEMBERSHIPS FOUND"
-                for i in repeatedMemberships: print i.person.name
-                print "\n"
-
                 cleanMembership = self.__getLastMembershipOfOrg(repeatedMemberships)
             else:
                 cleanMembership = repeatedMemberships[0]
