@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YourNextMP\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-11 22:04+0100\n"
+"POT-Creation-Date: 2016-04-20 06:39+0100\n"
 "PO-Revision-Date: 2016-02-05 16:28+0000\n"
 "Last-Translator: mySociety <transifex@mysociety.org>\n"
 "Language-Team: English (United States) (http://www.transifex.com/mysociety/"
@@ -588,7 +588,8 @@ msgstr ""
 #: candidates/templates/candidates/ordered-party-list.html:97
 #: candidates/templates/candidates/ordered-party-list.html:103
 #: candidates/templates/candidates/person-create.html:7
-#: candidates/templates/candidates/politicians.html:24
+#: candidates/templates/candidates/politicians.html:9
+#: elections/ar_policrowd_2016/templates/candidates/politicians.html:9
 msgid "Add a new candidate"
 msgstr ""
 
@@ -1503,13 +1504,17 @@ msgid ""
 msgstr ""
 
 #: candidates/templates/candidates/person-edit.html:9
-#: candidates/templates/candidates/person-edit.html:27
 #, python-format
 msgid "Editing: %(name)s"
 msgstr ""
 
 #: candidates/templates/candidates/person-edit.html:24
 msgid "Upload photo"
+msgstr ""
+
+#: candidates/templates/candidates/person-edit.html:27
+#, python-format
+msgid "Editing: %(name)s %(family_name)s"
 msgstr ""
 
 #: candidates/templates/candidates/person-edit.html:53
@@ -1526,6 +1531,7 @@ msgstr ""
 
 #: candidates/templates/candidates/person-edit.html:63
 #: candidates/templates/candidates/person-view.html:111
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:233
 msgid "Personal details:"
 msgstr ""
 
@@ -1547,26 +1553,31 @@ msgstr ""
 
 #: candidates/templates/candidates/person-edit.html:129
 #: candidates/templates/candidates/person-view.html:149
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:114
 msgid "Last Post:"
 msgstr ""
 
 #: candidates/templates/candidates/person-edit.html:134
 #: candidates/templates/candidates/person-view.html:154
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:119
 msgid "Older Posts:"
 msgstr ""
 
 #: candidates/templates/candidates/person-edit.html:193
 #: candidates/templates/candidates/person-view.html:181
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:137
 msgid "Links and social media:"
 msgstr ""
 
 #: candidates/templates/candidates/person-edit.html:256
-#: candidates/templates/candidates/person-view.html:207
+#: candidates/templates/candidates/person-view.html:213
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:158
 msgid "Demographics:"
 msgstr ""
 
 #: candidates/templates/candidates/person-edit.html:271
-#: candidates/templates/candidates/person-view.html:251
+#: candidates/templates/candidates/person-view.html:257
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:202
 msgid "Additional information:"
 msgstr ""
 
@@ -1683,26 +1694,32 @@ msgstr ""
 
 #: candidates/templates/candidates/person-view.html:16
 #: candidates/templates/candidates/person-view.html:55
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:16
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:55
 #, python-format
 msgid "Candidate for %(post)s in %(election)s"
 msgstr ""
 
 #: candidates/templates/candidates/person-view.html:78
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:83
 #, python-format
 msgid "Candidate for <a href=\"%(url)s\">%(post)s</a> in %(election)s"
 msgstr ""
 
 #: candidates/templates/candidates/person-view.html:93
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:70
 #, python-format
 msgid "%(name)s was elected"
 msgstr ""
 
 #: candidates/templates/candidates/person-view.html:95
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:72
 #, python-format
 msgid "%(name)s was not elected"
 msgstr ""
 
 #: candidates/templates/candidates/person-view.html:105
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:105
 #, python-format
 msgid ""
 "We don’t have an email address for %(name)s, <a href=\"%(url)s\">help out by "
@@ -1710,123 +1727,162 @@ msgid ""
 msgstr ""
 
 #: candidates/templates/candidates/person-view.html:114
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:236
 #: mysite/extra_translations.py:16
 msgid "Name"
 msgstr ""
 
 #: candidates/templates/candidates/person-view.html:117
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:239
 msgid "Also known as"
 msgstr ""
 
 #: candidates/templates/candidates/person-view.html:120
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:242
 msgid "additional name"
 msgstr ""
 
 #: candidates/templates/candidates/person-view.html:126
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:248
 #: mysite/extra_translations.py:24
 msgid "Email"
 msgstr ""
 
 #: candidates/templates/candidates/person-view.html:139
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:261
 #: mysite/extra_translations.py:28
 msgid "Summary"
 msgstr ""
 
 #: candidates/templates/candidates/person-view.html:143
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:265
 #: mysite/extra_translations.py:29
 msgid "Biography"
 msgstr ""
 
-#: candidates/templates/candidates/person-view.html:188
+#: candidates/templates/candidates/person-view.html:185
+msgid "Dato faltante ..."
+msgstr ""
+
+#: candidates/templates/candidates/person-view.html:187
+msgid "Agregalo"
+msgstr ""
+
+#: candidates/templates/candidates/person-view.html:189
+msgid "Registrate y agregalo"
+msgstr ""
+
+#: candidates/templates/candidates/person-view.html:194
 msgid "(personal profile)"
 msgstr ""
 
-#: candidates/templates/candidates/person-view.html:191
+#: candidates/templates/candidates/person-view.html:197
 msgid "(campaign page)"
 msgstr ""
 
-#: candidates/templates/candidates/person-view.html:196
+#: candidates/templates/candidates/person-view.html:202
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:151
 msgid "Homepage"
 msgstr ""
 
-#: candidates/templates/candidates/person-view.html:198
+#: candidates/templates/candidates/person-view.html:204
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:152
 msgid "Wikipedia page"
 msgstr ""
 
-#: candidates/templates/candidates/person-view.html:200
+#: candidates/templates/candidates/person-view.html:206
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:153
 msgid "LinkedIn page"
 msgstr ""
 
-#: candidates/templates/candidates/person-view.html:202
+#: candidates/templates/candidates/person-view.html:208
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:154
 msgid "Party candidate page"
 msgstr ""
 
-#: candidates/templates/candidates/person-view.html:211
+#: candidates/templates/candidates/person-view.html:217
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:162
 #: mysite/extra_translations.py:25
 msgid "Gender"
 msgstr ""
 
-#: candidates/templates/candidates/person-view.html:212
-#: candidates/templates/candidates/person-view.html:239
+#: candidates/templates/candidates/person-view.html:218
+#: candidates/templates/candidates/person-view.html:245
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:163
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:190
 msgid "Unknown"
 msgstr ""
 
-#: candidates/templates/candidates/person-view.html:215
+#: candidates/templates/candidates/person-view.html:221
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:166
 msgid "Age"
 msgstr ""
 
-#: candidates/templates/candidates/person-view.html:220
+#: candidates/templates/candidates/person-view.html:226
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:171
 #, python-format
 msgid "Year of birth: %(dob)s"
 msgstr ""
 
-#: candidates/templates/candidates/person-view.html:230
-#: candidates/templates/candidates/person-view.html:233
+#: candidates/templates/candidates/person-view.html:236
+#: candidates/templates/candidates/person-view.html:239
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:181
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:184
 #, python-format
 msgid ""
 "Date of birth: %(dob)s\n"
 "                     "
 msgstr ""
 
-#: candidates/templates/candidates/person-view.html:244
+#: candidates/templates/candidates/person-view.html:250
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:195
 #: mysite/extra_translations.py:30
 msgid "National Identity"
 msgstr ""
 
-#: candidates/templates/candidates/person-view.html:261
+#: candidates/templates/candidates/person-view.html:267
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:212
 msgid "Photo Credit:"
 msgstr ""
 
-#: candidates/templates/candidates/person-view.html:285
+#: candidates/templates/candidates/person-view.html:291
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:288
 msgid "Improve this data!"
 msgstr ""
 
-#: candidates/templates/candidates/person-view.html:287
+#: candidates/templates/candidates/person-view.html:293
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:290
 msgid "Our database is built by people like you."
 msgstr ""
 
-#: candidates/templates/candidates/person-view.html:288
+#: candidates/templates/candidates/person-view.html:294
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:291
 msgid ""
 "Please do add extra details about this candidate – it only takes a moment."
 msgstr ""
 
-#: candidates/templates/candidates/person-view.html:290
+#: candidates/templates/candidates/person-view.html:296
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:293
 msgid "Edit candidate"
 msgstr ""
 
-#: candidates/templates/candidates/person-view.html:292
+#: candidates/templates/candidates/person-view.html:298
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:295
 msgid "Log in to edit"
 msgstr ""
 
-#: candidates/templates/candidates/person-view.html:300
+#: candidates/templates/candidates/person-view.html:306
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:303
 msgid "Use this data!"
 msgstr ""
 
-#: candidates/templates/candidates/person-view.html:301
+#: candidates/templates/candidates/person-view.html:307
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:304
 msgid "Open data JSON API:"
 msgstr ""
 
-#: candidates/templates/candidates/person-view.html:306
+#: candidates/templates/candidates/person-view.html:312
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:309
 #, python-format
 msgid ""
 "More details about getting <a href=\"%(api_url)s\">the data</a> and <a href="
@@ -1850,27 +1906,57 @@ msgid "Undo Delete"
 msgstr ""
 
 #: candidates/templates/candidates/politician-create.html:4
+#: elections/ar_policrowd_2016/templates/candidates/politician-create.html:4
 msgid "Add Politician"
 msgstr ""
 
 #: candidates/templates/candidates/politician-create.html:8
+#: elections/ar_policrowd_2016/templates/candidates/politician-create.html:8
 msgid "Add Politician in"
 msgstr ""
 
 #: candidates/templates/candidates/politician-create.html:33
+#: elections/ar_policrowd_2016/templates/candidates/politician-create.html:33
 msgid "Add new politician"
 msgstr ""
 
-#: candidates/templates/candidates/politicians.html:17
-#: candidates/templates/candidates/politicians_areas.html:13
-msgid "Internal Areas"
+#: candidates/templates/candidates/politicians.html:4
+#: candidates/templates/candidates/politicians.html:14
+#: elections/ar_policrowd_2016/templates/candidates/politicians.html:4
+#: elections/ar_policrowd_2016/templates/candidates/politicians.html:12
+msgid "Políticos de"
 msgstr ""
 
-#: candidates/templates/candidates/politicians.html:26
+#: candidates/templates/candidates/politicians.html:4
+#: candidates/templates/candidates/politicians_areas.html:4
+#: elections/ar_policrowd_2016/templates/candidates/politicians.html:4
+#: elections/ar_policrowd_2016/templates/candidates/politicians_areas.html:4
+msgid "PoliCrowd, plataforma colectiva de políticos"
+msgstr ""
+
+#: candidates/templates/candidates/politicians.html:11
 msgid "Sign in to add a new politician"
 msgstr ""
 
+#: candidates/templates/candidates/politicians.html:48
+#: elections/ar_policrowd_2016/templates/candidates/politicians.html:47
+msgid "Ver políticos de provincias o ciudades dentro de"
+msgstr ""
+
+#: candidates/templates/candidates/politicians_areas.html:4
+#: candidates/templates/candidates/politicians_areas.html:7
+#: elections/ar_policrowd_2016/templates/candidates/politicians_areas.html:4
+#: elections/ar_policrowd_2016/templates/candidates/politicians_areas.html:7
+msgid "Jurisdicciones dentro de"
+msgstr ""
+
+#: candidates/templates/candidates/politicians_areas.html:13
+#: elections/ar_policrowd_2016/templates/candidates/politicians_areas.html:13
+msgid "Provincias o ciudades"
+msgstr ""
+
 #: candidates/templates/candidates/politicians_areas.html:26
+#: elections/ar_policrowd_2016/templates/candidates/politicians_areas.html:26
 msgid "No internal areas found in"
 msgstr ""
 
@@ -1911,7 +1997,7 @@ msgstr ""
 
 #: candidates/templates/candidates/privacy.html:6
 #: candidates/templates/candidates/privacy.html:9
-#: elections/ar_elections_2015/templates/base.html:113
+#: elections/ar_elections_2015/templates/base.html:116
 #: elections/ar_policrowd_2016/templates/base.html:115
 #: mysite/templates/generic_base.html:142
 msgid "Privacy policy"
@@ -2213,45 +2299,40 @@ msgid "An Organization is required"
 msgstr ""
 
 #: elections/ar_elections_2015/templates/base.html:37
-#: elections/ar_policrowd_2016/templates/base.html:37
 msgid "Yo Quiero Saber"
 msgstr ""
 
-#: elections/ar_elections_2015/templates/base.html:48
-msgid "Provinces"
-msgstr ""
-
-#: elections/ar_elections_2015/templates/base.html:49
+#: elections/ar_elections_2015/templates/base.html:52
 #: elections/ar_policrowd_2016/templates/base.html:64
 msgid "Politicians"
 msgstr ""
 
-#: elections/ar_elections_2015/templates/base.html:61
+#: elections/ar_elections_2015/templates/base.html:64
 #: elections/ar_policrowd_2016/templates/base.html:49
 #: mysite/templates/generic_base.html:77
 #, python-format
 msgid "Signed in as <strong>%(username)s</strong>"
 msgstr ""
 
-#: elections/ar_elections_2015/templates/base.html:63
+#: elections/ar_elections_2015/templates/base.html:66
 #: elections/ar_policrowd_2016/templates/base.html:51
 #: mysite/templates/generic_base.html:81
 msgid "Sign out"
 msgstr ""
 
-#: elections/ar_elections_2015/templates/base.html:66
+#: elections/ar_elections_2015/templates/base.html:69
 #: elections/ar_policrowd_2016/templates/base.html:54
 #: mysite/templates/generic_base.html:83
 msgid "Sign in to edit"
 msgstr ""
 
-#: elections/ar_elections_2015/templates/base.html:111
+#: elections/ar_elections_2015/templates/base.html:114
 #: elections/ar_policrowd_2016/templates/base.html:113
 #: mysite/templates/generic_base.html:139
 msgid "Open data API"
 msgstr ""
 
-#: elections/ar_elections_2015/templates/base.html:112
+#: elections/ar_elections_2015/templates/base.html:115
 #: elections/ar_policrowd_2016/templates/base.html:114
 #: elections/jamaica/templates/jamaica/frontpage.html:19
 #: elections/uk/templates/base.html:24 mysite/templates/generic_base.html:93
@@ -2259,28 +2340,25 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-#: elections/ar_elections_2015/templates/base.html:116
+#: elections/ar_elections_2015/templates/base.html:119
 #: elections/ar_policrowd_2016/templates/base.html:118
 msgid "Made by"
 msgstr ""
 
-#: elections/ar_elections_2015/templates/base.html:123
-#: elections/ar_policrowd_2016/templates/base.html:125
+#: elections/ar_elections_2015/templates/base.html:126
 msgid "Partners"
 msgstr ""
 
-#: elections/ar_elections_2015/templates/base.html:131
-#: elections/ar_policrowd_2016/templates/base.html:133
+#: elections/ar_elections_2015/templates/base.html:134
+#: elections/ar_policrowd_2016/templates/base.html:122
 msgid "Supported by"
 msgstr ""
 
-#: elections/ar_elections_2015/templates/base.html:137
-#: elections/ar_policrowd_2016/templates/base.html:139
+#: elections/ar_elections_2015/templates/base.html:140
 msgid "Developed by"
 msgstr ""
 
-#: elections/ar_elections_2015/templates/base.html:144
-#: elections/ar_policrowd_2016/templates/base.html:146
+#: elections/ar_elections_2015/templates/base.html:147
 msgid "Show all the collaborators and volunteers"
 msgstr ""
 
@@ -2306,6 +2384,45 @@ msgstr ""
 #: elections/ar_policrowd_2016/templates/official_documents/_post.html:29
 #, python-format
 msgid "Upload a %(type)s"
+msgstr ""
+
+#: elections/ar_policrowd_2016/templates/base.html:37
+#: elections/ar_policrowd_2016/templates/base.html:44
+msgid "PoliCrowd"
+msgstr ""
+
+#: elections/ar_policrowd_2016/templates/base.html:37
+msgid "Plataforma colectiva de políticos"
+msgstr ""
+
+#: elections/ar_policrowd_2016/templates/base.html:65
+msgid "Provincias"
+msgstr ""
+
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:128
+#, python-format
+msgid "Contested in the %(election_name)s"
+msgstr ""
+
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:130
+#, python-format
+msgid "Contesting in the %(election_name)s"
+msgstr ""
+
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:141
+msgid "Twitter"
+msgstr ""
+
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:145
+msgid "Facebook personal"
+msgstr ""
+
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:148
+msgid "Facebook de campaña"
+msgstr ""
+
+#: elections/ar_policrowd_2016/templates/candidates/politicians.html:36
+msgid "Ver perfil"
 msgstr ""
 
 #: elections/bf_elections_2015/templates/base.html:8

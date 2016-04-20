@@ -7,8 +7,6 @@
 	<div style="float:right">
 		{% if politician_list_edits_allowed %}
 	    <a href="{% url 'create-politician-view' area_id=area_id %}" class="button">{% trans "Add a new candidate" %}</a>
-    {% else %}
-        <a href="{% url 'account_login' %}{% if redirect_after_login %}?next={{ redirect_after_login }}{% endif %}" class="button">{% trans "Sign in to add a new politician" %}</a>
     {% endif %}
 	</div>
 	<h1>{% trans "Políticos de" %} {{ area_name }}{% include 'candidates/area_breadcrumb.html' %}</h1>
@@ -35,7 +33,7 @@
 			      		<div class="politician-name">
 			      			<a href="{{ membership.person.url }}">{{ membership.person.name }} {{ membership.person.family_name }}</a> 
 			      		</div>      		
-                                        <a href="{{ membership.person.url }}" class="button secondary">{% trans "Ver perfil" %}</a>
+                        <a href="{{ membership.person.url }}" class="button secondary">{% trans "Ver perfil" %}</a>
 		      		</div>
 	      		</div>
 		  		{% endfor %}
@@ -58,10 +56,10 @@
     		organization_id = $(e.currentTarget).attr("class").split("organization-id-")[1];
     		$(".organization-parent-id-"+organization_id).toggle();
 
-		//Esto es problematico, no oculta/muestra bien
-                $(".organization-parent-id-"+organization_id + " .politician-post").each(function(e) {
+			//Esto es problematico, no oculta/muestra bien
+            $(".organization-parent-id-"+organization_id + " .politician-post").each(function(e) {
 			coi = e.attr("class").split("organization-id-")[1];
-	                $(".organization-parent-id-"+child_organization_id+"::visible").toggle();
+            $(".organization-parent-id-"+child_organization_id+"::visible").toggle();
 
 		});
 

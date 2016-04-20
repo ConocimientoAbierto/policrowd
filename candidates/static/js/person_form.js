@@ -229,6 +229,8 @@ function setMembershipsEvents(areasTree) {
     $('#delete_' + membershipId).show();
   });
 
+  var organizationsComboId = '#id_organization';
+
   $(firstAreasComboId).change(function(eventData){
     var parentAreaName = $(this).find("option:selected").text();
     var parentAreaId = $(this).find("option:selected").val();
@@ -254,7 +256,6 @@ function setMembershipsEvents(areasTree) {
       $('.posts').slideDown();
       $('.other_post').slideDown();
 
-      var organizationsComboId = '#id_organization';
       var organizationsList = [];
       if (window.organizations.hasOwnProperty(parentAreaId)){
         organizationsList = window.organizations[parentAreaId];

@@ -11,7 +11,7 @@ from django.core.management.base import BaseCommand
 
 from candidates.models import AreaExtra
 from elections.models import AreaType
-from popolo.models import Area
+from popolo.models import Area,Organization
 
 
 class Command(BaseCommand):
@@ -69,6 +69,17 @@ class Command(BaseCommand):
                 self.provincesAreasCache[provName] = createdProvince.id
                 i += 1
 
+                poderdefaults = {
+                    'created_at': date,
+                    'updated_at': date,
+                    'area_id': createdProvince.id,
+                    'classification': 'poder'
+                }
+                Organization.objects.get_or_create(name='Poder Ejecutivo de '+createdProvince.name, defaults=poderdefaults)
+                Organization.objects.get_or_create(name='Poder Legislativo de '+createdProvince.name, defaults=poderdefaults)
+                Organization.objects.get_or_create(name='Poder Judicial de '+createdProvince.name, defaults=poderdefaults)
+
+
     def fetchAllAreas(self):
         print ("Inserting Areas...\n")
         filename = 'ARG_adm2.csv'
@@ -104,6 +115,16 @@ class Command(BaseCommand):
                 type_id = areaTypeId
             )
             areaExtra.save()
+
+            poderdefaults = {
+                'created_at': date,
+                'updated_at': date,
+                'area_id': area.id,
+                'classification': 'poder'
+            }
+            Organization.objects.get_or_create(name='Poder Ejecutivo de '+area.name, defaults=poderdefaults)
+            Organization.objects.get_or_create(name='Poder Legislativo de '+area.name, defaults=poderdefaults)
+            Organization.objects.get_or_create(name='Poder Judicial de '+area.name, defaults=poderdefaults)
         
         
     def handle(self, *args, **options):

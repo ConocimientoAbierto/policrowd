@@ -190,7 +190,7 @@ class OrganizationsByArea(View):
         return organizationsDict
 
     def get(self, request, *args, **kwargs):
-        organizations = Organization.objects.only('id','name','area_id').filter(classification='goverment')
+        organizations = Organization.objects.only('id','name','area_id').filter(classification__in=["poder","goverment"])
         organizationsDict = self.__createDict(organizations)
         
         return HttpResponse(

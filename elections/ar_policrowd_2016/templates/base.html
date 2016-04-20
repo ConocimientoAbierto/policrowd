@@ -45,7 +45,7 @@
       <div class="header__nav">
         <div class="header__nav__secondary">
           {% if user.is_authenticated %}
-            <span class="header__nav__item header__nav__item--secondary button primary">
+            <span class="header__nav__item header__nav__item--secondary button air">
               {% blocktrans with username=user.username %}Signed in as <strong>{{ username }}</strong>{% endblocktrans %}
             </span>
             <a href="{% url 'account_logout' %}{% if redirect_after_login %}?next={{ redirect_after_login }}{% endif %}" class="header__nav__item header__nav__item--secondary button secondary">{% trans "Sign out" %}</a>

@@ -98,6 +98,11 @@ a {
     &:focus {
         text-decoration: none;
     }
+    &.air {
+        background-color: white;
+        color: black;
+        cursor: normal;
+    }
 }
 
 body {
@@ -132,7 +137,8 @@ body {
     height: 103px;
     background: transparent url(../img/logo-policrowd.png) center center no-repeat;
     text-indent: -9999px;
-    margin: 1em 0;
+    padding: 1em 0;
+    box-sizing: content-box;
 
     // Special case for very narrow screens,
     // to leave room for social icons
@@ -175,6 +181,7 @@ body {
 
 .header__nav__primary {
     display: inline-block;
+    text-transform: uppercase;    
 }
 
 .header__nav__social {
@@ -277,6 +284,17 @@ body {
             height: 4em;
         }
     }
+}
+
+.person__details h2 {
+    color: $color-darkblue;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.person__box {
+    float: left;
+    background: mix(#fff,$color-blue,20%)
 }
 
 .footer {
@@ -656,7 +674,7 @@ p.agreement label {
 .politician-level-3 {
     padding-left: 6em;
     border-top: 1px solid white;
-    background: mix(#fff,$color-blue,20%);
+    background: mix(#fff,$color-blue,50%);
 }
 
 .politician.politician-level-3 .politician-post {
