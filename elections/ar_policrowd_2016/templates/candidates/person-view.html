@@ -209,7 +209,7 @@
 
   <dl>
     <dt>{% trans "Name" %}</dt>
-    <dd>{{ person.extra.name_with_honorifics }} {{ person.family_name }}</dd>
+    <dd>{{ person.extra.name_with_honorifics }}</dd>
     {% if person.other_names.exists or 'additional_name' in simple_fields and person.additional_name %}
       <dt>{% trans "Also known as" %}</dt>
     {% endif %}

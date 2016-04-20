@@ -21,7 +21,7 @@
   	<div class="poder-miembros tabs-content">
 	    {% for powerName, membershipList in memberships.items %}
 
-			<section role="tabpanel" aria-hidden=" {% if forloop.counter == 1 %}false{%else%}true{%endif%}" class="poder {% if forloop.counter == 1 %}active{%endif%}" id="poder-{{ powerName|slugify }}">
+			<section role="tabpanel" aria-hidden=" {% if forloop.counter == 1 %}false{%else%}true{%endif%}" class=" content poder {% if forloop.counter == 1 %}active{%endif%}" id="poder-{{ powerName|slugify }}">
 		  		{% for membership_indent, membership in membershipList %}
 				<div class="politician politician-level-{{ membership_indent }} organization-parent-id-{{ membership.organization.parent_id }}">
 	      			<div class="politician-post organization-id-{{ membership.organization.id }}">{{ membership.organization.name }}</div>
