@@ -57,7 +57,7 @@
       {% endblocktrans %}
   {% endif %}
   {% if last_membership %}
-    - {{last_membership.role}} de {{last_membership.area.name}}
+    - {{last_membership.post.label}}{{last_membership.role}} de {{last_membership.area.name}}
   {% endif %}
 {% endblock %}
 
@@ -75,30 +75,45 @@
   {% endif %}
 {% endif %}
 
-<div>
-  <h1>{{ person.name }} {{ person.family_name }}</h1>
-    {% if last_candidacy %}
-      {% with election=last_candidacy.extra.election post=last_candidacy.post %}
-        {% url 'constituency' election=election.slug post_id=post.extra.slug ignored_slug=post.extra.short_label|slugify as url %}
-        <p>{% blocktrans trimmed with post=post.extra.short_label election=election.name %}
-          Candidate for <a href="{{ url }}">{{ post }}</a> in {{ election }}
-          {% endblocktrans %}
-        </p>
-      {% endwith %}
-    {% endif %}
-  {% if last_membership %}
-  <p>
-    {{last_membership.role}} de {{last_membership.area.name}} desde {{last_membership.start_date}} hasta {{last_membership.end_date}}
-  </p>
-  {% endif %}
-  {% if last_candidacy.on_behalf_of.name %}
-  <p>
-    Partido político: {{last_candidacy.on_behalf_of.name}}
-  </p>
-  {% endif %}
-</div>
 
 <div class="person__details">
+
+  <div class="person__intro">
+    <h1>{{ person.name }} {{ person.family_name }}</h1>
+      {% if last_candidacy %}
+        {% with election=last_candidacy.extra.election post=last_candidacy.post %}
+          {% url 'constituency' election=election.slug post_id=post.extra.slug ignored_slug=post.extra.short_label|slugify as url %}
+          <p>{% blocktrans trimmed with post=post.extra.short_label election=election.name %}
+            Candidate for <a href="{{ url }}">{{ post }}</a> in {{ election }}
+            {% endblocktrans %}
+          </p>
+        {% endwith %}
+      {% endif %}
+    {% if last_membership %}
+    <p>
+      {{last_membership.post.label}}{{last_membership.role}} de {{last_membership.area.name}} desde {{last_membership.start_date}} hasta {{last_membership.end_date}}
+    </p>
+    {% endif %}
+    {% if last_candidacy.on_behalf_of.name %}
+    <p>
+      Partido político: {{last_candidacy.on_behalf_of.name}}
+    </p>
+    {% endif %}
+
+    <dl>
+    {% if 'summary' in simple_fields %}
+      <dt>{% trans "Summary" %}</dt>
+      <dd>{% if person.summary %}{{ person.summary }}{% endif %}</dd>
+    {% endif %}
+    {% if 'biography' in simple_fields %}
+      <dt>{% trans "Biography" %}</dt>
+      <dd>{% if person.biography %}{{ person.biography }}{% endif %}</dd>
+    {% endif %}
+    </dl>
+  </div>
+
+
+
     {% if not person.email %}
     <div class="missing_field">
         {% url 'person-update' person_id=person.id as url %}
@@ -154,10 +169,67 @@
     {% if person.extra.party_ppc_page_url %}<li><a rel="nofollow" href="{{ person.extra.party_ppc_page_url }}">{% trans "Party candidate page" %}</a></li>{% endif %}
   </ul>
 
-  {% if has_demographics %}
-    <h2>{% trans "Demographics:" %}</h2>
-
+  {% if extra_fields %}
+    <h2>{% trans "Additional information:" %}</h2>
     <dl>
+      {% for extra_field_key, extra_field in extra_fields.items %}
+        <dt>{{ extra_field.label }}</dt>
+        <dd {% if extra_field.type == 'longer-text' %}class="plaintext-with-newlines"{% endif %}>{{ extra_field | extra_field_value }}</dd>
+      {% endfor %}
+    </dl>
+  {% endif %}
+
+  {% if person.extra.primary_image %}
+  <h2>{% trans "Photo Credit:" %}</h2>
+  <p class="person__photo-credit">
+    {% include 'candidates/_photo-credit.html' with image=person.extra.primary_image_model %}
+  </p>
+  {% endif %}
+  <a onclick="$('.person__versions').toggle()">{% trans "View all versions" %}</a>
+  <div class="person__versions" style="display: none">  
+  {% include 'candidates/person-versions.html' %}
+  </div>
+
+</div>
+
+
+<div class="person__box">
+  <div class="person__photo">
+    {% if person.extra.primary_image %}
+      {% thumbnail person.extra.primary_image "x80" as im %}
+        <img class="person-avatar" src="{{ im.url }}"/>
+      {% endthumbnail %}
+    {% elif person.gender|lower == 'female' %}
+      <img class="person-avatar" src="{% static 'candidates/img/blank-woman.png' %}"/>
+    {% else %}
+      <img class="person-avatar" src="{% static 'candidates/img/blank-man.png' %}"/>
+    {% endif %}
+  </div>
+  <h2>{% trans "Personal details:" %}</h2>
+
+  <dl>
+    <dt>{% trans "Name" %}</dt>
+    <dd>{{ person.extra.name_with_honorifics }} {{ person.family_name }}</dd>
+    {% if person.other_names.exists or 'additional_name' in simple_fields and person.additional_name %}
+      <dt>{% trans "Also known as" %}</dt>
+    {% endif %}
+    {% if 'additional_name' in simple_fields and person.additional_name %}
+      <dd>{{ person.additional_name }} ({% trans 'additional name' %})</dd>
+    {% endif %}
+    {% for other_name in person.other_names.all %}
+      <dd>{{ other_name.name }}{% if other_name.note %} ({{ other_name.note }}){% endif %}</dd>
+    {% endfor %}
+    {% if 'email' in simple_fields %}
+      <dt>{% trans "Email" %}</dt>
+      <dd>{% if person.email %}<a href="mailto:{{ person.email }}">{{ person.email }}</a>{% endif %}</dd>
+      {% else %}Agregar
+    {% endif %}
+
+    {% if last_candidacy.on_behalf_of.name != None %}
+    <dt>{% trans "Party" %}</dt>
+    <dd>{{ last_candidacy.on_behalf_of.name }}</dd>
+    {% endif %}
+
       {% if 'gender' in simple_fields %}
         <dt>{% trans "Gender" %}</dt>
         <dd>{% if person.gender %}{{ person.gender|title }}{% else %}{% trans "Unknown" %}{% endif %}</dd>
@@ -195,76 +267,7 @@
         <dd>{% if person.national_identity %}{{ person.national_identity }}{% endif %}</dd>
       {% endif %}
     </dl>
-  {% endif %}
-
-  {% if extra_fields %}
-    <h2>{% trans "Additional information:" %}</h2>
-    <dl>
-      {% for extra_field_key, extra_field in extra_fields.items %}
-        <dt>{{ extra_field.label }}</dt>
-        <dd {% if extra_field.type == 'longer-text' %}class="plaintext-with-newlines"{% endif %}>{{ extra_field | extra_field_value }}</dd>
-      {% endfor %}
-    </dl>
-  {% endif %}
-
-  {% if person.extra.primary_image %}
-  <h2>{% trans "Photo Credit:" %}</h2>
-  <p class="person__photo-credit">
-    {% include 'candidates/_photo-credit.html' with image=person.extra.primary_image_model %}
-  </p>
-  {% endif %}
-
-</div>
-
-
-<div class="person__box">
-  <div class="person__photo">
-    {% if person.extra.primary_image %}
-      {% thumbnail person.extra.primary_image "x80" as im %}
-        <img class="person-avatar" src="{{ im.url }}"/>
-      {% endthumbnail %}
-    {% elif person.gender|lower == 'female' %}
-      <img class="person-avatar" src="{% static 'candidates/img/blank-woman.png' %}"/>
-    {% else %}
-      <img class="person-avatar" src="{% static 'candidates/img/blank-man.png' %}"/>
-    {% endif %}
   </div>
-  <h2>{% trans "Personal details:" %}</h2>
-
-  <dl>
-    <dt>{% trans "Name" %}</dt>
-    <dd>{{ person.extra.name_with_honorifics }} {{ person.family_name }}</dd>
-    {% if person.other_names.exists or 'additional_name' in simple_fields and person.additional_name %}
-      <dt>{% trans "Also known as" %}</dt>
-    {% endif %}
-    {% if 'additional_name' in simple_fields and person.additional_name %}
-      <dd>{{ person.additional_name }} ({% trans 'additional name' %})</dd>
-    {% endif %}
-    {% for other_name in person.other_names.all %}
-      <dd>{{ other_name.name }}{% if other_name.note %} ({{ other_name.note }}){% endif %}</dd>
-    {% endfor %}
-    {% if 'email' in simple_fields %}
-      <dt>{% trans "Email" %}</dt>
-      <dd>{% if person.email %}<a href="mailto:{{ person.email }}">{{ person.email }}</a>{% endif %}</dd>
-    {% endif %}
-
-    {% comment %}
-
-    <dt>{% trans "Party" %}</dt>
-    <dd>{{ last_candidacy.on_behalf_of.name }}</dd>
-
-    {% endcomment %}
-
-    {% if 'summary' in simple_fields %}
-      <dt>{% trans "Summary" %}</dt>
-      <dd>{% if person.summary %}{{ person.summary }}{% endif %}</dd>
-    {% endif %}
-    {% if 'biography' in simple_fields %}
-      <dt>{% trans "Biography" %}</dt>
-      <dd>{% if person.biography %}{{ person.biography }}{% endif %}</dd>
-    {% endif %}
-  </dl>
-</div>
 
 
 <div class="person__actions">
@@ -311,6 +314,5 @@
 
 </div>
 
-{% include 'candidates/person-versions.html' %}
 
 {% endblock %}

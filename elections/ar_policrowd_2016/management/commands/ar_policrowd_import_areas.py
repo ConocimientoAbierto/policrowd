@@ -75,9 +75,9 @@ class Command(BaseCommand):
                     'area_id': createdProvince.id,
                     'classification': 'poder'
                 }
-                Organization.objects.get_or_create(name='Poder Ejecutivo de '+createdProvince.name, defaults=poderdefaults)
-                Organization.objects.get_or_create(name='Poder Legislativo de '+createdProvince.name, defaults=poderdefaults)
-                Organization.objects.get_or_create(name='Poder Judicial de '+createdProvince.name, defaults=poderdefaults)
+                Organization.objects.get_or_create(name='Poder Ejecutivo', area_id=createdProvince.id, defaults=poderdefaults)
+                Organization.objects.get_or_create(name='Poder Legislativo', area_id=createdProvince.id, defaults=poderdefaults)
+                Organization.objects.get_or_create(name='Poder Judicial', area_id=createdProvince.id, defaults=poderdefaults)
 
 
     def fetchAllAreas(self):
@@ -122,9 +122,9 @@ class Command(BaseCommand):
                 'area_id': area.id,
                 'classification': 'poder'
             }
-            Organization.objects.get_or_create(name='Poder Ejecutivo de '+area.name, defaults=poderdefaults)
-            Organization.objects.get_or_create(name='Poder Legislativo de '+area.name, defaults=poderdefaults)
-            Organization.objects.get_or_create(name='Poder Judicial de '+area.name, defaults=poderdefaults)
+            Organization.objects.get_or_create(name='Poder Ejecutivo', area_id=area.id, defaults=poderdefaults)
+            Organization.objects.get_or_create(name='Poder Legislativo', area_id=area.id, defaults=poderdefaults)
+            Organization.objects.get_or_create(name='Poder Judicial', area_id=area.id, defaults=poderdefaults)
         
         
     def handle(self, *args, **options):

@@ -286,18 +286,33 @@ body {
     }
 }
 
+.person__box h2,
 .person__details h2 {
     color: $color-darkblue;
     text-transform: uppercase;
     font-weight: bold;
+    line-height: 1.2em;
+    font-size: 1.3em;
 }
+
 
 .person__box {
-    float: left;
-    background: mix(#fff,$color-blue,20%)
+    background: mix(#fff,$color-blue,80%);
+    margin-left: 8.33333%;    
+    width: 33.33333%;
 }
 
+.person__actions__action,
+.person__box {
+    float: right;
+    padding: 1.5em;
+    margin-bottom: 2em;
+    border-radius: 3px;
+}
+
+
 .footer {
+    background: mix(#000,$color-darkblue,20%);
     a {
         color: $color-blue;
     }

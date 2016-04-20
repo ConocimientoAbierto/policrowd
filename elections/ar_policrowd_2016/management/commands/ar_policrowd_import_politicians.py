@@ -24,12 +24,24 @@ class Command(BaseCommand):
     executivePowerCache = None
     def prepareExecutivePowerCache(self):
         date = time.strftime('%Y-%m-%d %H:%M:%S')
-        self.executivePowerCache = Organization.objects.get_or_create(name='Poder Ejecutivo', defaults={
+        self.executivePowerCache = Organization.objects.get_or_create(name='Poder Ejecutivo', area_id=self.argentinaCache.id, defaults={
             'created_at': date,
             'updated_at': date,
             'area_id': self.argentinaCache.id,
             'classification': 'poder'
         })[0]
+        Organization.objects.get_or_create(name='Poder Legislativo', area_id=self.argentinaCache.id, defaults={
+            'created_at': date,
+            'updated_at': date,
+            'area_id': self.argentinaCache.id,
+            'classification': 'poder'
+        })
+        Organization.objects.get_or_create(name='Poder Judicial', area_id=self.argentinaCache.id,defaults={
+            'created_at': date,
+            'updated_at': date,
+            'area_id': self.argentinaCache.id,
+            'classification': 'poder'
+        })
 
     def prepareCaches(self):
         self.prepareArgentinaCache()

@@ -4,7 +4,7 @@
 		{% trans "start:" %} {{ membership.start_date }} {% trans "end:" %} {{ membership.end_date }}
 	</div>
 	<div class="person__membership_role">
-	{{ membership.role }} - {{ membership.organization.name }}
+	{{ membership.post.label }} {{ membership.role }} - {{ membership.organization.name }}
 	</div>
 	<div class="person__membership_area">	
 		{{ membership.area.name }}
