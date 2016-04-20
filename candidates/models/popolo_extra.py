@@ -62,7 +62,7 @@ def update_person_from_form(person, person_extra, form):
                 defaults={'value': form_data[extra_field.key]}
             )
     if person.given_name and person.family_name:
-        person.name = person.given_name + '' + person.family_name
+        person.name = person.given_name + ' ' + person.family_name
     person.save()
     person_extra.save()
 
@@ -428,8 +428,13 @@ class PersonExtra(HasImageMixin, models.Model):
 
     @classmethod
     def create_from_form(cls, form):
+        given_name = form.cleaned_data['given_name'] if form.cleaned_data['given_name'] else ''
+        family_name = form.cleaned_data['family_name'] if form.cleaned_data['family_name'] else ''
+        name = given_name + ' ' + family_name
         person = Person.objects.create(
-            name=form.cleaned_data['name'],
+            given_name=form.cleaned_data['given_name'],
+            family_name=form.cleaned_data['family_name'],
+            name=name
         )
         person_extra = PersonExtra.objects.create(
             base=person,

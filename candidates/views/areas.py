@@ -2,7 +2,7 @@
 
 from __future__ import unicode_literals
 
-import re
+import re, datetime
 
 from django.db.models import Prefetch
 from django.core.urlresolvers import reverse
@@ -216,9 +216,52 @@ class PoliticiansView(PoliticiansTemplateView):
             organisms[power.name] = self.__createOrganismsList(power.id, areaId)
         return organisms
 
+    def __getLastMembershipOfOrg(self, memberships):
+        membershipsList = []
+        for membership in memberships:
+            if membership.start_date:
+                try:
+                    membership.parsed_start_date = datetime.strptime(membership.start_date, "%Y-%m-%d")
+                    membershipsList.append(membership)
+                except ValueError: pass
+
+        membershipsList.sort(key=lambda x: x.parsed_start_date, reverse=True)
+
+        return membershipsList[0]  
+
+    def __cleanMemberships(self, memberships):
+        cleanedMemberships = []
+        membershipsByOrg = {}
+        for membership in memberships:
+            orgId = membership.organization.id
+            if orgId not in membershipsByOrg:
+                membershipsByOrg[orgId] = []
+            membershipsByOrg[orgId].append(membership)
+
+        print "\n##### MEMBERSHIPS BY ORG"
+        print membershipsByOrg
+        print "####################################"
+        print "####################################\n"
+
+        for organizationId, repeatedMemberships in membershipsByOrg.items():
+            if len(repeatedMemberships) > 1:
+
+                print "\n##### MULTIPLE MEMBERSHIPS FOUND"
+                for i in repeatedMemberships: print i.person.name
+                print "\n"
+
+                cleanMembership = self.__getLastMembershipOfOrg(repeatedMemberships)
+            else:
+                cleanMembership = repeatedMemberships[0]
+            cleanedMemberships.append(cleanMembership)
+
+        return cleanedMemberships
+
     def __createMembershipsDict(self, parentId, areaId):
         membershipsDict = {}
         memberships = pmodels.Membership.objects.select_related('organization','post','person').filter(organization__classification='goverment', area_id=areaId, organization__parent_id=parentId)
+        if memberships:
+            memberships = self.__cleanMemberships(memberships)
         self.__generatePersonsUrl(memberships)
 
         for membership in memberships:
