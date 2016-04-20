@@ -4,6 +4,7 @@
 #from __future__ import print_function, unicode_literals
 
 import csv, time
+from os.path import dirname, join
 
 from django.core.management.base import BaseCommand
 #from django.db import transaction
@@ -70,7 +71,11 @@ class Command(BaseCommand):
 
     def fetchAllAreas(self):
         print ("Inserting Areas...\n")
-        with open('ARG_adm2.csv') as f:
+        filename = 'ARG_adm2.csv'
+        csv_filename = join(
+            dirname(__file__), '..', '..', 'data', filename
+        )        
+        with open(csv_filename) as f:
             data = [tuple(line) for line in csv.reader(f)]
 
         identifierBase = 100 # Para que no se pisen con los ya cargados. Esto va a cambiar cuando usemos los ids de OSM

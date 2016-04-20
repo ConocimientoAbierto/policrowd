@@ -4,6 +4,7 @@
 #from __future__ import print_function, unicode_literals
 
 import csv, time
+from os.path import dirname, join
 
 from django.core.management.base import BaseCommand
 #from django.db import transaction
@@ -112,7 +113,11 @@ class Command(BaseCommand):
 
     def fetchAllPositions(self):
         print ("Inserting Organizations...\n")
-        with open('estructura-organica.csv') as f:
+        filename = 'estructura-organica.csv'
+        csv_filename = join(
+            dirname(__file__), '..', '..', 'data', filename
+        )        
+        with open(csv_filename) as f:
             data = [tuple(line) for line in csv.reader(f)]
 
         date = time.strftime('%Y-%m-%d %H:%M:%S')
