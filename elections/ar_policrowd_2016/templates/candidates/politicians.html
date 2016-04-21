@@ -22,21 +22,19 @@
 	    {% for powerName, membershipList in memberships.items %}
 
 			<section role="tabpanel" aria-hidden=" {% if forloop.counter == 1 %}false{%else%}true{%endif%}" class="poder {% if forloop.counter == 1 %}active{%endif%}" id="poder-{{ powerName|slugify }}">
-		  		{% for membership_indent, powerMemberships in membershipList %}
-					<div class="politician politician-level-{{ membership_indent }} organization-parent-id-{{ powerMemberships.0.organization.parent_id }}">
-		      			<div class="politician-post organization-id-{{ powerMemberships.0.organization.id }}">{{ powerMemberships.0.organization.name }}</div>
-		     			{% for membership in powerMemberships %}
+		  		{% for membership_indent, powerMembership in membershipList %}
+					<div class="politician politician-level-{{ membership_indent }} organization-parent-id-{{ powerMembership.organization.parent_id }}">
+		      			<div class="politician-post organization-id-{{ powerMembership.organization.id }}">{{ powerMembership.organization.name }}</div>
 			     			<div class="politician-data">
-				      			<img class="person-avatar politician-avatar" src="/static/candidates/img/blank-man.png">
+				      			<img class="person-avatar politician-avatar" src="{{ powerMembership.person.image }}" onerror="this.src='/static/candidates/img/blank-man.png'">
 					      		<div class="politician-role">
-					      			{{ membership.post.role }}  
+					      			{{ powerMembership.post.role }}  
 					      		</div>      		
 					      		<div class="politician-name">
-					      			<a href="{{ membership.person.url }}">{{ membership.person.name }} {{ membership.person.family_name }}</a> 
+					      			<a href="{{ powerMembership.person.url }}">{{ powerMembership.person.name }}</a> 
 					      		</div>      		
-		                        <a href="{{ membership.person.url }}" class="button secondary">{% trans "Ver perfil" %}</a>
+		                        <a href="{{ powerMembership.person.url }}" class="button secondary">{% trans "Ver perfil" %}</a>
 				      		</div>
-			  			{% endfor %}
 		      		</div>
 		  		{% endfor %}
 		  	</section>
