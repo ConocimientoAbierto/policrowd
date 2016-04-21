@@ -679,21 +679,21 @@ msgstr ""
 #: candidates/templates/candidates/_person_update_call_to_action.html:4
 #, python-format
 msgid "Thank-you for adding <a href=\"%(person_url)s\">%(person_name)s</a>!"
-msgstr ""
+msgstr "¡Gracias por agregar a <a href=\"%(person_url)s\">%(person_name)s</a>!"
 
 #: candidates/templates/candidates/_person_update_call_to_action.html:8
 #, python-format
 msgid "Thank-you for updating <a href=\"%(person_url)s\">%(person_name)s</a>!"
-msgstr ""
+msgstr "¡Gracias por actualizar el perfil de  <a href=\"%(person_url)s\">%(person_name)s</a>!"
 
 #: candidates/templates/candidates/_person_update_call_to_action.html:13
 msgid "Now you can carry on to:"
-msgstr ""
+msgstr "Ahora podés continuar con:"
 
 #: candidates/templates/candidates/_person_update_call_to_action.html:17
 #, python-format
 msgid "<a href=\"%(person_edit_url)s\">Edit %(person_name)s again</a>"
-msgstr ""
+msgstr "<a href=\"%(person_edit_url)s\">Editar a %(person_name)s de nuevo</a>"
 
 #: candidates/templates/candidates/_person_update_call_to_action.html:22
 #, python-format
@@ -2629,7 +2629,7 @@ msgstr ""
 
 #: elections/ar_policrowd_2016/templates/candidates/person-view.html:188
 msgid "View all versions"
-msgstr "Ver todas las versiones"
+msgstr "Ver historial de ediciones"
 
 #: elections/ar_policrowd_2016/templates/candidates/person-view.html:229
 msgid "Party"

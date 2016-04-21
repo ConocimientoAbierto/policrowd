@@ -286,31 +286,6 @@ body {
     }
 }
 
-.person__box h2,
-.person__details h2 {
-    color: $color-darkblue;
-    text-transform: uppercase;
-    font-weight: bold;
-    line-height: 1.2em;
-    font-size: 1.3em;
-}
-
-
-.person__box {
-    background: mix(#fff,$color-blue,80%);
-    margin-left: 8.33333%;    
-    width: 33.33333%;
-}
-
-.person__actions__action,
-.person__box {
-    float: right;
-    padding: 1.5em;
-    margin-bottom: 2em;
-    border-radius: 3px;
-}
-
-
 .footer {
     background: mix(#000,$color-darkblue,20%);
     a {
@@ -343,9 +318,9 @@ body {
     }
 }
 
-.content {
-    background: white url(../img/bg_home_logo.png) left bottom no-repeat;
-}
+//.content {
+//    background: white url(../img/bg_home_logo.png) left bottom no-repeat;
+//}
 
 // Home page
 
@@ -718,4 +693,65 @@ p.agreement label {
 }
 .politician-level-4 .politician-data {
     display: none;
+}
+
+
+//Person
+.person__intro p {
+    color: $color-blue;
+}
+
+.person__box h2,
+.person__details h2 {
+    color: $color-darkblue;
+    text-transform: uppercase;
+    font-weight: bold;
+    line-height: 1.2em;
+    font-size: 1.3em;
+}
+
+
+.person__box {
+    border-top: 1px solid $color-blue;
+    border-bottom: 1px solid $color-blue;
+    padding: 1.5em;
+    margin-bottom: 3em;
+    overflow: hidden;
+}
+
+.person__box .person__photo {
+    float: left;
+    margin-right: 3%;
+    width: 38%;
+    background: $color-grey;
+}
+
+.person__details_column {
+    float: left;
+    width: 59%;
+}
+
+.person__details_column dt {
+    color: $color-blue;
+}
+
+.person__details dl {
+    margin-bottom: 0;
+}
+
+.person__membership {
+    margin: 1.5em 0;
+}
+
+.person__membership_period {
+    color: $color-grey;
+}
+
+.person__membership_role {
+    font-size: 1.5em;
+}
+
+.person__membership_area {
+    color: $color-blue;
+    font-size: 1.1em;
 }

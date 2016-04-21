@@ -1,5 +1,5 @@
 {% load i18n %}
-<p class="person__membership">
+<div class="person__membership">
 	<div class="person__membership_period">
 		{% trans "start:" %} {{ membership.start_date }} {% trans "end:" %} {{ membership.end_date }}
 	</div>
@@ -17,4 +17,4 @@
 		<input type="hidden" id="is_deleted_{{ membership.id }}" name="is_deleted_{{ membership.id }}" value="0">
 	</div>
 	{% endif %}
-</p>
+</div>
