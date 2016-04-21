@@ -2,7 +2,8 @@
 
 from __future__ import unicode_literals
 
-import re, datetime
+import re
+from datetime import datetime
 
 from django.db.models import Prefetch
 from django.core.urlresolvers import reverse
@@ -216,44 +217,28 @@ class PoliticiansView(PoliticiansTemplateView):
             organisms[power.name] = self.__createOrganismsList(power.id, areaId)
         return organisms
 
-    def __getLastMembershipOfOrg(self, memberships):
-        membershipsList = []
-        for membership in memberships:
-            if membership.start_date:
-                try:
-                    membership.parsed_start_date = datetime.strptime(membership.start_date, "%Y-%m-%d")
-                    membershipsList.append(membership)
-                except ValueError: pass
+    def __isMembershipValid(self, membership):
+        if membership.start_date:
+            try:
+                startDate = datetime.strptime(membership.start_date, "%Y-%m-%d")
+            except ValueError: 
+                return False
 
-        membershipsList.sort(key=lambda x: x.parsed_start_date, reverse=True)
+        if membership.end_date:
+            try:
+                endDate = datetime.strptime(membership.end_date, "%Y-%m-%d")
+            except ValueError: 
+                return False
 
-        return membershipsList[0]  
+        today = datetime.today()
+
+        return startDate <= today and endDate >= today
 
     def __cleanMemberships(self, memberships):
         cleanedMemberships = []
-        membershipsByOrg = {}
         for membership in memberships:
-            orgId = membership.organization.id
-            if orgId not in membershipsByOrg:
-                membershipsByOrg[orgId] = []
-            membershipsByOrg[orgId].append(membership)
-
-        print "\n##### MEMBERSHIPS BY ORG"
-        print membershipsByOrg
-        print "####################################"
-        print "####################################\n"
-
-        for organizationId, repeatedMemberships in membershipsByOrg.items():
-            if len(repeatedMemberships) > 1:
-
-                print "\n##### MULTIPLE MEMBERSHIPS FOUND"
-                for i in repeatedMemberships: print i.person.name
-                print "\n"
-
-                cleanMembership = self.__getLastMembershipOfOrg(repeatedMemberships)
-            else:
-                cleanMembership = repeatedMemberships[0]
-            cleanedMemberships.append(cleanMembership)
+            if self.__isMembershipValid(membership):
+                cleanedMemberships.append(membership)
 
         return cleanedMemberships
 
@@ -266,15 +251,20 @@ class PoliticiansView(PoliticiansTemplateView):
 
         for membership in memberships:
             organizationId = membership.organization.id
-            self.memberships[organizationId] = membership
-            membershipsDict[organizationId] = self.__createMembershipsDict(organizationId, areaId)
+            firstTimeOrgId = False
+            if organizationId not in self.memberships:
+                self.memberships[organizationId] = []
+                firstTimeOrgId = True
+            self.memberships[organizationId].append(membership)
+            if firstTimeOrgId:
+                membershipsDict[organizationId] = self.__createMembershipsDict(organizationId, areaId)
 
         return membershipsDict
 
     def __createOrganismsListR(self, membershipsDict, organismsList, indent):
         for organizationId, children in membershipsDict.items():
-            membership = self.memberships[organizationId]
-            organismsList.append((indent, membership))
+            memberships = self.memberships[organizationId]
+            organismsList.append((indent, memberships))
             if children:
                 self.__createOrganismsListR(children, organismsList, indent + 1)
 
@@ -298,6 +288,12 @@ class PoliticiansView(PoliticiansTemplateView):
         context['internal_areas_url'] = '/politicians-areas/' + kwargs['type_and_area_ids'] + '/' + slugify(parentArea.name)
         context['bread_crumb'] = self.breadCrumb
         context['memberships'] = self.__getAreaMemberships(areaId)
+        for i in context['memberships']['Poder Ejecutivo']:
+            print "#################"
+            print "#################"
+            for member in i[1]:
+                print vars(member)
+                print "----------------"
 
         return context
 

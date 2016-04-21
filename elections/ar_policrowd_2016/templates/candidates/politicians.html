@@ -20,22 +20,25 @@
 	</ul>
   	<div class="poder-miembros tabs-content">
 	    {% for powerName, membershipList in memberships.items %}
-
-			<section role="tabpanel" aria-hidden=" {% if forloop.counter == 1 %}false{%else%}true{%endif%}" class=" content poder {% if forloop.counter == 1 %}active{%endif%}" id="poder-{{ powerName|slugify }}">
-		  		{% for membership_indent, membership in membershipList %}
-				<div class="politician politician-level-{{ membership_indent }} organization-parent-id-{{ membership.organization.parent_id }}">
-	      			<div class="politician-post organization-id-{{ membership.organization.id }}">{{ membership.organization.name }}</div>
-	     			<div class="politician-data">
-		      			<img class="person-avatar politician-avatar" src="/static/candidates/img/blank-man.png">
-			      		<div class="politician-role">
-			      			{{ membership.post.role }}  
-			      		</div>      		
-			      		<div class="politician-name">
-			      			<a href="{{ membership.person.url }}">{{ membership.person.name }}</a> 
-			      		</div>      		
-                        <a href="{{ membership.person.url }}" class="button secondary">{% trans "Ver perfil" %}</a>
+			<section role="tabpanel" aria-hidden=" {% if forloop.counter == 1 %}false{%else%}true{%endif%}" class="poder {% if forloop.counter == 1 %}active{%endif%}" id="poder-{{ powerName|slugify }}">
+			poder
+		  		{% for membership_indent, powerMemberships in membershipList %}
+			oficina
+					<div class="politician politician-level-{{ membership_indent }} organization-parent-id-{{ powerMemberships.0.organization.parent_id }}">
+		      			<div class="politician-post organization-id-{{ powerMemberships.0.organization.id }}">{{ powerMemberships.0.organization.name }}</div>
+		     			{% for membership in powerMemberships %}
+			     			<div class="politician-data">
+				      			<img class="person-avatar politician-avatar" src="/static/candidates/img/blank-man.png">
+					      		<div class="politician-role">
+					      			{{ membership.post.role }}  
+					      		</div>      		
+					      		<div class="politician-name">
+					      			<a href="{{ membership.person.url }}">{{ membership.person.name }}</a> 
+					      		</div>      		
+		                        <a href="{{ membership.person.url }}" class="button secondary">{% trans "View profile" %}</a>
+				      		</div>
+			  			{% endfor %}
 		      		</div>
-	      		</div>
 		  		{% endfor %}
 		  	</section>
 
