@@ -232,7 +232,7 @@ function setMembershipsEvents(areasTree) {
   var organizationsComboId = '#id_organization';
 
   $(firstAreasComboId).change(function(eventData){
-    var parentAreaName = $(this).find("option:selected").text();
+    var parentAreaName = $(this).find("option:selected").html();
     var parentAreaId = $(this).find("option:selected").val();
     if (parentAreaId != -1){
       var internalAreas = window.areasTree[parentAreaName]['internal_areas'];
