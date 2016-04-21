@@ -108,23 +108,28 @@
     </div>
   </div>
   <div class="footer">
-    <div class="container">
-      <div class="footer__links">
-        <p><a href="{% url 'help-api' %}">{% trans "Open data API" %}</a>
-            &middot; <a href="{% url 'help-about' %}">{% trans "About" %}</a>
-            &middot; <a href="{% url 'help-privacy' %}">{% trans "Privacy policy" %}</a></p>
-      </div>
-      <div class="footer__bylines">
+    <div class="container row">
+      <div class="footer__bylines columns small-12 medium-4 large-4">
         <h4>{% trans 'Made by' %}</h4>
         <p>
           <a href="http://www.fcabierto.org"><img src="{% static 'img/fca_logo.png' %}" style="height: 80px" alt="Fundación Conocimiento Abierto"></a>
         </p>
-        <h4>{% trans 'Supported by' %}</h4>
-        <div>
-              <a href="http://thedatashift.org/"><img src="{% static 'img/datashift_logo.png' %}" style="height: 80px" alt="DataShift"></a> 
-              <a href="http://www.theengineroom.org/"><img style="height: 60px" src="{% static 'img/ter_logo.gif' %}" alt="The Engine Room"></a>      
-        </div>
       </div>
+      <div class="footer__bylines columns small-12 medium-4 large-4">
+        <h4>{% trans 'Supported by' %}</h4>
+        <a href="http://thedatashift.org/"><img src="{% static 'img/datashift_logo.png' %}" style="height: 80px" alt="DataShift"></a> 
+        <br>
+        <a href="http://www.theengineroom.org/"><img style="height: 60px" src="{% static 'img/logo_engineroom.png' %}" alt="The Engine Room"></a>      
+      </div>
+      <div class="footer__links columns small-12 medium-4 large-4">
+        <h4>Policrowd.org</h4>
+        <ul>
+            <li><a href="/">{% trans "Home" %}</a></li>
+            <li><a href="{% url 'help-api' %}">{% trans "Open data API" %}</a></li>
+            <li><a href="{% url 'help-about' %}">{% trans "About" %}</a></li>
+            <li><a href="{% url 'help-privacy' %}">{% trans "Privacy policy" %}</a></li>
+        </ul>
+      </div>      
     </div>
   </div>
 </body>

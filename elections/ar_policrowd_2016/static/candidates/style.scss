@@ -259,6 +259,10 @@ body {
           font-size: $h2-font-size * 0.8;
       }
     }
+
+    .button {
+        margin-bottom: 0;
+    }
 }
 
 .person__hero {
@@ -287,7 +291,6 @@ body {
 }
 
 .footer {
-    background: mix(#000,$color-darkblue,20%);
     a {
         color: $color-blue;
     }
@@ -413,16 +416,9 @@ body.finder .content {
 .policrowd_home_intro h3 {
     color: $color-purple;   
 }
-.policrowd_home_steps {
-    clear: both;
-    margin: 0 5%;
-}
 
 .policrowd_home_steps li {
     list-style: none;
-    float: left;
-    width: 23%;
-    margin: 1%;
 }
 
 .policrowd_home_steps li p {
@@ -710,6 +706,10 @@ p.agreement label {
     font-size: 1.3em;
 }
 
+.person__box h2 {
+    font-size: 1.1em;
+    border-bottom: none;
+}
 
 .person__box {
     border-top: 1px solid $color-blue;
@@ -741,6 +741,8 @@ p.agreement label {
 
 .person__membership {
     margin: 1.5em 0;
+    background: url(../img/calendar-02.png) 0% 3px no-repeat;
+    padding-left: 20px;    
 }
 
 .person__membership_period {
@@ -748,10 +750,72 @@ p.agreement label {
 }
 
 .person__membership_role {
-    font-size: 1.5em;
+    font-size: 1.3em;
 }
 
 .person__membership_area {
     color: $color-blue;
     font-size: 1.1em;
+}
+
+.missing_field {
+    background: url(../img/alerta-01.png) 98% 50% no-repeat;
+}
+
+.missing_field h2 {
+    text-transform: uppercase;
+}
+
+.person__versions_container {
+    clear: both;
+}
+
+.person__other_posts,
+.person__last_post {
+    background: url(../img/calendar-01.png) 98% 50% no-repeat;    
+}
+
+
+.person__links {
+    background: url(../img/link-01.png) 98% 50% no-repeat;    
+}
+
+.person__empty_section {
+    background: url(../img/smile-02.png) 0% 0 no-repeat; 
+    padding-top: 5px;  
+    padding-left: 40px;
+    margin-bottom: 3em;         
+
+    .empty_section_title {
+        font-size: 1.2em;
+        font-weight: bold;
+        color: black;
+        margin-bottom: 0;
+    }
+
+    p {
+        color: $color-grey;
+    }
+}
+
+.person__actions__edit {
+    background: mix(#fff,$color-red,80%);
+    text-align: center;
+
+    h2 {
+        color: mix(#000,$color-red,50%);
+    }
+
+    img {
+        margin-top: -70px !important;
+    }
+}
+
+.person__actions__data {
+    background: mix(#fff,$color-blue,80%);
+    text-align: center;
+
+    h2 {
+        color: mix(#000,$color-blue,50%);
+    }
 }

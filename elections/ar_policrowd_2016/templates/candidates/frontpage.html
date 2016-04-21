@@ -64,23 +64,23 @@
         <p class="policrowd_home_intro_queres">¿Querés colaborar con la investigación?</p>
 
         <h2>¡Podés comenzar ya mismo!</h2>
-        <ol class="policrowd_home_steps">
-            <li>
+        <ol class="policrowd_home_steps row">
+            <li class="columns large-3 medium-6 small-12">
                 <img src="/static/img/ico-paso01.png" alt=""/>
                 <h3>Registrate</h3>
                 <p>Creá tu nombre de usuario, o podés usar tu cuenta de redes sociales.</p>
             </li>
-            <li>
+            <li class="columns large-3 medium-6 small-12">
                 <img src="/static/img/ico-paso02.png" alt=""/>
                 <h3>Buscá</h3>
                 <p>Buscá el funcioario del que queiras cargar información, por nombre o en el listado completo.</p>
             </li>
-            <li>
+            <li class="columns large-3 medium-6 small-12">
                 <img src="/static/img/ico-paso03.png" alt=""/>
                 <h3>Agregá</h3>
                 <p>Si no encontrás al funcioario que estás buscando, podés crear su perfil.</p>
             </li>
-            <li>
+            <li class="columns large-3 medium-6 small-12">
                 <img src="/static/img/ico-paso04.png" alt=""/>
                 <h3>Informá</h3>
                 <p>Completá los campos que conozcas y la fuente, para que esta base de datos siga creciendo.</p>
@@ -93,20 +93,6 @@
             
         </div>
 
-    </div>
-    <div class="finder__getting-started__help">
-    <img src="/static/img/img_colaboracion.png" alt=""/>
-        <h2>Necesitamos tu colaboración</h2>
-        <ul class="finder__getting-started__priorities">
-          {% for row in needing_attention %}
-            <li><a href="{% url 'constituency' election=row.election_slug post_id=row.post_slug ignored_slug=row.post_short_label|slugify %}">{{ row.post_label }}</a></li>
-          {% endfor %}
-        </ul>
-    </div>
-    <div class="finder__getting-started__help">
-    <img src="/static/img/img_acerca.png" alt=""/>
-        <h2>Acerca del proyecto</h2>
-        <p>Conformamos una alianza apartidaria que lleva adelante el proyecto PoliCrowd, que es una plataforma de Investigación Colectiva sobre políticos argentinos. Junto a periodistas, politólogos, tecnólogos, organizaciones de la sociedad vicil y voluntarios, investigamos y recolectamos información de funcionarios públicos.</p>
     </div>
 
 {% endblock %}
