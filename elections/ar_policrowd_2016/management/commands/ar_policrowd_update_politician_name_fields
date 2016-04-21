@@ -1,0 +1,27 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+#from __future__ import print_function, unicode_literals
+
+from django.core.management.base import BaseCommand
+from candidates.models.fields import SimplePopoloField
+
+class Command(BaseCommand):
+    help = "Updates Politician Simple Popolo Field names to match changes"
+
+    def handle(self, *args, **options):
+    	SimplePopoloField.get_or_create(name = 'given_name', defaults = {
+    			'label': 'Name',
+    			'required': True,
+    			'info_type_key': 'text',
+    			'order': 2
+    		}
+    	).save()
+
+    	SimplePopoloField.get_or_create(name = 'family_name', defaults = {
+    			'label': 'Family Name',
+    			'required': True,
+    			'info_type_key': 'text',
+    			'order': 2
+    		}
+    	).save()

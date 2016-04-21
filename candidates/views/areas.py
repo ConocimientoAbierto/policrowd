@@ -196,15 +196,8 @@ class PoliticiansView(PoliticiansTemplateView):
     template_name = 'candidates/politicians.html'
     memberships = {}
 
-    # def __rename_attribute(self, object_, old_attribute_name, new_attribute_name):
-    #     setattr(object_, new_attribute_name, getattr(object_, old_attribute_name))
-    #     delattr(object_, old_attribute_name)
-
     def __generatePersonsUrl(self, memberships):
         for membership in memberships:
-            # self.__rename_attribute(membership, '_organization_cache', 'organization')
-            # self.__rename_attribute(membership, '_post_cache', 'post')
-            # self.__rename_attribute(membership, '_person_cache', 'person')
             self.__generatePersonUrl(membership.person)
 
     def __generatePersonUrl(self, person):
@@ -244,27 +237,24 @@ class PoliticiansView(PoliticiansTemplateView):
 
     def __createMembershipsDict(self, parentId, areaId):
         membershipsDict = {}
-        memberships = pmodels.Membership.objects.select_related('organization','post','person').filter(organization__classification='goverment', area_id=areaId, organization__parent_id=parentId)
-        if memberships:
-            memberships = self.__cleanMemberships(memberships)
+        memberships = pmodels.Membership.objects.select_related('organization','post','person').only(
+            'organization__id', 'organization__name', 'organization__parent_id', 'post__id', 'post__role', 'person__id', 'person__image', 'person__name'
+        ).filter(organization__classification='goverment', area_id=areaId, organization__parent_id=parentId)
+        #if memberships:
+        #    memberships = self.__cleanMemberships(memberships)
         self.__generatePersonsUrl(memberships)
 
         for membership in memberships:
             organizationId = membership.organization.id
-            firstTimeOrgId = False
-            if organizationId not in self.memberships:
-                self.memberships[organizationId] = []
-                firstTimeOrgId = True
-            self.memberships[organizationId].append(membership)
-            if firstTimeOrgId:
-                membershipsDict[organizationId] = self.__createMembershipsDict(organizationId, areaId)
+            self.memberships[organizationId] = membership
+            membershipsDict[organizationId] = self.__createMembershipsDict(organizationId, areaId)
 
         return membershipsDict
 
     def __createOrganismsListR(self, membershipsDict, organismsList, indent):
         for organizationId, children in membershipsDict.items():
-            memberships = self.memberships[organizationId]
-            organismsList.append((indent, memberships))
+            membership = self.memberships[organizationId]
+            organismsList.append((indent, membership))
             if children:
                 self.__createOrganismsListR(children, organismsList, indent + 1)
 
@@ -288,13 +278,6 @@ class PoliticiansView(PoliticiansTemplateView):
         context['internal_areas_url'] = '/politicians-areas/' + kwargs['type_and_area_ids'] + '/' + slugify(parentArea.name)
         context['bread_crumb'] = self.breadCrumb
         context['memberships'] = self.__getAreaMemberships(areaId)
-        for i in context['memberships']['Poder Ejecutivo']:
-            print "#################"
-            print "#################"
-            for member in i[1]:
-                print vars(member)
-                print "----------------"
-
         return context
 
 class PoliticiansAreasView(PoliticiansTemplateView):
