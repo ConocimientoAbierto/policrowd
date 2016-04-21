@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YourNextMP\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-21 03:54+0100\n"
+"POT-Creation-Date: 2016-04-21 07:06+0100\n"
 "PO-Revision-Date: 2016-02-05 16:28+0000\n"
 "Last-Translator: mySociety <transifex@mysociety.org>\n"
 "Language-Team: Welsh (United Kingdom) (http://www.transifex.com/mysociety/"
@@ -774,7 +774,8 @@ msgstr "Nodwch eich ffynhonnell am y wybodaeth honno yn y blwch isod:"
 #: candidates/templates/candidates/_source_confirmation.html:13
 #: candidates/templates/candidates/person-create.html:14
 #: candidates/templates/candidates/person-edit.html:299
-#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:299
+#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:57
+#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:321
 msgid "Save changes"
 msgstr "Cadw newidiadau"
 
@@ -1621,13 +1622,12 @@ msgstr ""
 
 #: candidates/templates/candidates/person-edit.html:9
 #: elections/ar_policrowd_2016/templates/candidates/person-edit.html:9
-#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:27
 #, python-format
 msgid "Editing: %(name)s"
 msgstr "Yn golygu: %(name)s"
 
 #: candidates/templates/candidates/person-edit.html:24
-#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:24
+#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:29
 msgid "Upload photo"
 msgstr "Lanlwytho llun"
 
@@ -1638,17 +1638,17 @@ msgid "Editing: %(name)s %(family_name)s"
 msgstr "Yn golygu: %(name)s"
 
 #: candidates/templates/candidates/person-edit.html:53
-#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:53
+#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:61
 msgid "Oops!"
 msgstr "O diar!"
 
 #: candidates/templates/candidates/person-edit.html:54
-#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:54
+#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:62
 msgid "We could not accept some of the changes you made."
 msgstr "Doeddwn ni ddim yn gallu derbyn rhai o'ch newidiadau."
 
 #: candidates/templates/candidates/person-edit.html:58
-#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:58
+#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:66
 msgid "Please check your information matches our requirements, below."
 msgstr ""
 "Gwiriwch fod eich gwybodaeth yn cyd-fynd gyda ein gofynion, isod, os gwelch "
@@ -1656,28 +1656,28 @@ msgstr ""
 
 #: candidates/templates/candidates/person-edit.html:63
 #: candidates/templates/candidates/person-view.html:111
-#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:63
+#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:72
 #: elections/ar_policrowd_2016/templates/candidates/person-view.html:142
 msgid "Personal details:"
 msgstr "Manylion personol:"
 
 #: candidates/templates/candidates/person-edit.html:80
-#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:80
+#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:124
 msgid "Add Post:"
 msgstr ""
 
 #: candidates/templates/candidates/person-edit.html:106
-#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:106
+#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:150
 msgid "Or"
 msgstr ""
 
 #: candidates/templates/candidates/person-edit.html:122
-#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:122
+#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:166
 msgid "Hide"
 msgstr ""
 
 #: candidates/templates/candidates/person-edit.html:126
-#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:126
+#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:170
 #, fuzzy
 #| msgid "Posts"
 msgid "Add Post"
@@ -1685,40 +1685,38 @@ msgstr "Etholaethau"
 
 #: candidates/templates/candidates/person-edit.html:129
 #: candidates/templates/candidates/person-view.html:149
-#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:129
 #: elections/ar_policrowd_2016/templates/candidates/person-view.html:229
 msgid "Last Post:"
 msgstr ""
 
 #: candidates/templates/candidates/person-edit.html:134
 #: candidates/templates/candidates/person-view.html:154
-#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:134
 #: elections/ar_policrowd_2016/templates/candidates/person-view.html:233
 msgid "Older Posts:"
 msgstr ""
 
 #: candidates/templates/candidates/person-edit.html:193
 #: candidates/templates/candidates/person-view.html:181
-#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:193
+#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:185
 #: elections/ar_policrowd_2016/templates/candidates/person-view.html:264
 msgid "Links and social media:"
 msgstr "Dolenni a chyfryngau cymdeithasol:"
 
 #: candidates/templates/candidates/person-edit.html:256
 #: candidates/templates/candidates/person-view.html:213
-#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:256
+#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:90
 msgid "Demographics:"
 msgstr "Demograffeg:"
 
 #: candidates/templates/candidates/person-edit.html:271
 #: candidates/templates/candidates/person-view.html:257
-#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:271
+#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:105
 #: elections/ar_policrowd_2016/templates/candidates/person-view.html:299
 msgid "Additional information:"
 msgstr ""
 
 #: candidates/templates/candidates/person-edit.html:289
-#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:289
+#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:311
 msgid ""
 "<strong>You forgot to reference a source!</strong> Can you show us "
 "<em>where</em> you got this information?"
@@ -1727,17 +1725,15 @@ msgstr ""
 "i'r wybodaeth?"
 
 #: candidates/templates/candidates/person-edit.html:291
-#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:291
+#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:313
 msgid "What’s your <strong>source of information</strong> for this change?"
 msgstr "Beth yw eich <strong>ffynhonell</strong> ar gyfer y newid yma?"
 
 #: candidates/templates/candidates/person-edit.html:307
-#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:307
 msgid "Thanks for helping out!"
 msgstr "Diolch am eich cymorth."
 
 #: candidates/templates/candidates/person-edit.html:308
-#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:308
 msgid ""
 "Please make sure you read our <a href=\"https://docs.google.com/document/"
 "d/1iA5Tv3ZgjDHWNv6gbNESqL-C7Goz6ZSo1X9pPXwXspA/edit\">guidance on sourcing "
@@ -1748,12 +1744,10 @@ msgstr ""
 "y maesydd amrywiol</a>."
 
 #: candidates/templates/candidates/person-edit.html:314
-#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:314
 msgid "Trying to upload a photo?"
 msgstr "Yn ceisio lanlwytho llun?"
 
 #: candidates/templates/candidates/person-edit.html:316
-#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:316
 #, python-format
 msgid ""
 "There’s a separate page for <a href=\"%(url)s\">uploading a photo of "
@@ -1763,22 +1757,22 @@ msgstr ""
 "%(name)s</a>."
 
 #: candidates/templates/candidates/person-edit.html:324
-#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:324
+#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:327
 msgid "Is this a duplicate person?"
 msgstr "Ydy'r enw'n ymddangos ddwywaith?"
 
 #: candidates/templates/candidates/person-edit.html:326
-#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:326
+#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:329
 msgid "Merge another person into this one:"
 msgstr "Cyfuno person arall gyda'r un yma:"
 
 #: candidates/templates/candidates/person-edit.html:327
-#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:327
+#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:330
 msgid "Other person ID"
 msgstr "ID person arall"
 
 #: candidates/templates/candidates/person-edit.html:329
-#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:329
+#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:332
 msgid "Merge people"
 msgstr "Uno pobl"
 
@@ -1998,43 +1992,43 @@ msgid "Photo Credit:"
 msgstr "Credyd Llun:"
 
 #: candidates/templates/candidates/person-view.html:291
-#: elections/ar_policrowd_2016/templates/candidates/person-view.html:348
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:349
 msgid "Improve this data!"
 msgstr "Gwella'r data hwn!"
 
 #: candidates/templates/candidates/person-view.html:293
-#: elections/ar_policrowd_2016/templates/candidates/person-view.html:350
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:351
 msgid "Our database is built by people like you."
 msgstr "Mae ein cronfa ddata wedi'i hadeiladu gan bobl fel chi."
 
 #: candidates/templates/candidates/person-view.html:294
-#: elections/ar_policrowd_2016/templates/candidates/person-view.html:351
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:352
 msgid ""
 "Please do add extra details about this candidate – it only takes a moment."
 msgstr "Ychwanegwch fanylion am yr ymgeisydd - jobyn dau funud."
 
 #: candidates/templates/candidates/person-view.html:296
-#: elections/ar_policrowd_2016/templates/candidates/person-view.html:353
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:354
 msgid "Edit candidate"
 msgstr "Golygu ymgeisydd"
 
 #: candidates/templates/candidates/person-view.html:298
-#: elections/ar_policrowd_2016/templates/candidates/person-view.html:355
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:356
 msgid "Log in to edit"
 msgstr "Mewngofnodi er mwyn golygu"
 
 #: candidates/templates/candidates/person-view.html:306
-#: elections/ar_policrowd_2016/templates/candidates/person-view.html:363
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:364
 msgid "Use this data!"
 msgstr "Defnyddio'r ddata!"
 
 #: candidates/templates/candidates/person-view.html:307
-#: elections/ar_policrowd_2016/templates/candidates/person-view.html:364
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:365
 msgid "Open data JSON API:"
 msgstr "Data agored API JSON:"
 
 #: candidates/templates/candidates/person-view.html:312
-#: elections/ar_policrowd_2016/templates/candidates/person-view.html:369
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:370
 #, python-format
 msgid ""
 "More details about getting <a href=\"%(api_url)s\">the data</a> and <a href="
@@ -2160,7 +2154,7 @@ msgstr ""
 #: candidates/templates/candidates/privacy.html:6
 #: candidates/templates/candidates/privacy.html:9
 #: elections/ar_elections_2015/templates/base.html:116
-#: elections/ar_policrowd_2016/templates/base.html:115
+#: elections/ar_policrowd_2016/templates/base.html:130
 #: mysite/templates/generic_base.html:142
 msgid "Privacy policy"
 msgstr "Polisi Preifatrwydd"
@@ -2509,13 +2503,13 @@ msgid "Sign in to edit"
 msgstr "Mewngofnodi i olygu"
 
 #: elections/ar_elections_2015/templates/base.html:114
-#: elections/ar_policrowd_2016/templates/base.html:113
+#: elections/ar_policrowd_2016/templates/base.html:128
 #: mysite/templates/generic_base.html:139
 msgid "Open data API"
 msgstr "Data agored yr API"
 
 #: elections/ar_elections_2015/templates/base.html:115
-#: elections/ar_policrowd_2016/templates/base.html:114
+#: elections/ar_policrowd_2016/templates/base.html:129
 #: elections/jamaica/templates/jamaica/frontpage.html:19
 #: elections/uk/templates/base.html:24 mysite/templates/generic_base.html:93
 #: mysite/templates/generic_base.html:140
@@ -2523,7 +2517,7 @@ msgid "About"
 msgstr "Amdanom Ni"
 
 #: elections/ar_elections_2015/templates/base.html:119
-#: elections/ar_policrowd_2016/templates/base.html:118
+#: elections/ar_policrowd_2016/templates/base.html:113
 msgid "Made by"
 msgstr "Gwnaethpwyd gan"
 
@@ -2532,7 +2526,7 @@ msgid "Partners"
 msgstr "Partneriaid"
 
 #: elections/ar_elections_2015/templates/base.html:134
-#: elections/ar_policrowd_2016/templates/base.html:122
+#: elections/ar_policrowd_2016/templates/base.html:119
 msgid "Supported by"
 msgstr "Cefnogwyd gan "
 
@@ -2584,6 +2578,30 @@ msgstr ""
 #| msgid "Provinces"
 msgid "Provincias"
 msgstr "Taleithiau"
+
+#: elections/ar_policrowd_2016/templates/base.html:127
+#, fuzzy
+#| msgid "Homepage"
+msgid "Home"
+msgstr "Hafan"
+
+#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:33
+msgid "Editing the following article:"
+msgstr ""
+
+#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:40
+#, python-format
+msgid "Candidate for <a href=\"%(url)s\">%(post_name)s</a> in %(election)s"
+msgstr ""
+"Ymgeisydd ar gyfer <a href=\"%(url)s\">%(post_name)s</a> yn %(election)s"
+
+#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:73
+msgid "Posts history"
+msgstr ""
+
+#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:74
+msgid "Social networks and other links"
+msgstr ""
 
 #: elections/ar_policrowd_2016/templates/candidates/person-view.html:118
 #: elections/ar_policrowd_2016/templates/candidates/person-view.html:317
@@ -2676,7 +2694,7 @@ msgstr "Gwegyfeiriad proffil Facebook"
 msgid "Facebook de campaña"
 msgstr ""
 
-#: elections/ar_policrowd_2016/templates/candidates/person-view.html:378
+#: elections/ar_policrowd_2016/templates/candidates/person-view.html:379
 #, fuzzy
 #| msgid "Hide full version"
 msgid "View all versions"
@@ -3807,10 +3825,6 @@ msgstr ""
 
 #~ msgid "Party in {election} ({party_set_name})"
 #~ msgstr "Plaid yn {election} ({party_set_name})"
-
-#~ msgid "Candidate for <a href=\"%(url)s\">%(post_name)s</a> in %(election)s"
-#~ msgstr ""
-#~ "Ymgeisydd ar gyfer <a href=\"%(url)s\">%(post_name)s</a> yn %(election)s"
 
 #~ msgid "Constituencies:"
 #~ msgstr "Etholaethau:"

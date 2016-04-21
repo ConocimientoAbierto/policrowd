@@ -20,7 +20,7 @@
 	</ul>
   	<div class="poder-miembros tabs-content">
 	    {% for powerName, membershipList in memberships.items %}
-			<section role="tabpanel" aria-hidden=" {% if forloop.counter == 1 %}false{%else%}true{%endif%}" class="poder {% if forloop.counter == 1 %}active{%endif%}" id="poder-{{ powerName|slugify }}">
+			<section role="tabpanel" aria-hidden=" {% if forloop.counter == 1 %}false{%else%}true{%endif%}" class="poder content {% if forloop.counter == 1 %}active{%endif%}" id="poder-{{ powerName|slugify }}">
 		  		{% for membership_indent, powerMembership in membershipList %}
 					<div class="politician politician-level-{{ membership_indent }} organization-parent-id-{{ powerMembership.organization.parent_id }}">
 		      			<div class="politician-post organization-id-{{ powerMembership.organization.id }}">{{ powerMembership.organization.name }}</div>
@@ -48,6 +48,7 @@
     {% endif %}
 
     <script type="text/javascript">
+    	$("html").removeClass('no-js');
     	$(document).foundation('tab', 'reflow');
 
     	$(".politician-post").click(function(e) {

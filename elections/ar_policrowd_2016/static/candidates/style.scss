@@ -557,6 +557,7 @@ p.agreement label {
 
 /* Politicians */
 
+.editor-selector,
 .poderes-selector {
     margin-bottom: 1em;
 
@@ -573,12 +574,12 @@ p.agreement label {
         font-weight: bold;
         background: none;
     }
+    .tab-title {
+        width: 33%;
+    }
 }
 
-.poderes-selector .tab-title {
-    width: 33%;
-}
-
+.editor-content,
 .poder-miembros {
     margin-top: 2em;
 }
@@ -719,7 +720,7 @@ p.agreement label {
     overflow: hidden;
 }
 
-.person__box .person__photo {
+.person__photo {
     float: left;
     margin-right: 3%;
     width: 38%;
@@ -818,4 +819,31 @@ p.agreement label {
     h2 {
         color: mix(#000,$color-blue,50%);
     }
+}
+
+// Person-edit
+.person__photo {
+    position: relative;
+}
+
+
+.form-error-summary,
+.editor-selector {
+    clear: both;
+}
+
+.upload-photo {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    height: 100%;
+    line-height: 401px;
+    padding-left: 89px;
+    background: url(../img/ico_add_foto.png) no-repeat 47px 179px;
+}
+
+#post_view {
+    border: 1px solid $color-blue;
+    padding: 2em;
+    background: mix(#fff,$color-blue,80%);
 }

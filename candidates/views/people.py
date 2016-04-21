@@ -571,6 +571,30 @@ class NewPoliticianView(LoginRequiredMixin, FormView):
         except Area.DoesNotExist:
             context['area'] = None
 
+
+        personal_fields, demographic_fields = get_field_groupings()
+
+        context['personal_fields'] = []
+        context['demographic_fields'] = []
+        simple_fields = SimplePopoloField.objects.order_by('order').all()
+        for field in simple_fields:
+            if field.name in personal_fields:
+                context['personal_fields'].append(kwargs['form'][field.name])
+
+            if field.name in demographic_fields:
+                context['demographic_fields'].append(kwargs['form'][field.name])
+
+        context['extra_fields'] = {
+            extra_field.key: {
+                'value': '',
+                'label': _(extra_field.label),
+                'type': extra_field.type,
+            }
+            for extra_field in ExtraField.objects.all()
+        }
+        for k, v in context['extra_fields'].items():
+            v['form_field'] = kwargs['form'][k]
+
         return context
     
     '''
