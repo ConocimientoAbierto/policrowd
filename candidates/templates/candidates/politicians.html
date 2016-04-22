@@ -17,13 +17,14 @@
 {% block content %}
 	<ul class="poderes-selector tabs" data-tab role="tablist" data-options="scroll_to_content: false;deep_linking:true">
     {% for powerName, membershipList in memberships.items %}
-	  	<li class="tab-title {% if forloop.counter == 1 %}active{%endif%}" role="presentation"><a href="#poder-{{ powerName|slugify }}" role="tab" tabindex="0" aria-controls="poder-{{ powerName|slugify }}">{{ powerName }}</a></li>
+	  	<li class="tab-title {% if forloop.counter == 2 %}active{%endif%}" role="presentation"><a href="#poder-{{ powerName|slugify }}" role="tab" tabindex="0" aria-controls="poder-{{ powerName|slugify }}">{{ powerName }}</a></li>
     {% endfor %}
 	</ul>
   	<div class="poder-miembros tabs-content">
 	    {% for powerName, membershipList in memberships.items %}
 
-			<section role="tabpanel" aria-hidden=" {% if forloop.counter == 1 %}false{%else%}true{%endif%}" class="poder {% if forloop.counter == 1 %}active{%endif%}" id="poder-{{ powerName|slugify }}">
+			<section role="tabpanel" aria-hidden=" {% if forloop.counter == 2 %}false{%else%}true{%endif%}" class="poder {% if forloop.counter == 2 %}active{%endif%}" id="poder-{{ powerName|slugify }}">
+			{% if membershipList.length > 0 %}
 		  		{% for membership_indent, membership in membershipList %}
 				<div class="politician politician-level-{{ membership_indent }} organization-parent-id-{{ membership.organization.parent_id }}">
 	      			<div class="politician-post organization-id-{{ membership.organization.id }}">{{ membership.organization.name }}</div>
@@ -40,6 +41,9 @@
 		      		</div>
 	      		</div>
 		  		{% endfor %}
+		  	{% else %}
+		  	No hay nadie
+		  	{% endif %}
 		  	</section>
 
 	    {% endfor %}

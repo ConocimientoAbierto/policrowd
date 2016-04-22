@@ -15,7 +15,7 @@
 
   {% for internal_area_name, internal_area_url in internal_areas_urls %}
     {% if forloop.first %}
-      <ul>
+      <ul class="areas__list">
     {% endif %}
       <li><a href="{{ internal_area_url }}">{{ internal_area_name }}</a></li>
     {% if forloop.last %}

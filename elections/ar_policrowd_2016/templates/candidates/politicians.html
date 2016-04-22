@@ -9,18 +9,22 @@
 	    <a href="{% url 'create-politician-view' area_id=area_id %}" class="button">{% trans "Add a new candidate" %}</a>
     {% endif %}
 	</div>
-	<h1>{% trans "Políticos de" %} {{ area_name }}{% include 'candidates/area_breadcrumb.html' %}</h1>
+	<div class="politician_area_title">
+		{% trans "Showing politicians from" %}
+	</div>
+	<h1> {{ area_name }}{% include 'candidates/area_breadcrumb.html' %}</h1>
 {% endblock %}
 
 {% block content %}
 	<ul class="poderes-selector tabs" data-tab role="tablist" data-options="scroll_to_content: false;deep_linking:true">
     {% for powerName, membershipList in memberships.items %}
-	  	<li class="tab-title {% if forloop.counter == 1 %}active{%endif%}" role="presentation"><a href="#poder-{{ powerName|slugify }}" role="tab" tabindex="0" aria-controls="poder-{{ powerName|slugify }}">{{ powerName }}</a></li>
+	  	<li class="tab-title {% if forloop.counter == 2 %}active{%endif%}" role="presentation"><a href="#poder-{{ powerName|slugify }}" role="tab" tabindex="0" aria-controls="poder-{{ powerName|slugify }}">{{ powerName }}</a></li>
     {% endfor %}
 	</ul>
   	<div class="poder-miembros tabs-content">
 	    {% for powerName, membershipList in memberships.items %}
-			<section role="tabpanel" aria-hidden=" {% if forloop.counter == 1 %}false{%else%}true{%endif%}" class="poder content {% if forloop.counter == 1 %}active{%endif%}" id="poder-{{ powerName|slugify }}">
+			<section role="tabpanel" aria-hidden=" {% if forloop.counter == 2 %}false{%else%}true{%endif%}" class="poder content {% if forloop.counter == 2 %}active{%endif%}" id="poder-{{ powerName|slugify }}">
+			{% if membershipList|length > 0 %}
 		  		{% for membership_indent, powerMembership in membershipList %}
 					<div class="politician politician-level-{{ membership_indent }} organization-parent-id-{{ powerMembership.organization.parent_id }}">
 		      			<div class="politician-post organization-id-{{ powerMembership.organization.id }}">{{ powerMembership.organization.name }}</div>
@@ -36,6 +40,19 @@
 				      		</div>
 		      		</div>
 		  		{% endfor %}
+	  		{% else %}
+	  		<div class="no_politicians_yet">
+	  			<h2>{% trans "No politicians known for now." %}</h2>
+	  			<p>{% trans "If you know any politicians in this area, you can log-in to create their profiles." %}</p>
+		        <div class="policrowd_home_sumate">
+		            <div class="policrowd_home_recorda"><p>Recordá:</p></div>
+		            <p class="policrowd_home_cuanta">¡Cuanta más información ingreses, más conocemos a nuestros polítcos!</p>
+		            <a href="{% url 'account_login' %}" class="button split no-pip">Sumate a la investigación <span></span></a>
+		            
+		        </div>
+	  		</div>
+
+	  		{% endif %}
 		  	</section>
 
 	    {% endfor %}

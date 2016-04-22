@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YourNextMP\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-21 07:06+0100\n"
+"POT-Creation-Date: 2016-04-22 01:26+0100\n"
 "PO-Revision-Date: 2016-02-05 16:28+0000\n"
 "Last-Translator: mySociety <transifex@mysociety.org>\n"
 "Language-Team: English (United States) (http://www.transifex.com/mysociety/"
@@ -743,7 +743,7 @@ msgstr ""
 #: candidates/templates/candidates/person-create.html:14
 #: candidates/templates/candidates/person-edit.html:299
 #: elections/ar_policrowd_2016/templates/candidates/person-edit.html:57
-#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:321
+#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:317
 msgid "Save changes"
 msgstr ""
 
@@ -1528,16 +1528,19 @@ msgstr ""
 
 #: candidates/templates/candidates/person-edit.html:53
 #: elections/ar_policrowd_2016/templates/candidates/person-edit.html:61
+#: elections/ar_policrowd_2016/templates/candidates/politician-create.html:32
 msgid "Oops!"
 msgstr ""
 
 #: candidates/templates/candidates/person-edit.html:54
 #: elections/ar_policrowd_2016/templates/candidates/person-edit.html:62
+#: elections/ar_policrowd_2016/templates/candidates/politician-create.html:33
 msgid "We could not accept some of the changes you made."
 msgstr ""
 
 #: candidates/templates/candidates/person-edit.html:58
 #: elections/ar_policrowd_2016/templates/candidates/person-edit.html:66
+#: elections/ar_policrowd_2016/templates/candidates/politician-create.html:37
 msgid "Please check your information matches our requirements, below."
 msgstr ""
 
@@ -1545,26 +1548,27 @@ msgstr ""
 #: candidates/templates/candidates/person-view.html:111
 #: elections/ar_policrowd_2016/templates/candidates/person-edit.html:72
 #: elections/ar_policrowd_2016/templates/candidates/person-view.html:142
+#: elections/ar_policrowd_2016/templates/candidates/politician-create.html:44
 msgid "Personal details:"
 msgstr ""
 
 #: candidates/templates/candidates/person-edit.html:80
-#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:124
+#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:134
 msgid "Add Post:"
 msgstr ""
 
 #: candidates/templates/candidates/person-edit.html:106
-#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:150
+#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:160
 msgid "Or"
 msgstr ""
 
 #: candidates/templates/candidates/person-edit.html:122
-#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:166
+#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:176
 msgid "Hide"
 msgstr ""
 
 #: candidates/templates/candidates/person-edit.html:126
-#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:170
+#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:180
 msgid "Add Post"
 msgstr ""
 
@@ -1584,12 +1588,14 @@ msgstr ""
 #: candidates/templates/candidates/person-view.html:181
 #: elections/ar_policrowd_2016/templates/candidates/person-edit.html:185
 #: elections/ar_policrowd_2016/templates/candidates/person-view.html:264
+#: elections/ar_policrowd_2016/templates/candidates/politician-create.html:93
 msgid "Links and social media:"
 msgstr ""
 
 #: candidates/templates/candidates/person-edit.html:256
 #: candidates/templates/candidates/person-view.html:213
 #: elections/ar_policrowd_2016/templates/candidates/person-edit.html:90
+#: elections/ar_policrowd_2016/templates/candidates/politician-create.html:61
 msgid "Demographics:"
 msgstr ""
 
@@ -1597,18 +1603,21 @@ msgstr ""
 #: candidates/templates/candidates/person-view.html:257
 #: elections/ar_policrowd_2016/templates/candidates/person-edit.html:105
 #: elections/ar_policrowd_2016/templates/candidates/person-view.html:299
+#: elections/ar_policrowd_2016/templates/candidates/politician-create.html:76
 msgid "Additional information:"
 msgstr ""
 
 #: candidates/templates/candidates/person-edit.html:289
-#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:311
+#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:307
+#: elections/ar_policrowd_2016/templates/candidates/politician-create.html:215
 msgid ""
 "<strong>You forgot to reference a source!</strong> Can you show us "
 "<em>where</em> you got this information?"
 msgstr ""
 
 #: candidates/templates/candidates/person-edit.html:291
-#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:313
+#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:309
+#: elections/ar_policrowd_2016/templates/candidates/politician-create.html:217
 msgid "What’s your <strong>source of information</strong> for this change?"
 msgstr ""
 
@@ -1635,22 +1644,22 @@ msgid ""
 msgstr ""
 
 #: candidates/templates/candidates/person-edit.html:324
-#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:327
+#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:323
 msgid "Is this a duplicate person?"
 msgstr ""
 
 #: candidates/templates/candidates/person-edit.html:326
-#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:329
+#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:325
 msgid "Merge another person into this one:"
 msgstr ""
 
 #: candidates/templates/candidates/person-edit.html:327
-#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:330
+#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:326
 msgid "Other person ID"
 msgstr ""
 
 #: candidates/templates/candidates/person-edit.html:329
-#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:332
+#: elections/ar_policrowd_2016/templates/candidates/person-edit.html:328
 msgid "Merge people"
 msgstr ""
 
@@ -1936,14 +1945,13 @@ msgid "Add Politician in"
 msgstr ""
 
 #: candidates/templates/candidates/politician-create.html:33
-#: elections/ar_policrowd_2016/templates/candidates/politician-create.html:33
+#: elections/ar_policrowd_2016/templates/candidates/politician-create.html:225
 msgid "Add new politician"
 msgstr ""
 
 #: candidates/templates/candidates/politicians.html:4
 #: candidates/templates/candidates/politicians.html:14
 #: elections/ar_policrowd_2016/templates/candidates/politicians.html:4
-#: elections/ar_policrowd_2016/templates/candidates/politicians.html:12
 msgid "Políticos de"
 msgstr ""
 
@@ -1958,8 +1966,8 @@ msgstr ""
 msgid "Sign in to add a new politician"
 msgstr ""
 
-#: candidates/templates/candidates/politicians.html:50
-#: elections/ar_policrowd_2016/templates/candidates/politicians.html:46
+#: candidates/templates/candidates/politicians.html:54
+#: elections/ar_policrowd_2016/templates/candidates/politicians.html:63
 msgid "Ver políticos de provincias o ciudades dentro de"
 msgstr ""
 
@@ -2437,6 +2445,7 @@ msgid "Posts history"
 msgstr ""
 
 #: elections/ar_policrowd_2016/templates/candidates/person-edit.html:74
+#: elections/ar_policrowd_2016/templates/candidates/politician-create.html:45
 msgid "Social networks and other links"
 msgstr ""
 
@@ -2527,8 +2536,22 @@ msgstr ""
 msgid "View all versions"
 msgstr ""
 
-#: elections/ar_policrowd_2016/templates/candidates/politicians.html:35
+#: elections/ar_policrowd_2016/templates/candidates/politicians.html:13
+msgid "Showing politicians from"
+msgstr ""
+
+#: elections/ar_policrowd_2016/templates/candidates/politicians.html:39
 msgid "Ver perfil"
+msgstr ""
+
+#: elections/ar_policrowd_2016/templates/candidates/politicians.html:45
+msgid "No politicians known for now."
+msgstr ""
+
+#: elections/ar_policrowd_2016/templates/candidates/politicians.html:46
+msgid ""
+"If you know any politicians in this area, you can log-in to create their "
+"profiles."
 msgstr ""
 
 #: elections/bf_elections_2015/templates/base.html:8

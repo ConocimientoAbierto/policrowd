@@ -348,6 +348,11 @@ body.finder .content {
     border-image: url(../img/colores_header.png) 50;
 }
 
+@media (max-width: 768px) {
+    .finder__container {
+        background-image:  none;
+    }    
+}
 
 .finder__container label,
 .finder__container h1
@@ -588,9 +593,10 @@ p.agreement label {
     overflow: hidden;
 }
 
+
 .politician .politician-post {
     font-size: 1.6em;
-    padding: 1em 0;
+    padding: 1em 4em 1em 0;
     color: $color-darkblue;
     cursor: pointer;
     background: url(../img/Desp-01_Abrir.png) 97% 50% no-repeat;
@@ -638,7 +644,6 @@ p.agreement label {
 
 .politician.politician-level-1 .politician-post {
     font-size: 1em;
-    color: $color-red;
 }
 
 .politician-level-2 {
@@ -692,7 +697,34 @@ p.agreement label {
     display: none;
 }
 
+//Politician Areas
+.areas__list,
+.areas__list li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
 
+.areas__list li a {
+    font-size: 1.2em;
+    padding: 0.8em 0;
+    border-top: 1px solid $color-blue;
+    color: $color-red;
+    display: block;
+}
+
+.politician_area_title {
+    font-size: 1.1em;
+    color: $color-blue;
+}
+
+.no_politicians_yet {
+    text-align: center;
+}
+
+.no_politicians_yet h2 {
+    color: $color-blue;
+}
 //Person
 .person__intro p {
     color: $color-blue;

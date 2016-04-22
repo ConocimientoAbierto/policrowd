@@ -57,7 +57,7 @@
       {% endblocktrans %}
   {% endif %}
   {% if last_membership %}
-    - {{last_membership.post.label}}{{last_membership.role}} de {{last_membership.area.name}}
+    - {{last_membership.post.label}}{{last_membership.role}} {% trans "in" %} {{last_membership.area.name}}
   {% endif %}
 {% endblock %}
 
@@ -299,7 +299,18 @@
       <dl>
         {% for extra_field_key, extra_field in extra_fields.items %}
           <dt>{{ extra_field.label }}</dt>
-          <dd {% if extra_field.type == 'longer-text' %}class="plaintext-with-newlines"{% endif %}>{{ extra_field | extra_field_value }}</dd>
+          <dd {% if extra_field.type == 'longer-text' %}class="plaintext-with-newlines"{% endif %}>
+          {% if extra_field_value %}
+            {{ extra_field | extra_field_value }}
+          {% else %}
+            {% if user.is_authenticated %}
+              <a href="{% url 'person-update' person_id=person.id %}">{% trans "Add information" %}</a>
+            {% else %}
+              <a href="{% url 'account_login' %}?next={{ redirect_after_login }}">{% trans "Add information" %}</a>
+            {% endif %}
+
+          {% endif %}
+          </dd>
         {% endfor %}
       </dl>
     {% endif %}
