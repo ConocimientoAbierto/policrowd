@@ -1,0 +1,15 @@
+{{ object.name }}
+{{ object.given_name }}
+{{ object.family_name }}
+{{ object.additional_name }}
+{% for name in object.other_names.all %}
+{{ name.name }}
+{% endfor %}
+{% for membership in object.memberships.all %}
+{{ membership.post.label }}
+{{ membership.role }}
+{% if membership.organization %}
+{{ membership.organization.name }}
+{% endif %}
+
+{% endfor %}
