@@ -25,7 +25,8 @@ PostgreSQL needs to allow md5 logins for our user.
 As root user and edit hba file
 
 ```
-~$ sudo nano /etc/postgresql/9.3/main/pg_hba.conf ```
+sudo nano /etc/postgresql/9.3/main/pg_hba.conf 
+```
 
 (you can use vi or your prefered editor instead of nano here)
 
@@ -37,20 +38,20 @@ Add the following line at the end of pg_hba.conf
 Reload to postgress configuration
 
 ```
-~$ /etc/init.d/postgresql reload
+/etc/init.d/postgresql reload
 ```
 
 Switch to postgres user
 
 ```
-	~$ sudo su - postgres
+sudo su - postgres
 ```
 
 Create database and user
 
 ```
-~$ createdb ynr
-~$ psql
+createdb ynr
+psql
 ```
 Inside psql write
 
@@ -122,7 +123,7 @@ Compile language files
 ./manage.py compilemessages
 ```
 
-Run the policrowd server
+# Run the policrowd server
 ```
 ./manage.py runserver
 ```
