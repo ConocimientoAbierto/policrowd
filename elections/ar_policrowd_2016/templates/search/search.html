@@ -34,19 +34,33 @@
                       <span class="party">{{ result.object.extra.last_party }}</span>
                       {% endif %}
                     </div>
-                    <ul class="membership">
+                    <ul class="search_memberships">
                       {% for membership in result.object.memberships.all %}
-                      <li>
-                        {{ membership.role }}
-                        {{ membership.post.label }}
-                        {% if membership.organization %}
-                        de
-                        {{ membership.organization.name }}
-                        {% endif %}
-                        desde
-                        {{ membership.start_date }}
-                        hasta
-                        {{ membership.end_date }}
+                      <li class="search_memberships_item">
+                        <span class="search_post">
+                          {% if membership.organization %}
+                            <span class="search_post_organization">
+                              {{ membership.organization.name }}
+                            </span>
+                          {% endif %}
+                          {% if membership.role %}
+                            <span class="search_post_role">
+                              {{ membership.role }}
+                            </span>
+                          {% endif %}
+                          {% if membership.post.label %}
+                            <span class="search_post_label">
+                              ({{ membership.post.label }})
+                            </span>
+                          {% endif %}
+                        </span>
+                        <span class="search_dates">
+                          (
+                          {{ membership.start_date }}
+                          -
+                          {{ membership.end_date }}
+                          )
+                        </span>
                       </li>
                       {% endfor %}
                     </ul>

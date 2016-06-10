@@ -181,7 +181,7 @@ body {
 
 .header__nav__primary {
     display: inline-block;
-    text-transform: uppercase;    
+    text-transform: uppercase;
 }
 
 .header__nav__social {
@@ -351,13 +351,13 @@ body.finder .content {
 @media (max-width: 768px) {
     .finder__container {
         background-image:  none;
-    }    
+    }
 }
 
 .finder__container label,
 .finder__container h1
  {
-    color: white;    
+    color: white;
 }
 
 .finder__getting-started {
@@ -384,7 +384,7 @@ body.finder .content {
     width: auto;
     position: static;
     box-shadow: none;
-    background: transparent; 
+    background: transparent;
 
 
     label {
@@ -395,7 +395,7 @@ body.finder .content {
     button {
         margin-left: -4px;
         padding: 8px 16px;
-        border-radius: 0 10px 10px 0;        
+        border-radius: 0 10px 10px 0;
     }
 }
 
@@ -419,7 +419,7 @@ body.finder .content {
 }
 
 .policrowd_home_intro h3 {
-    color: $color-purple;   
+    color: $color-purple;
 }
 
 .policrowd_home_steps li {
@@ -444,7 +444,7 @@ body.finder .content {
 .policrowd_home_recorda {
     background-image: url(../img/img_recorda.png);
     background-repeat: no-repeat;
-    background-position: top center;    
+    background-position: top center;
     padding-top: 55px;
     margin-top: 1em;
 }
@@ -455,8 +455,8 @@ body.finder .content {
     display: inline-block;
     font-size: 1.1em;
     padding: 0 1em;
-    text-transform: uppercase; 
-    font-weight: bold;  
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
 .policrowd_home_cuanta {
@@ -574,7 +574,7 @@ p.agreement label {
         text-align: center;
     }
     &.tabs .tab-title.active > a {
-        border-bottom: 4px solid $color-blue;    
+        border-bottom: 4px solid $color-blue;
         color: $color-darkblue;
         font-weight: bold;
         background: none;
@@ -617,7 +617,7 @@ p.agreement label {
 
 .politician .politician-name a {
     color: #000;
-    font-size: 1.5em;    
+    font-size: 1.5em;
 }
 
 
@@ -658,7 +658,7 @@ p.agreement label {
 
 .politician.politician-level-2 .politician-post {
     color: $color-darkblue;
-    font-size: 0.9em;    
+    font-size: 0.9em;
     background-image: url(../img/Desp-02_Abrir.png);
 }
 
@@ -671,7 +671,7 @@ p.agreement label {
 
 .politician.politician-level-3 .politician-post {
     color: mix(#000,$color-darkblue,80%);
-    font-size: 0.9em;    
+    font-size: 0.9em;
     background-image: url(../img/Desp-03_Abrir.png);
 
 }
@@ -689,7 +689,7 @@ p.agreement label {
 
 .politician.politician-level-4 .politician-post {
     color: #000;
-    font-size: 0.9em;    
+    font-size: 0.9em;
     background-image: url(../img/Desp-04_Abrir.png);
 
 }
@@ -775,7 +775,7 @@ p.agreement label {
 .person__membership {
     margin: 1.5em 0;
     background: url(../img/calendar-02.png) 0% 3px no-repeat;
-    padding-left: 20px;    
+    padding-left: 20px;
 }
 
 .person__membership_period {
@@ -805,19 +805,19 @@ p.agreement label {
 
 .person__other_posts,
 .person__last_post {
-    background: url(../img/calendar-01.png) 98% 50% no-repeat;    
+    background: url(../img/calendar-01.png) 98% 50% no-repeat;
 }
 
 
 .person__links {
-    background: url(../img/link-01.png) 98% 50% no-repeat;    
+    background: url(../img/link-01.png) 98% 50% no-repeat;
 }
 
 .person__empty_section {
-    background: url(../img/smile-02.png) 0% 0 no-repeat; 
-    padding-top: 5px;  
+    background: url(../img/smile-02.png) 0% 0 no-repeat;
+    padding-top: 5px;
     padding-left: 40px;
-    margin-bottom: 3em;         
+    margin-bottom: 3em;
 
     .empty_section_title {
         font-size: 1.2em;
@@ -878,4 +878,22 @@ p.agreement label {
     border: 1px solid $color-blue;
     padding: 2em;
     background: mix(#fff,$color-blue,80%);
+}
+
+
+/* SEARCH */
+
+.candidates-list__person {
+  .search_memberships {
+    list-style: none;
+  }
+
+  .search_memberships_item {
+    font-size: 0.9em;
+    color: $color-grey;
+    width: 100%;
+    height: 1.2em;
+    overflow: ellipsis;
+  }
+
 }
