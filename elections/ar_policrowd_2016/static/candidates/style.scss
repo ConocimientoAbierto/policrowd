@@ -116,7 +116,6 @@ body {
 .header {
     font-family: $header-font-family;
     font-size: 1.1em; // 21px up from default 16px
-    text-align: center;
     background: white url(../img/gradient_header.png) bottom repeat-x;
 
     .container {
@@ -164,8 +163,8 @@ body {
 
 .header__nav {
     background-color: $color-blue;
-    padding: 0;
-    font-size: 1.2em;
+    padding: 0.2em 0;
+    font-size: 1.1em;
 }
 
 .header__nav__item {
@@ -182,10 +181,15 @@ body {
 .header__nav__primary {
     display: inline-block;
     text-transform: uppercase;
+
+    .header__nav__item {
+      line-height: 43px;
+    }
 }
 
 .header__nav__social {
     display: inline-block;
+    float: right;
 
     a,a:hover {
         display: block;
@@ -221,6 +225,10 @@ body {
     }
 }
 
+.header__nav__item--secondary.no-pip.button {
+    margin-bottom: 0.4em;
+    margin-right: 0;
+}
 
 .header__nav__item--secondary.no-pip span {
     background-image: url(../img/icono-llave.png);
@@ -239,6 +247,7 @@ body {
 
     .header__nav__secondary {
         float: right;
+        text-align: right;
         position: absolute;
         top: $column-gutter;
         right: $column-gutter;
@@ -896,4 +905,19 @@ p.agreement label {
     overflow: ellipsis;
   }
 
+}
+
+
+.finder__forms_header input {
+  display: inline;
+  width: 14.5em;
+}
+
+span.icono_buscar  {
+    background-image: url(../img/icono_buscar.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    text-indent: -9000em;
+    display: inline-block;
+    width: 20px;
 }
