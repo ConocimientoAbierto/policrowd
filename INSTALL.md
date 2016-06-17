@@ -136,3 +136,7 @@ For subsequent runs, just use
 workon poli
 ./manage.py runserver 0.0.0.0:8000
 ```
+
+If the log-in page shows an ImproperlyConfigured error, then you need to add a SocialApp in the adming, go to: http://127.0.0.1:8000/admin/socialaccount/socialapp/add/
+
+You will need to create a facebook app and configure it. Please refer to facebook's documentation.
