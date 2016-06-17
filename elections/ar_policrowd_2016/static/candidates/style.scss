@@ -905,13 +905,16 @@ p.agreement label {
   }
 
   .search_memberships_item {
-    font-size: 0.9em;
+    font-size: 0.8em;
     color: $color-grey;
     width: 100%;
     height: 1.2em;
     overflow: ellipsis;
   }
-
+  .search_post_organization,
+  .search_post_role {
+    font-weight: bold;
+  }
 }
 
 .finder__forms_header {

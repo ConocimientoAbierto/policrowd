@@ -40,26 +40,24 @@
                         <span class="search_post">
                           {% if membership.organization %}
                             <span class="search_post_organization">
-                              {{ membership.organization.name }}
+                              {{ membership.organization.name }}.
                             </span>
                           {% endif %}
                           {% if membership.role %}
                             <span class="search_post_role">
-                              {{ membership.role }}
+                              {{ membership.role }}.
                             </span>
                           {% endif %}
                           {% if membership.post.label %}
                             <span class="search_post_label">
-                              ({{ membership.post.label }})
+                              {{ membership.post.label }}
                             </span>
                           {% endif %}
                         </span>
                         <span class="search_dates">
-                          (
                           {{ membership.start_date }}
                           -
-                          {{ membership.end_date }}
-                          )
+                          {{ membership.end_date }}.
                         </span>
                       </li>
                       {% endfor %}
