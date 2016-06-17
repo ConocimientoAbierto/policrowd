@@ -53,11 +53,10 @@
           <a href="{% url 'account_login' %}{% if redirect_after_login %}?next={{ redirect_after_login }}{% endif %}"
              class="header__nav__item header__nav__item--secondary button split no-pip">{% trans "Sign in to edit" %}<span></span></a>
         {% endif %}
-
           <div class="finder__forms_header">
             <form class="search_header" method="get" action="{% url 'person-search' %}">
                 <input type="search" placeholder="{% trans 'Find a candidate…' %}" name="q" value="{{ form.q.value }}"/>
-                <button type="submit" class="button secondary"><span class="icono_buscar">{% trans "Search" %}</span></button>
+                <button type="submit" class="button {% if user.is_authenticated == False %}secondary{% endif %}"><span class="icono_buscar">{% trans "Search" %}</span></button>
             </form>
         </div>
       </div>

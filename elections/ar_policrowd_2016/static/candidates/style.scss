@@ -169,13 +169,14 @@ body {
 
 .header__nav__item {
   display: inline-block;
-  margin-left: 0.3em;
-  margin-right: 0.3em;
+  padding-left: 0.3em;
+  padding-right: 0.3em;
 
   @media #{$medium-up} {
-      margin-left: 0.5em;
-      margin-right: 0.5em;
+      padding-left: 0.5em;
+      padding-right: 0.5em;
   }
+
 }
 
 .header__nav__primary {
@@ -184,6 +185,12 @@ body {
 
     .header__nav__item {
       line-height: 43px;
+
+      &:hover {
+        background: rgba(0,0,0,0.2);
+        border-bottom: none;
+      }
+
     }
 }
 
@@ -225,11 +232,6 @@ body {
     }
 }
 
-.header__nav__item--secondary.no-pip.button {
-    margin-bottom: 0.4em;
-    margin-right: 0;
-}
-
 .header__nav__item--secondary.no-pip span {
     background-image: url(../img/icono-llave.png);
     background-repeat: no-repeat;
@@ -250,7 +252,12 @@ body {
         text-align: right;
         position: absolute;
         top: $column-gutter;
-        right: $column-gutter;
+        right: $column-gutter/2;
+
+        .button {
+            margin-right: 0.5em;
+        }
+
     }
 }
 
@@ -907,6 +914,9 @@ p.agreement label {
 
 }
 
+.finder__forms_header {
+  margin-top: -0.5em;
+}
 
 .finder__forms_header input {
   display: inline;
