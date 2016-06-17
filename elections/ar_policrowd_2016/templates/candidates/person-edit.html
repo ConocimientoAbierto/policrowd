@@ -14,6 +14,9 @@
 {% block content %}
 
 {% if user_can_edit %}
+    <div class="alert-box success">
+        {% trans "Editing the following article:" %}
+    </div>
 
     <div class="person__photo">
       {% if person.extra.primary_image %}
@@ -29,9 +32,7 @@
         {% trans 'Upload photo' %}
       </a>
     </div>
-    <div class="alert-box success">
-        {% trans "Editing the following article:" %}
-    </div>
+
     <h1> {{ person.name }}</h1>
     {% with last_candidacy=person.extra.last_candidacy %}
       {% if last_candidacy %}
@@ -43,7 +44,7 @@
     {% endwith %}
   {% if last_membership %}
   <p>
-    {{last_membership.post.label}}{{last_membership.role}} de {{last_membership.area.name}} desde {{last_membership.start_date}} hasta {{last_membership.end_date}}
+    {{last_membership.post.label}} {{last_membership.role}} de {{last_membership.area.name}} desde {{last_membership.start_date}} hasta {{last_membership.end_date}}
   </p>
   {% endif %}
   {% if last_candidacy.on_behalf_of.name %}
@@ -118,7 +119,7 @@
         </section>
         <section role="tabpanel" aria-hidden="true" class="editor content" id="editor-posts">
           <input type="hidden" id="isAdd" name="isAdd" value="0">
-          
+
           {% if last_membership %}
             {% include 'candidates/person_membership.html' with membership=last_membership isEdittingPolitician=True %}
           {% endif %}
@@ -128,9 +129,10 @@
               {% include 'candidates/person_membership.html' with membership=m isEdittingPolitician=True  %}
             {% endfor %}
           {% endif %}
-          
+
           <div id="post_view" style="display: none">
-            
+            <a id="hide_post_btn" class="button secondary" style="float: right"><span class="ui-icon-close ui-icon">{% trans "Hide" %}</span></a>
+
             <h2>{% trans "Add Post:" %}</h2>
 
             <div class="first_areas">
@@ -155,7 +157,7 @@
               {{ form.posts.label }}
               {{ form.posts }}
             </div>
-            
+
             <div style="display:none;" class="other_post">
               <p><i>{% trans "Or" %}</i></p>
 
@@ -173,7 +175,7 @@
               {{ form.end_date }}
             </div>
 
-            <a id="hide_post_btn" class="button">{% trans "Hide" %}</a>        
+            <p><i>{% trans "Nota: Si desea agregar otro mandato, guarde los cambios y edite nuevamente." %}</i></p>
 
           </div>
 
@@ -246,7 +248,7 @@
           </div>
 
         </section>
-      
+
       {% comment %}
       <div>
         <h2>{% trans "Constituencies:" %}</h2>

@@ -771,7 +771,7 @@ p.agreement label {
 .person__photo {
     float: left;
     margin-right: 3%;
-    width: 38%;
+    max-width: 38%;
     background: $color-grey;
 }
 
@@ -891,9 +891,8 @@ p.agreement label {
 }
 
 #post_view {
-    border: 1px solid $color-blue;
-    padding: 2em;
-    background: mix(#fff,$color-blue,80%);
+    border-top: 1px solid $color-blue;
+    padding-top: 2em;
 }
 
 
