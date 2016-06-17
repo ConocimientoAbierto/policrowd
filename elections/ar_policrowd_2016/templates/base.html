@@ -43,17 +43,22 @@
     <div class="container">
       <span class="header__nav_hamburger" onclick="$('.header__nav').toggle()">Ver menú</span>
       <a href="/" class="header__logo">{% trans "PoliCrowd" %}</a>
-      <div class="header__nav">
-        <div class="header__nav__secondary">
-          {% if user.is_authenticated %}
-            <span class="header__nav__item header__nav__item--secondary button air">
-              {% blocktrans with username=user.username %}Signed in as <strong>{{ username }}</strong>{% endblocktrans %}
-            </span>
-            <a href="{% url 'account_logout' %}{% if redirect_after_login %}?next={{ redirect_after_login }}{% endif %}" class="header__nav__item header__nav__item--secondary button secondary">{% trans "Sign out" %}</a>
-          {% else %}
-            <a href="{% url 'account_login' %}{% if redirect_after_login %}?next={{ redirect_after_login }}{% endif %}"
-               class="header__nav__item header__nav__item--secondary button split no-pip">{% trans "Sign in to edit" %}<span></span></a>
-          {% endif %}
+
+      <div class="header__nav header__nav__secondary">
+        {% if user.is_authenticated %}
+          <span class="header__nav__item header__nav__item--secondary button air">
+            {% blocktrans with username=user.username %}Signed in as <strong>{{ username }}</strong>{% endblocktrans %}
+          </span>
+          <a href="{% url 'account_logout' %}{% if redirect_after_login %}?next={{ redirect_after_login }}{% endif %}" class="header__nav__item header__nav__item--secondary button secondary">{% trans "Sign out" %}</a>
+        {% else %}
+          <a href="{% url 'account_login' %}{% if redirect_after_login %}?next={{ redirect_after_login }}{% endif %}"
+             class="header__nav__item header__nav__item--secondary button split no-pip">{% trans "Sign in to edit" %}<span></span></a>
+        {% endif %}
+          <div class="finder__forms_header">
+            <form class="search_header" method="get" action="{% url 'person-search' %}">
+                <input type="search" placeholder="{% trans 'Find a candidate…' %}" name="q" value="{{ form.q.value }}"/>
+                <button type="submit" class="button {% if user.is_authenticated == False %}secondary{% endif %}"><span class="icono_buscar">{% trans "Search" %}</span></button>
+            </form>
         </div>
       </div>
     </div>
@@ -118,9 +123,9 @@
       </div>
       <div class="footer__bylines columns small-12 medium-4 large-4">
         <h4>{% trans 'Supported by' %}</h4>
-        <a href="http://thedatashift.org/"><img src="{% static 'img/datashift_logo.png' %}" style="height: 80px" alt="DataShift"></a> 
+        <a href="http://thedatashift.org/"><img src="{% static 'img/datashift_logo.png' %}" style="height: 80px" alt="DataShift"></a>
         <br>
-        <a href="http://www.theengineroom.org/"><img style="height: 60px" src="{% static 'img/logo_engineroom.png' %}" alt="The Engine Room"></a>      
+        <a href="http://www.theengineroom.org/"><img style="height: 60px" src="{% static 'img/logo_engineroom.png' %}" alt="The Engine Room"></a>
       </div>
       <div class="footer__links columns small-12 medium-4 large-4">
         <h4>Policrowd.org</h4>
@@ -130,7 +135,7 @@
             <li><a href="{% url 'help-about' %}">{% trans "About" %}</a></li>
             <li><a href="{% url 'help-privacy' %}">{% trans "Privacy policy" %}</a></li>
         </ul>
-      </div>      
+      </div>
     </div>
   </div>
 </body>

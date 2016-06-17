@@ -30,8 +30,38 @@
                     {% endif %}
                     <div class="person-name-and-party">
                       <a href="{% url 'person-view' result.object.id result.object.name|slugify %}" class="candidate-name">{{ result.object.name }}</a>
-                      <span class="party">{{ result.object.last_membership.post }}</span>
+                      {% if result.object.extra.last_party %}
+                      <span class="party">{{ result.object.extra.last_party }}</span>
+                      {% endif %}
                     </div>
+                    <ul class="search_memberships">
+                      {% for membership in result.object.memberships.all %}
+                      <li class="search_memberships_item">
+                        <span class="search_post">
+                          {% if membership.organization %}
+                            <span class="search_post_organization">
+                              {{ membership.organization.name }}.
+                            </span>
+                          {% endif %}
+                          {% if membership.role %}
+                            <span class="search_post_role">
+                              {{ membership.role }}.
+                            </span>
+                          {% endif %}
+                          {% if membership.post.label %}
+                            <span class="search_post_label">
+                              {{ membership.post.label }}
+                            </span>
+                          {% endif %}
+                        </span>
+                        <span class="search_dates">
+                          {{ membership.start_date }}
+                          -
+                          {{ membership.end_date }}.
+                        </span>
+                      </li>
+                      {% endfor %}
+                    </ul>
                 </li>
                 {% endif %}
             {% empty %}

@@ -116,7 +116,6 @@ body {
 .header {
     font-family: $header-font-family;
     font-size: 1.1em; // 21px up from default 16px
-    text-align: center;
     background: white url(../img/gradient_header.png) bottom repeat-x;
 
     .container {
@@ -164,28 +163,44 @@ body {
 
 .header__nav {
     background-color: $color-blue;
-    padding: 0;
-    font-size: 1.2em;
+    padding: 0.2em 0;
+    font-size: 1.1em;
+}
+
+.header__nav__secondary {
+	background-color: transparent;
 }
 
 .header__nav__item {
   display: inline-block;
-  margin-left: 0.3em;
-  margin-right: 0.3em;
+  padding-left: 0.3em;
+  padding-right: 0.3em;
 
   @media #{$medium-up} {
-      margin-left: 0.5em;
-      margin-right: 0.5em;
+      padding-left: 0.5em;
+      padding-right: 0.5em;
   }
+
 }
 
 .header__nav__primary {
     display: inline-block;
-    text-transform: uppercase;    
+    text-transform: uppercase;
+
+    .header__nav__item {
+      line-height: 43px;
+
+      &:hover {
+        background: rgba(0,0,0,0.2);
+        border-bottom: none;
+      }
+
+    }
 }
 
 .header__nav__social {
     display: inline-block;
+    float: right;
 
     a,a:hover {
         display: block;
@@ -220,7 +235,6 @@ body {
         }
     }
 }
-
 
 .header__nav__item--secondary.no-pip span {
     background-image: url(../img/icono-llave.png);
@@ -272,14 +286,16 @@ body {
 
     .header__nav__secondary {
         float: right;
+        text-align: right;
         position: absolute;
         top: $column-gutter;
-        right: $column-gutter;
-    }
-}
+        right: $column-gutter/2;
 
-.header__nav__secondary {
-    background: white;
+        .button {
+            margin-right: 0.5em;
+        }
+
+    }
 }
 
 .header__hero {
@@ -394,7 +410,7 @@ body.finder .content {
 .finder__container label,
 .finder__container h1
  {
-    color: white;    
+    color: white;
 }
 
 .finder__getting-started {
@@ -421,7 +437,7 @@ body.finder .content {
     width: auto;
     position: static;
     box-shadow: none;
-    background: transparent; 
+    background: transparent;
 
 
     label {
@@ -432,7 +448,7 @@ body.finder .content {
     button {
         margin-left: -4px;
         padding: 8px 16px;
-        border-radius: 0 10px 10px 0;        
+        border-radius: 0 10px 10px 0;
     }
 }
 
@@ -456,7 +472,7 @@ body.finder .content {
 }
 
 .policrowd_home_intro h3 {
-    color: $color-purple;   
+    color: $color-purple;
 }
 
 .policrowd_home_steps li {
@@ -481,7 +497,7 @@ body.finder .content {
 .policrowd_home_recorda {
     background-image: url(../img/img_recorda.png);
     background-repeat: no-repeat;
-    background-position: top center;    
+    background-position: top center;
     padding-top: 55px;
     margin-top: 1em;
 }
@@ -492,8 +508,8 @@ body.finder .content {
     display: inline-block;
     font-size: 1.1em;
     padding: 0 1em;
-    text-transform: uppercase; 
-    font-weight: bold;  
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
 .policrowd_home_cuanta {
@@ -611,7 +627,7 @@ p.agreement label {
         text-align: center;
     }
     &.tabs .tab-title.active > a {
-        border-bottom: 4px solid $color-blue;    
+        border-bottom: 4px solid $color-blue;
         color: $color-darkblue;
         font-weight: bold;
         background: none;
@@ -654,7 +670,7 @@ p.agreement label {
 
 .politician .politician-name a {
     color: #000;
-    font-size: 1.5em;    
+    font-size: 1.5em;
 }
 
 
@@ -695,7 +711,7 @@ p.agreement label {
 
 .politician.politician-level-2 .politician-post {
     color: $color-darkblue;
-    font-size: 0.9em;    
+    font-size: 0.9em;
     background-image: url(../img/Desp-02_Abrir.png);
 }
 
@@ -708,7 +724,7 @@ p.agreement label {
 
 .politician.politician-level-3 .politician-post {
     color: mix(#000,$color-darkblue,80%);
-    font-size: 0.9em;    
+    font-size: 0.9em;
     background-image: url(../img/Desp-03_Abrir.png);
 
 }
@@ -726,9 +742,8 @@ p.agreement label {
 
 .politician.politician-level-4 .politician-post {
     color: #000;
-    font-size: 0.9em;    
+    font-size: 0.9em;
     background-image: url(../img/Desp-03_Abrir.png);
-
 }
 .politician-level-4 .politician-data {
     display: none;
@@ -790,6 +805,9 @@ p.agreement label {
 }
 
 .person__photo {
+    float: left;
+    margin-right: 3%;
+    max-width: 38%;
     background: $color-grey;
 }
 
@@ -804,7 +822,7 @@ p.agreement label {
 .person__membership {
     margin: 1.5em 0;
     background: url(../img/calendar-02.png) 0% 3px no-repeat;
-    padding-left: 20px;    
+    padding-left: 20px;
 }
 
 .person__membership_period {
@@ -834,19 +852,19 @@ p.agreement label {
 
 .person__other_posts,
 .person__last_post {
-    background: url(../img/calendar-01.png) 98% 50% no-repeat;    
+    background: url(../img/calendar-01.png) 98% 50% no-repeat;
 }
 
 
 .person__links {
-    background: url(../img/link-01.png) 98% 50% no-repeat;    
+    background: url(../img/link-01.png) 98% 50% no-repeat;
 }
 
 .person__empty_section {
-    background: url(../img/smile-02.png) 0% 0 no-repeat; 
-    padding-top: 5px;  
+    background: url(../img/smile-02.png) 0% 0 no-repeat;
+    padding-top: 5px;
     padding-left: 40px;
-    margin-bottom: 3em;         
+    margin-bottom: 3em;
 
     .empty_section_title {
         font-size: 1.2em;
@@ -904,7 +922,45 @@ p.agreement label {
 }
 
 #post_view {
-    border: 1px solid $color-blue;
-    padding: 2em;
-    background: mix(#fff,$color-blue,80%);
+    border-top: 1px solid $color-blue;
+    padding-top: 2em;
+}
+
+
+/* SEARCH */
+
+.candidates-list__person {
+  .search_memberships {
+    list-style: none;
+  }
+
+  .search_memberships_item {
+    font-size: 0.8em;
+    color: $color-grey;
+    width: 100%;
+    height: 1.2em;
+    overflow: ellipsis;
+  }
+  .search_post_organization,
+  .search_post_role {
+    font-weight: bold;
+  }
+}
+
+.finder__forms_header {
+  margin-top: -0.5em;
+}
+
+.finder__forms_header input {
+  display: inline;
+  width: 14.5em;
+}
+
+span.icono_buscar  {
+    background-image: url(../img/icono_buscar.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    text-indent: -9000em;
+    display: inline-block;
+    width: 20px;
 }

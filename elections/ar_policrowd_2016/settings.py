@@ -5,8 +5,11 @@ import os
 
 MAPIT_BASE_URL = 'http://argentina.mapit.staging.mysociety.org/'
 
-SITE_OWNER = 'YoQuieroSaber'
-COPYRIGHT_HOLDER = 'YoQuieroSaber'
+SITE_OWNER = 'Fundación Conocimiento Abierto'
+COPYRIGHT_HOLDER = 'Fundación Conocimiento Abierto'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 TEMPLATES = [{
     'BACKEND': 'django.template.backends.django.DjangoTemplates',
