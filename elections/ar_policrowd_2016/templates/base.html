@@ -41,6 +41,7 @@
 <body class="{% block body_class %}{% endblock %}">
   <div class="header">
     <div class="container">
+      <span class="header__nav_hamburger" onclick="$('.header__nav').toggle()">Ver menú</span>
       <a href="/" class="header__logo">{% trans "PoliCrowd" %}</a>
       <div class="header__nav">
         <div class="header__nav__secondary">

@@ -228,6 +228,39 @@ body {
     background-position: center center;
 }
 
+.header__nav_hamburger {
+    display: none;
+}
+@media (max-width: 768px) {
+     .header__nav__primary {
+        display: block;
+     }
+    .header__nav__item {
+        display: block;
+        border-top: 1px solid white;
+        padding: 0.5em;
+    }
+    .header__nav {
+        display: none;
+    }
+    .header__nav_hamburger {
+        width: 50px;
+        height: 50px;
+        background: url(../img/ico_menu.png) no-repeat center center;
+        background-size: 90% 90%;
+        display: inline-block;
+        float: right;
+        text-indent: -9999em;
+        margin-top: 20px;
+    }
+    .header__nav__item--secondary .button {
+        font-size: 0.9em;
+        margin: 0;
+        padding: 0;
+    }
+
+}
+
 @media #{$medium-up} {
     .header__nav {
         @include clearfix();
@@ -243,6 +276,10 @@ body {
         top: $column-gutter;
         right: $column-gutter;
     }
+}
+
+.header__nav__secondary {
+    background: white;
 }
 
 .header__hero {
@@ -338,7 +375,7 @@ body.finder .content {
 }
 
 .finder__container {
-    background-color: $color-darkblue;
+    background-color: $color-grey;
     background-image:  url(../img/bg_busqueda.jpg);
     color: mix($color-blue,#fff,50%);
     margin-top: -4em;
@@ -350,7 +387,7 @@ body.finder .content {
 
 @media (max-width: 768px) {
     .finder__container {
-        background-image:  none;
+        background-size:  auto 100%;
     }    
 }
 
@@ -435,7 +472,7 @@ body.finder .content {
     clear: both;
 }
 
-.policrowd_home_sumate button span {
+.policrowd_home_sumate .button span {
     background-image: url(../img/ico_sumate.png);
     background-repeat: no-repeat;
     background-position: center center;
@@ -690,7 +727,7 @@ p.agreement label {
 .politician.politician-level-4 .politician-post {
     color: #000;
     font-size: 0.9em;    
-    background-image: url(../img/Desp-04_Abrir.png);
+    background-image: url(../img/Desp-03_Abrir.png);
 
 }
 .politician-level-4 .politician-data {
@@ -753,15 +790,7 @@ p.agreement label {
 }
 
 .person__photo {
-    float: left;
-    margin-right: 3%;
-    width: 38%;
     background: $color-grey;
-}
-
-.person__details_column {
-    float: left;
-    width: 59%;
 }
 
 .person__details_column dt {

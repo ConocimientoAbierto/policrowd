@@ -30,7 +30,7 @@
                     {% endif %}
                     <div class="person-name-and-party">
                       <a href="{% url 'person-view' result.object.id result.object.name|slugify %}" class="candidate-name">{{ result.object.name }}</a>
-                      <span class="party">{{ result.object.extra.last_party }}</span>
+                      <span class="party">{{ result.object.last_membership.post }}</span>
                     </div>
                 </li>
                 {% endif %}

@@ -125,10 +125,10 @@
         {% endif %}
   </div>
 
-  <div class="person__box">
-    <div class="person__photo">
+  <div class="person__box row">
+    <div class="person__photo column small-12 medium-6">
       {% if person.extra.primary_image %}
-        {% thumbnail person.extra.primary_image "x80" as im %}
+        {% thumbnail person.extra.primary_image "x200" as im %}
           <img class="person-avatar" src="{{ im.url }}"/>
         {% endthumbnail %}
       {% elif person.gender|lower == 'female' %}
@@ -137,7 +137,7 @@
         <img class="person-avatar" src="{% static 'candidates/img/blank-man.png' %}"/>
       {% endif %}
     </div>
-    <div class="person__details_column">
+    <div class="person__details_column column small-12 medium-6">
       
       <h2>{% trans "Personal details:" %}</h2>
 

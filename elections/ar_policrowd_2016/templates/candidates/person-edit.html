@@ -14,47 +14,53 @@
 {% block content %}
 
 {% if user_can_edit %}
-
-    <div class="person__photo">
-      {% if person.extra.primary_image %}
-        {% thumbnail person.extra.primary_image "x80" as im %}
-          <img class="person-avatar" src="{{ im.url }}"/>
-        {% endthumbnail %}
-      {% elif person.gender|lower == 'female' %}
-        <img class="person-avatar" src="{% static 'candidates/img/blank-woman.png' %}"/>
-      {% else %}
-        <img class="person-avatar" src="{% static 'candidates/img/blank-man.png' %}"/>
-      {% endif %}
-      <a class="upload-photo" href="{% url 'photo-upload' person.id %}">
-        {% trans 'Upload photo' %}
-      </a>
-    </div>
-    <div class="alert-box success">
-        {% trans "Editing the following article:" %}
-    </div>
-    <h1> {{ person.name }}</h1>
-    {% with last_candidacy=person.extra.last_candidacy %}
-      {% if last_candidacy %}
-        {% with post=last_candidacy.post %}
-          {% url 'constituency' election=last_candidacy.extra.election.slug post_id=post.extra.slug ignored_slug=post.extra.short_label|slugify as url %}
-            <p>{% blocktrans with election=last_candidacy.extra.election.name post_name=post.extra.short_label %}Candidate for <a href="{{ url }}">{{ post_name }}</a> in {{ election }}{% endblocktrans %}</p>
-        {% endwith %}
-      {% endif %}
-    {% endwith %}
-  {% if last_membership %}
-  <p>
-    {{last_membership.post.label}}{{last_membership.role}} de {{last_membership.area.name}} desde {{last_membership.start_date}} hasta {{last_membership.end_date}}
-  </p>
-  {% endif %}
-  {% if last_candidacy.on_behalf_of.name %}
-  <p>
-    Partido político: {{last_candidacy.on_behalf_of.name}}
-  </p>
-  {% endif %}
-
     <form id="person-details" action="{% url 'person-update' person_id=person.id %}" method="post">
       {% csrf_token %}
+    <div class="row">
+      <div class="person__photo column small-12 medium-4">
+        {% if person.extra.primary_image %}
+          {% thumbnail person.extra.primary_image "x250" as im %}
+            <img class="person-avatar" src="{{ im.url }}"/>
+          {% endthumbnail %}
+        {% elif person.gender|lower == 'female' %}
+          <img class="person-avatar" src="{% static 'candidates/img/blank-woman.png' %}"/>
+        {% else %}
+          <img class="person-avatar" src="{% static 'candidates/img/blank-man.png' %}"/>
+        {% endif %}
+        <a class="upload-photo" href="{% url 'photo-upload' person.id %}">
+          {% trans 'Upload photo' %}
+        </a>
+      </div>
+      <div class="column small-12 medium-8">
+      <div class="alert-box success">
+          {% trans "Editing the following article:" %}
+      </div>
+        <h1> {{ person.name }}</h1>
+        {% with last_candidacy=person.extra.last_candidacy %}
+          {% if last_candidacy %}
+            {% with post=last_candidacy.post %}
+              {% url 'constituency' election=last_candidacy.extra.election.slug post_id=post.extra.slug ignored_slug=post.extra.short_label|slugify as url %}
+                <p>{% blocktrans with election=last_candidacy.extra.election.name post_name=post.extra.short_label %}Candidate for <a href="{{ url }}">{{ post_name }}</a> in {{ election }}{% endblocktrans %}</p>
+            {% endwith %}
+          {% endif %}
+        {% endwith %}
+      {% if last_membership %}
+      <p>
+        {{last_membership.post.label}}{{last_membership.role}} de {{last_membership.area.name}} desde {{last_membership.start_date}} hasta {{last_membership.end_date}}
+      </p>
+      {% endif %}
+      {% if last_candidacy.on_behalf_of.name %}
+      <p>
+        Partido político: {{last_candidacy.on_behalf_of.name}}
+      </p>
+      {% endif %}
       <input type="submit" class="button" value="{% trans "Save changes" %}">
+        
+      </div>
+      
+    </div>
+
+
 
       {% if form.errors %}
         <div class="form-error-summary">

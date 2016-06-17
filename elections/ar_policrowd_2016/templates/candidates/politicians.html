@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n %}
+{% load thumbnail %}
 
 {% block title %}{% trans "Políticos de" %} {{ area_name }} - {% trans "PoliCrowd, plataforma colectiva de políticos" %} {% endblock %}
 
@@ -29,7 +30,10 @@
 					<div class="politician politician-level-{{ membership_indent }} organization-parent-id-{{ powerMembership.organization.parent_id }}">
 		      			<div class="politician-post organization-id-{{ powerMembership.organization.id }}">{{ powerMembership.organization.name }}</div>
 			     			<div class="politician-data">
-				      			<img class="person-avatar politician-avatar" src="{{ powerMembership.person.image }}" onerror="this.src='/static/candidates/img/blank-man.png'">
+				       			{% thumbnail powerMembership.person.extra.primary_image "x100" as im %}
+						            
+				      			<img class="person-avatar politician-avatar" src="{{ im.url }}" onerror="this.src='/static/candidates/img/blank-man.png'">
+						        {% endthumbnail %}
 					      		<div class="politician-role">
 					      			{{ powerMembership.post.role }}  
 					      		</div>      		
