@@ -116,14 +116,14 @@ class Command(BaseCommand):
             area_id = self.argentinaCache.id
         )
         organization.save()
-        
+
         organizationExtra = OrganizationExtra(
             register = '',
             base_id = organization.id,
             slug = 'goverment:' + str(organization.id)
         )
         organizationExtra.save()
-        
+
         return organization
 
     def fetchAllPositions(self):
@@ -131,17 +131,17 @@ class Command(BaseCommand):
         filename = 'estructura-organica.csv'
         csv_filename = join(
             dirname(__file__), '..', '..', 'data', filename
-        )        
+        )
         with open(csv_filename) as f:
             data = [tuple(line) for line in csv.reader(f)]
 
         date = time.strftime('%Y-%m-%d %H:%M:%S')
         storedOrganizationsCache = {}
-        
+
         for row in data[1:]:
             organizationName = row[1]
             parentName = row[2].lower()
-            
+
             if parentName in storedOrganizationsCache:
                 parentId = storedOrganizationsCache[parentName]
             else:
@@ -153,10 +153,10 @@ class Command(BaseCommand):
             role = row[5]
             post = self.createPost(date, role, organization.id)
 
-            personName = row[8]
+            personName = row[7]
             if personName:
-                personLastName = row[7]
-                mail = row[19]
+                personLastName = row[8]
+                mail = row[20]
                 if mail:
                     mail = [x.strip() for x in mail.split(',')][0]
                 else:
