@@ -156,10 +156,10 @@ class Command(BaseCommand):
             role = row[5]
             post = self.createPost(role, organization.id)
 
-            personName = row[8] #7
+            personName = row[7] #old 8
             if personName:
-                personLastName = row[7] #8
-                mail = row[19] #20
+                personLastName = row[8] # old 7
+                mail = row[20] # old 19
                 honorPrefix = row[6]
                 if mail:
                     mail = [x.strip() for x in mail.split(',')][0]
