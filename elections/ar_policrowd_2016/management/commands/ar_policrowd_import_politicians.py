@@ -22,8 +22,8 @@ class Command(BaseCommand):
     argentinaCache = None
     def prepareArgentinaCache(self):
         area = Area.objects.get_or_create(name='Argentina')
-        if area[1]:
-            self.areas = self.areas + 1
+
+        self.plusCounter(area[1], 'area')
         self.argentinaCache = area[0]
 
     #executivePowerCache --> <Organization>
@@ -35,14 +35,15 @@ class Command(BaseCommand):
             }
         )
 
-        if executivePower[1]:
-            self.organizations = self.organizations +1
+        self.plusCounter(executivePower[1], 'organization')
         self.executivePowerCache = executivePower[0]
 
         #TODO This code just create two new powers but the never are used,
         # and the name it's not right
-        Organization.objects.get_or_create(name='Poder Legislativo', area_id= self.argentinaCache.id,
-            defaults={
+        Organization.objects.get_or_create(
+            name = 'Poder Legislativo',
+            area_id = self.argentinaCache.id,
+            defaults = {
                 'classification': 'poder'
             }
         )
@@ -57,24 +58,30 @@ class Command(BaseCommand):
         self.prepareExecutivePowerCache()
 
     def createMermbership(self, role, organizationId, personId, postId):
-        membership = Membership.objects.get_or_create(person_id=personId, organization_id=organizationId, post_id= postId, area_id= self.argentinaCache.id,
-            defaults={
+        membership = Membership.objects.get_or_create(
+            person_id = personId,
+            organization_id = organizationId,
+            post_id = postId,
+            area_id = self.argentinaCache.id,
+            defaults = {
                 'label': '',
-                'role': role,
+                'role': '',
                 'start_date': '2015-12-10',  # time.strftime('%Y-%m-%d'),
                 'end_date': '2019-12-10'
             }
         )
 
-        if membership[1]:
-            self.memberships = self.memberships + 1
+        self.plusCounter(membership[1], 'membership')
 
     def createPerson(self, name, lastName, mail, honorPrefix):
         lastName = lastName.decode('utf8').title()
         name = name.decode('utf8').title()
         fullName = name + ' ' + lastName
-        person = Person.objects.update_or_create(name=fullName, family_name=lastName, given_name=name,
-            defaults={
+        person = Person.objects.update_or_create(
+            name = fullName,
+            family_name = lastName,
+            given_name = name,
+            defaults = {
                 'additional_name': '',
                 'honorific_prefix': honorPrefix,
                 'honorific_suffix': '',
@@ -96,25 +103,26 @@ class Command(BaseCommand):
             )
             personExtra.save()
 
-            self.persons = self.persons +1
-
+        self.plusCounter(person[1], 'person')
         return person[0]
 
     def createPost(self, role, organizationId):
-        post = Post.objects.get_or_create(role= role, organization_id= organizationId, area_id= self.argentinaCache.id,
-            defaults = {
-                'label': role,
-            }
+        post = Post.objects.get_or_create(
+            role = role,
+            organization_id = organizationId,
+            area_id = self.argentinaCache.id,
+            label = role
         )
 
-        if post[1]:
-            self.posts = self.posts + 1
-
+        self.plusCounter(post[1], 'post')
         return post[0]
 
     def createOrganization(self, name, parentId):
-        organization = Organization.objects.get_or_create(name= name, area_id= self.argentinaCache.id,
-            defaults={
+        organization = Organization.objects.get_or_create(
+            name = name,
+            area_id = self.argentinaCache.id,
+            parent_id = parentId,
+            defaults = {
                 'classification': 'goverment',
             }
         )
@@ -126,13 +134,13 @@ class Command(BaseCommand):
                 slug = 'goverment:' + str(organization[0].id)
             )
             organizationExtra.save()
-            self.organizations = self.organizations + 1
 
+        self.plusCounter(organization[1], 'organization')
         return organization[0]
 
     def fetchAllPositions(self):
         print ("Inserting Organizations...\n")
-        filename = 'estructura-organica_test.csv'
+        filename = 'estructura-organica.csv'
         csv_filename = join(
             dirname(__file__), '..', '..', 'data', filename
         )
@@ -156,10 +164,13 @@ class Command(BaseCommand):
             role = row[5]
             post = self.createPost(role, organization.id)
 
-            personName = row[7] #old 8
+            personName = row[8] #old 8
+            # personName = row[7] #old 8
             if personName:
-                personLastName = row[8] # old 7
-                mail = row[20] # old 19
+                personLastName = row[7] # old 7
+                # personLastName = row[8] # old 7
+                mail = row[19] # old 19
+                # mail = row[20] # old 19
                 honorPrefix = row[6]
                 if mail:
                     mail = [x.strip() for x in mail.split(',')][0]
@@ -169,6 +180,19 @@ class Command(BaseCommand):
                 person = self.createPerson(personName, personLastName, mail, honorPrefix)
 
                 self.createMermbership(role, organization.id, person.id, post.id)
+
+    def plusCounter(self, plus, category):
+        if plus:
+            if category == 'area':
+                self.areas = self.areas + 1
+            elif category == 'organization':
+                self.organizations = self.organizations + 1
+            elif category == 'person':
+                self.persons = self.persons + 1
+            elif category == 'post':
+                self.posts = self.posts + 1
+            elif category == 'membership':
+                self.memberships = self.memberships + 1
 
     def handle(self, *args, **options):
         self.prepareCaches()
