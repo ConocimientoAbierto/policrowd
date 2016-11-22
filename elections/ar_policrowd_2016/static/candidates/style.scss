@@ -404,7 +404,7 @@ body.finder .content {
 @media (max-width: 768px) {
     .finder__container {
         background-size:  auto 100%;
-    }    
+    }
 }
 
 .finder__container label,
@@ -469,7 +469,16 @@ body.finder .content {
     background: white;
     position: relative;
     padding: 0 1em;
+    margin-bottom: 0;
 }
+
+.policrowd_home_fuentes {
+  font-size: 1.3em;
+  padding: 1em;
+  margin-bottom: 2em;
+  border: 1px solid $color-blue;
+}
+
 
 .policrowd_home_intro h3 {
     color: $color-purple;
@@ -517,6 +526,7 @@ body.finder .content {
 
     padding: 0.5em;
 }
+
 
 .policrowd_home_intro button {
     font-size: 1.1em;
