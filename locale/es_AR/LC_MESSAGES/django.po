@@ -975,14 +975,14 @@ msgstr "API "
 #: candidates/templates/candidates/api.html:54
 #: elections/jamaica/templates/candidates/api.html:56
 msgid "This API is a work in progress"
-msgstr ""
+msgstr "Una API es una interfaz específica para consultas por softare."
 
 #: candidates/templates/candidates/api.html:57
 #: elections/jamaica/templates/candidates/api.html:59
 msgid ""
 "This is an alpha version of the YourNextRepresentative API, which is likely "
 "to change in the near future."
-msgstr ""
+msgstr "Esta versión de la API de Policrowd puede llegar a cambiar en el futuro"
 
 #: candidates/templates/candidates/api.html:66
 #: elections/jamaica/templates/candidates/api.html:68
@@ -990,11 +990,11 @@ msgstr ""
 msgid ""
 "The browsable base URL of the site's read-only API is: <a href="
 "\"%(base_api_url)s\">%(base_api_url)s</a>"
-msgstr ""
+msgstr "La dirección base de la API navegable es"
 
 #: candidates/templates/candidates/api.html:72
 msgid "The following sections give examples of how to use the API."
-msgstr ""
+msgstr "Las sigueintes secciones dan ejemplos de cómo usar la API"
 
 #: candidates/templates/candidates/api.html:77
 msgid "Find a Constituency ID"
@@ -1121,14 +1121,15 @@ msgid ""
 "<a href=\"%(base_api_url)sposts/?extra__slug=65808\">%(base_api_url)sposts/?"
 "extra__slug=65808</a>"
 msgstr ""
+"Podés pedir todos los políticos de una ubicación consultando los cargos "
+"con el parámetro <tt>extra_slug</tt>.  Por ejemplo: "
+"<a href=\"%(base_api_url)sposts/?extra__slug=65808\">%(base_api_url)sposts/?"
+"extra__slug=65808</a>"
 
 #: candidates/templates/candidates/api.html:170
 #: elections/jamaica/templates/candidates/api.html:85
 msgid ""
-"Each of the <tt>memberships</tt> in that reponse links to a person who is a "
-"candidate in that constituency for any known election.  The <tt>election</"
-"tt> property of each membership tells you which election that candidacy is "
-"for."
+"Cada una de las membresías <tt>memberships</tt> en la respuesta enlaza a una persona"
 msgstr ""
 
 #: candidates/templates/candidates/areas-of-type.html:10
